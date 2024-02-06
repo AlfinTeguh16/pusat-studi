@@ -16,12 +16,18 @@ class LoginController extends Controller
         $credentials = $request->only('nidn', 'password');
 
     if (Auth::attempt($credentials)) {
-        // Authentication passed
-        return redirect()->intended('dashboard'); // Adjust the redirection as needed
+        // Jika passed
+        return redirect()->intended('inputdata.showmetadata');
     }
 
-    // Authentication failed
+    // Jika failed
     return back()->withErrors(['error' => 'Invalid NIDN or password']);
 
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }
