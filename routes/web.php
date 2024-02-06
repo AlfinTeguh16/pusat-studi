@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('master');
 });
+
+Route::get('/log', function () {
+    return view('auth.login');
+});
+Route::get('/pusat', function () {
+    return view('home.pusatstudi');
+});
+

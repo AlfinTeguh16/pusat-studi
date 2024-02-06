@@ -8,16 +8,23 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="flex flex-row bg-red-700 w-full h-14 p-2 px-9 align-middle justify-between">
-        <div class="basis-1/4">
-            <h1>Pusat Studi</h1>
-        </div>
-        <div class="basis-1/2 inset-y-0 right-0">
+    <nav class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo atau judul website -->
+            <a href="#" class="text-white text-lg font-bold">Logo/Brand</a>
+
+            <!-- Menu Navbar -->
+            <div class="flex space-x-4">
+                <a href="#" class="text-white">Home</a>
+                <a href="#" class="text-white">About</a>
+                <a href="#" class="text-white">Login</a>
+                <a href="#" class="text-white">Contact</a>
+            </div>
         </div>
     </nav>
 
     <div>
-        @extends('home.dashboard')
+        @extends('home.pusatstudi')
     </div>
 </body>
 </html>
