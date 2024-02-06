@@ -24,3 +24,11 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+
+Route::get('/log', function () {
+    return view('auth.login');
+});
+Route::get('/pusat', function () {
+    return view('home.pusatstudi');
+});
+
