@@ -18,8 +18,8 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mb-4">
-                <label for="username" class="block text-gray-600 text-sm font-semibold mb-2">Enter NIDN</label>
-                <input type="text" id="username" name="username" class="w-full p-2 border rounded focus:outline-none focus:border-red-500">
+                <label for="nidn" class="block text-gray-600 text-sm font-semibold mb-2">Enter NIDN</label>
+                <input type="text" id="nidn" name="nidn" class="w-full p-2 border rounded focus:outline-none focus:border-red-500">
             </div>
 
             <div class="mb-4">
@@ -35,12 +35,19 @@
             <button type="submit" class="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:shadow-outline-red">Login</button>
         </form>
 
+        <!-- Menampilkan pesan kesalahan jika login gagal -->
+        @if ($errors->any())
+            <div class="mt-4 text-red-500 text-sm">
+                {{ $errors->first('error') }}
+            </div>
+        @endif
+
         <div class="mt-4 text-center">
             <a href="#" class="text-blue-500 hover:underline">Forgot Password?</a>
         </div>
 
         <div class="mt-4 text-center">
-            <a href="home.pusatstudi" class="text-gray-600 hover:text-gray-800">Back to Main Page</a>
+            <a href="pusat" class="text-gray-600 hover:text-gray-800">Back to Main Page</a>
         </div>
     </div>
 

@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="bg-blue-500 p-4">
+    {{-- <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo atau judul website -->
             <a href="#" class="text-white text-lg font-bold">Logo/Brand</a>
@@ -21,7 +21,7 @@
                 <a href="#" class="text-white">Contact</a>
             </div>
         </div>
-    </nav>
+    </nav> --}}
 
     <div>
         @extends('home.pusatstudi')

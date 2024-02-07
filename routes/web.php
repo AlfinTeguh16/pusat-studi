@@ -13,20 +13,16 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-<<<<<<< HEAD
 Route::get('/', function () {
     return view('master');
 });
 
-});
 Route::get('/pusat', function () {
     return view('home.pusatstudi');
 });
 
-=======
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
->>>>>>> c038102d6baab931b7c8a60eee90f3e2bf803c0b
