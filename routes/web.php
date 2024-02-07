@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MetaDataController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,22 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout']);
+
+    Route::get('/', [MetaDataController::class, 'getMetaData'])->name('getMetaData');
+
+    Route::get('/metadata', [MetaDataController::class, 'index']);
+    Route::get('/metadata/input', [MetaDataController::class, 'viewInputMetaData']);
+    Route::post('/metadata/input', [MetaDataController::class, 'inputMetaData'])->name('createMetaData');
+
+    Route::get('/metadata', [MetaDataController::class, 'showMetaData']);
+    Route::get('/metadata', [MetaDataController::class, 'deleteMetaData']);
+
+    Route::get('/metadata/edit', [MetaDataController::class, 'viewEditMetaData']);
+    Route::post('/metadata/edit', [MetaDataController::class, 'editMetaData']);
+
+
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/profile', [ProfileController::class, 'updateProfile']);
 
 });
 
