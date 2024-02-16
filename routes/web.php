@@ -50,6 +50,14 @@ Route::get('/pusat', function () {
     return view('home.pusatstudi');
 });
 
+Route::get('/inputmeta', function () {
+    return view('inputdosen.inputmetadata');
+});
+
+Route::get('/profile', function () {
+    return view('inputdosen.profiledosen');
+});
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
