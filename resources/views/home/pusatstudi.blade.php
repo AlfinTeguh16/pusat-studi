@@ -15,7 +15,7 @@
         /* Custom Styles */
         .navbar-bg {
             background-color: transparent;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
         }
         .nav-link {
             color: #fff;
@@ -41,32 +41,59 @@
         }
     </style>
 
+        <style>
+            /* Tambahkan transisi untuk perubahan warna */
+            .navbar {
+            transition: background-color 0.3s ease; /* Ubah 0.3s sesuai kebutuhan Anda */
+            width: 100%; /* Atur lebar navbar menjadi 100% */
+            }
+
+            /* Atur gaya untuk navbar yang di-scroll */
+            .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.7); /* Warna hitam dengan transparansi */
+            height: 10px; /* Sesuaikan tinggi navbar yang diinginkan */
+            }
+        </style>
+
 </head>
 
 <body class="bg-gray-100">
 
 <!-- Header with Carousel and Navbar -->
 <header class="carousel-container relative">
-    <!-- Navbar -->
+    {{-- Navbar --}}
     <nav class="navbar bg-transparent py-4 fixed top-0 w-full z-10" id="navbar">
-        <div class="container mx-auto flex justify-between items-center">
-            <div>
-                <span class="text-2xl font-bold text-white">HURUF BALI</span>
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+              <!-- Logo -->
+              <div class="flex-shrink-0">
+                <a href="#" class="text-white font-bold text-lg">Logo</a>
+              </div>
+            <div class="hidden md:block">
+                <div class="container mx-auto flex justify-between items-center">
+
+                    <ul class="hidden md:flex flex-wrap space-x-4">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#event" class="nav-link">Event</a></li>
+                        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                        <li><a href="#team" class="nav-link">Team</a></li>
+                        <li><a href="#meta" class="nav-link">Meta Data</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                        <li><a href="/login" class="nav-link">Login</a></li>
+                    </ul>
+                </div>
             </div>
-            <button class="navbar-toggler md:hidden" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleMenu()">
-                <i class="fas fa-bars text-white"></i>
-            </button>
-            <ul class="hidden md:flex flex-wrap space-x-4">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#event" class="nav-link">Event</a></li>
-                <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                <li><a href="#team" class="nav-link">Team</a></li>
-                <li><a href="#meta" class="nav-link">Meta Data</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><a href="/login" class="nav-link">Login</a></li>
-            </ul>
+             <!-- Tombol Menu untuk Mobile -->
+             <div class="md:hidden">
+                <button class="text-white focus:outline-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
         </div>
+    </div>
     </nav>
 
     <!-- Carousel -->
@@ -76,21 +103,16 @@
                 <li class="glide__slide relative">
                     <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/1.jpg"
                         alt="Slide 1">
-                    <div class="absolute inset-0 bg-black opacity-50"></div>
-                    {{-- <div class="absolute inset-0 flex flex-col justify-center items-center text-center">
+                    <div class="absolute inset-0 bg-red-500 opacity-50"></div>
+                    <div class="absolute inset-0 flex flex-col justify-center items-center text-center">
                         <h1 class="text-white text-4xl md:text-6xl font-bold mb-4">Welcome to Huruf Bali</h1>
                         <p class="text-white text-lg md:text-xl mb-8">Discover the beauty of Balinese culture</p>
                         <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out bg-transparent border-2 border-white hover:bg-white hover:text-blue-500">Learn More</a>
-                    </div> --}}
+                    </div>
                 </li>
                 <!-- Tambahkan slide lainnya di sini -->
             </ul>
         </div>
-    </div>
-    <div class="absolute inset-0 flex flex-col justify-center items-center text-center">
-        <h1 class="text-white text-4xl md:text-6xl font-bold mb-4">Welcome to Huruf Bali</h1>
-        <p class="text-white text-lg md:text-xl mb-8">Discover the beauty of Balinese culture</p>
-        <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out bg-transparent border-2 border-white hover:bg-white hover:text-blue-500">Learn More</a>
     </div>
 </header>
 
@@ -333,13 +355,15 @@
     <script>
         new Glide('.glide', {
             type: 'carousel',
-            autoplay: 2000,
+            autoplay: 3000,
             hoverpause: true,
             perView: 1,
             animationDuration: 1000,
             animationTimingFunc: 'ease'
         }).mount();
     </script>
+
+    {{-- scroll --}}
     <script>window.onscroll = function() {scrollFunction()};
 
         function scrollFunction() {

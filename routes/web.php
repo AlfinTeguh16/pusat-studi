@@ -49,6 +49,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pusat', function () {
     return view('home.pusatstudi');
 });
+Route::get('/coba', function () {
+    return view('home.coba');
+});
 
 Route::get('/inputmeta', function () {
     return view('inputdosen.inputmetadata');
