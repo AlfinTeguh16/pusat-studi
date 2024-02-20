@@ -11,6 +11,10 @@ class GuestMetaDataController extends Controller
 {
     public function index()
     {
+        return view('home.pusatstudi');
+    }
+
+    public function showMetaData(){
         $metaData = MetaData::all();
         return view('meta.show', compact('metaData'));
     }

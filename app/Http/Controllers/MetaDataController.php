@@ -24,6 +24,9 @@ class MetaDataController extends Controller
         return view ('home.pusatstudi');
     }
 
+    public function viewStoreMetaData(){
+        return view('inputdosen.inputmetadata');
+    }
     public function storeMetaData(Request $request)
     {
         try {
@@ -37,7 +40,7 @@ class MetaDataController extends Controller
                 'judul' => 'required|string',
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'deskripsi' => 'required|string',
-                '3d_objek' => 'required|string',
+                'model_3d' => 'required|string',
                 'nama_benda' => 'required|string',
                 'tahun_pembuatan' => 'required|date',
                 'periode_pembuatan_awal' => 'required|date',

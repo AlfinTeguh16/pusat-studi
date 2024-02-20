@@ -17,7 +17,7 @@ class LoginController extends Controller
 
     if (Auth::attempt($credentials)) {
         // Jika passed
-        return redirect()->intended('inputdata.showmetadata');
+        return redirect()->route('showMetaData');
     }
 
     // Jika failed

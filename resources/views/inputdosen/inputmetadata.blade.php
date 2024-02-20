@@ -13,10 +13,7 @@
             @csrf
             <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
             <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">
-            {{-- <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-600">Nama</label>
-                <input type="text" name="nama" id="nama" class="mt-1 p-2 w-full border rounded-md">
-            </div> --}}
+
             <div class="mb-4">
                 <label for="judul" class="block text-sm font-medium text-gray-600">Judul</label>
                 <input type="text" name="judul" id="judul" class="mt-1 p-2 w-full border rounded-md">
