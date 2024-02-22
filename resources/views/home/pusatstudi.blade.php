@@ -50,7 +50,7 @@
 
             /* Atur gaya untuk navbar yang di-scroll */
             .navbar.scrolled {
-            background-color: rgba(0, 0, 0, 0.7); /* Warna hitam dengan transparansi */
+            background-color: rgba(181, 30, 30, 0.7); /* Warna hitam dengan transparansi */
             height: 10px; /* Sesuaikan tinggi navbar yang diinginkan */
             }
         </style>
@@ -64,7 +64,7 @@
     {{-- Navbar --}}
     <nav class="navbar bg-transparent py-4 fixed top-0 w-full z-10" id="navbar">
     <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-16">
+        <div class="flex items-center justify-between h-7">
               <!-- Logo -->
               <div class="flex-shrink-0">
                 <a href="#" class="text-white font-bold text-lg">Logo</a>
