@@ -18,8 +18,8 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mb-4">
-                <label for="nidn" class="block text-gray-600 text-sm font-semibold mb-2">Enter NIDN</label>
-                <input type="text" id="nidn" name="nidn" class="w-full p-2 border rounded focus:outline-none focus:border-red-500">
+                <label for="username" class="block text-gray-600 text-sm font-semibold mb-2">Enter NIDN</label>
+                <input type="text" id="username" name="username" class="w-full p-2 border rounded focus:outline-none focus:border-red-500">
             </div>
 
             <div class="mb-4">

@@ -9,59 +9,72 @@ use Illuminate\Support\Facades\Auth;
 
 class MetaDataController extends Controller
 {
-    public function index(){
-        return view ('inputdosen.showmetadata');
+    public function index()
+    {
+        $metaData = MetaData::all();
+        return view('inputdosen.showmetadata', compact('metaData'));
     }
 
-    public function viewInputMetaData(){
-        return view ('inputdosen.inputmetadata');
+    public function viewMetaData($id){
+        $metaData = MetaData::findOrFail($id);
+        return view('inputdosen.detailmetadata', compact('metaData'));
     }
-    public function inputMetaData(Request $request)
-{
-    try {
-        $request->validate([
-            'judul' => 'required',
-            'gambar' => 'required',
-            'deskripsi' => 'required',
-            '3d_objek' => 'required',
-            'nama_benda' => 'required',
-            'tahun_pembuatan' => 'required',
-            'periode_pembuatan_awal' => 'required',
-            'periode_pembuatan_akhir' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-        ]);
 
-        $nidn = Auth::user()->nidn;
-        $name = Auth::user()->name;
-
-        $gambar = $request->file('gambar');
-        $nama_gambar = time().'.'.$gambar->getClientOriginalExtension();
-        $gambar->move(public_path('images'), $nama_gambar);
-
-        MetaData::create([
-            'nidn' => $nidn,
-            'name' => $name,
-            'judul' => $request->input('judul'),
-            'gambar' => $nama_gambar,
-            'deskripsi' => $request->input('deskripsi'),
-            '3d_objek' => $request->input('3d_objek'),
-            'nama_benda' => $request->input('nama_benda'),
-            'tahun_pembuatan' => $request->input('tahun_pembuatan'),
-            'periode_pembuatan_awal' => $request->input('periode_pembuatan_awal'),
-            'periode_pembuatan_akhir' => $request->input('periode_pembuatan_akhir'),
-            'provinsi' => $request->input('provinsi'),
-            'kabupaten' => $request->input('kabupaten'),
-            'kecamatan' => $request->input('kecamatan'),
-        ]);
-
-        return redirect()->route('inputdosen.inputmetadata')->with('success', 'Data berhasil disimpan.');
-        
-    } catch (\Exception $e) {
-
-        return redirect()->route('inputdosen.inputmetadata')->with('error', 'Gagal menyimpan data. ' . $e->getMessage());
+    public function getMetaData(){
+        return view ('home.pusatstudi');
     }
-}
+
+    public function viewStoreMetaData(){
+        return view('inputdosen.inputmetadata');
+    }
+    public function storeMetaData(Request $request)
+    {
+        try {
+            $authenticatedUserNidn = Auth::user()->nidn;
+            $authenticatedUserName = Auth::user()->nama;
+
+            // Validate the request data
+            $validatedData = $request->validate([
+                'nidn' => 'required|string|in:' . $authenticatedUserNidn,
+                'nama' => 'required|string|in:' . $authenticatedUserName,
+                'judul' => 'required|string',
+                'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'deskripsi' => 'required|string',
+                'model_3d' => 'required|string',
+                'video' => 'required|string',
+                'link' => 'required|string',
+                'nama_benda' => 'required|string',
+                'tahun_pembuatan' => 'required|date',
+                'periode_pembuatan_awal' => 'required|date',
+                'periode_pembuatan_akhir' => 'required|date',
+                'provinsi' => 'required|string',
+                'kabupaten' => 'required|string',
+                'kecamatan' => 'required|string',
+            ]);
+
+            // Store the uploaded file
+            $gambarPath = $request->file('gambar')->store('gambar', 'public');
+
+            // Add the authenticated user's nidn and the file path to the validated data
+            $validatedData['nidn'] = $authenticatedUserNidn;
+            $validatedData['nama'] = $authenticatedUserName;
+            $validatedData['gambar'] = $gambarPath;
+
+            // Create a new MetaData instance and fill it with validated data
+            $metaData = new MetaData($validatedData);
+
+            // Save the instance to the database
+            $metaData->save();
+
+            return redirect()->route('viewStoreMetaData')->with('success', 'Data berhasil disimpan.');
+        } catch (\Exception $e) {
+            // Handle the exception (e.g., log it, delete uploaded file, return an error response)
+            return response()->json(['error' => 'Error saving data: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function deleteMetaData(){
+
+    }
 
 }
