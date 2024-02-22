@@ -18,6 +18,8 @@ class MetaData extends Model
         'gambar',
         'deskripsi',
         'model_3d',
+        'video',
+        'link',
         'nama_benda',
         'tahun_pembuatan',
         'periode_pembuatan_awal',

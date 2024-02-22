@@ -26,10 +26,49 @@
                 <label for="deskripsi" class="block text-sm font-medium text-gray-600">Deskripsi</label>
                 <textarea name="deskripsi" id="deskripsi" rows="4" class="mt-1 p-2 w-full border rounded-md"></textarea>
             </div>
-            <div class="mb-4">
-                <label for="3d_objek" class="block text-sm font-medium text-gray-600">3D Objek</label>
-                <input type="text" name="3d_objek" id="3d_objek" class="mt-1 p-2 w-full border rounded-md">
-            </div>
+
+            <div>
+                <div>
+                  <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+                    <div class="flex divide-x divide-gray-800 row">
+                      <button id="button_3d"
+                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-r-none border-r-0"
+                              type="button" onclick="showForm('model_3d')">
+                        3d Model
+                      </button>
+                      <button id="button_video"
+                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-r-none border-r-0 rounded-l-none"
+                              type="button" onclick="showForm('video')">
+                        Video
+                      </button>
+                      <button id="button_link"
+                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-l-none"
+                              type="button" onclick="showForm('link')">
+                        URL Lain
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="formContainer">
+
+                  <div class="mb-4" id="model_3d_form" style="display: none;">
+                    <label for="model_3d" class="block text-sm font-medium text-gray-600">3D Model</label>
+                    <input type="text" name="model_3d" id="model_3d" class="mt-1 p-2 w-full border rounded-md">
+                  </div>
+
+                  <div class="mb-4" id="video_form" style="display: none;">
+                    <label for="video" class="block text-sm font-medium text-gray-600">Video</label>
+                    <input type="text" name="video" id="video" class="mt-1 p-2 w-full border rounded-md">
+                  </div>
+
+                  <div class="mb-4" id="link_form" style="display: none;">
+                    <label for="link" class="block text-sm font-medium text-gray-600">URL Lain</label>
+                    <input type="text" name="link" id="link" class="mt-1 p-2 w-full border rounded-md">
+                  </div>
+
+                </div>
+              </div>
+
             <div class="mb-4">
                 <label for="nama_benda" class="block text-sm font-medium text-gray-600">Nama Benda</label>
                 <input type="text" name="nama_benda" id="nama_benda" class="mt-1 p-2 w-full border rounded-md">
@@ -63,5 +102,18 @@
             </div>
         </form>
     </div>
+
+
+    <script>
+        function showForm(formId) {
+          // Menyembunyikan semua formulir
+          document.getElementById('model_3d_form').style.display = 'none';
+          document.getElementById('video_form').style.display = 'none';
+          document.getElementById('link_form').style.display = 'none';
+
+          // Menampilkan formulir yang sesuai dengan tombol yang diklik
+          document.getElementById(formId + '_form').style.display = 'block';
+        }
+      </script>
 </body>
 </html>

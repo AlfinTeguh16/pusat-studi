@@ -5,10 +5,12 @@
 </head>
 
 @foreach($metaData as $data)
-    <div class="border rounded-lg border-slate-800 bg-slate-500 w-40 h-40 p-4 transition-transform transform hover:scale-105">
-        <a href="{{ route('metadata.view', $data->id) }}" class="flex flex-col justify-between h-full">
+<section class=" flex flex-auto max-w-full">
 
-            <div class="mb-2">
+    <div class="flex m-3 border rounded-lg border-slate-800 bg-slate-500 w-full h-32 p-4 transition-transform transform hover:scale-105">
+        <a href="{{ route('metadata.view', $data->id) }}" class="flex flex-col justify-between w-full">
+
+            <div class="mb-2 flex">
                 <h2 class="text-white text-lg font-semibold">{{ $data->judul }}</h2>
             </div>
 
@@ -19,4 +21,5 @@
 
         </a>
     </div>
+</section>
 @endforeach

@@ -33,29 +33,28 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Menghapus foto lama jika ada
-        if ($user->foto_profile) {
-            Storage::disk('public')->delete($user->foto_profile);
-        }
-
-        // Mengupdate data user
-        $userData = [
+        $user->update([
             'nidn' => $request->nidn,
             'nama' => $request->nama,
             'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
-        ];
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+        ]);
 
-        // Mengupdate foto profil jika ada
+        // Memproses foto profile jika ada
         if ($request->hasFile('foto_profile')) {
-            $fotoProfilePath = $request->file('foto_profile')->store('foto_profile', 'public');
-            $userData['foto_profile'] = $fotoProfilePath;
-        } else {
-            $userData['foto_profile'] = $user->foto_profile;
+            // Menghapus foto profile lama (jika ada)
+            if ($user->foto_profile) {
+                // Menghapus foto lama dari penyimpanan
+                Storage::delete($user->foto_profile);
+            }
+
+            // Menyimpan foto profile yang baru
+            $fotoPath = $request->file('foto_profile')->store('foto_profile', 'public');
+            $user->update(['foto_profile' => $fotoPath]);
         }
 
-        $user->update($userData);
-
-        return redirect('profile')->with('success', 'Profil berhasil diperbarui!');
+        // Redirect atau response sesuai kebutuhan
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
 
 

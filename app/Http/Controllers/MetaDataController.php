@@ -41,6 +41,8 @@ class MetaDataController extends Controller
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'deskripsi' => 'required|string',
                 'model_3d' => 'required|string',
+                'video' => 'required|string',
+                'link' => 'required|string',
                 'nama_benda' => 'required|string',
                 'tahun_pembuatan' => 'required|date',
                 'periode_pembuatan_awal' => 'required|date',
