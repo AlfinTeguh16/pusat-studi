@@ -9,7 +9,7 @@
 <body class="bg-gray-100 p-8">
     <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
         <h2 class="text-2xl font-semibold mb-4">Add Meta Data</h2>
-        <form action="{{ route('storeMetaData') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('editMetaData', ['id' => $metaData->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
             <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">

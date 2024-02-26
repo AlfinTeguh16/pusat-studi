@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/metadata', [MetaDataController::class, 'deleteMetaData']);
 
     Route::get('/metadata/edit', [MetaDataController::class, 'viewEditMetaData']);
-    Route::post('/metadata/edit', [MetaDataController::class, 'editMetaData']);
+    Route::post('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
 
 
     Route::get('/profile', [ProfileController::class, 'index']);
