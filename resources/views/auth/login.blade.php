@@ -40,7 +40,7 @@
         </div>
 
         <div class="mt-4 text-center">
-            <a href="home.pusatstudi" class="text-gray-600 hover:text-gray-800">Back to Main Page</a>
+            <a href="{{url("/")}}" class="text-gray-600 hover:text-gray-800">Back to Main Page</a>
         </div>
     </div>
 
