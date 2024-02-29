@@ -13,7 +13,7 @@ class MetaDataController extends Controller
     public function index()
     {
         $metaData = MetaData::all();
-        return view('inputdosen.showmetadata', compact('metaData'));
+        return view('inputdosen.profiledosen', compact('metaData'));
     }
 
     public function viewMetaData($id){
@@ -41,9 +41,9 @@ class MetaDataController extends Controller
                 'judul' => 'required|string',
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'deskripsi' => 'required|string',
-                // 'model_3d' => 'required|string',
-                // 'video' => 'required|mimes:mp4,mov,avi|max:10240',
-                // 'link' => 'required|string',
+                'model_3d' => 'string',
+                'video' => 'mimes:mp4,mov,avi|max:10240',
+                'link' => 'string',
                 'nama_benda' => 'required|string',
                 'tahun_pembuatan' => 'required|date',
                 'periode_pembuatan_awal' => 'required|date',
@@ -63,7 +63,7 @@ class MetaDataController extends Controller
             $validatedData['gambar'] = $gambarPath;
             $validatedData['video'] = $videoPath;
 
-            $validatedData['video'] = $request->hasFile('video') ? $request->file('video')->store('videos', 'public') : null;
+            $validatedData['video'] = $request->hasFile('video') ? $request->file('video')->store('video', 'public') : null;
             $validatedData['model_3d'] = $request->filled('model_3d') ? $request->input('model_3d') : null;
             $validatedData['link'] = $request->filled('link') ? $request->input('link') : null;
 
@@ -84,6 +84,10 @@ class MetaDataController extends Controller
 
     }
 
+    public function viewEditMetaData(){
+        $metaData = MetaData::all();
+        return view('inputdosen.editdetail', ['metaData' => $metaData]);
+    }
     public function editMetaData(Request $request, $id)
     {
         try {
@@ -139,7 +143,7 @@ class MetaDataController extends Controller
             }
 
             // Redirect dengan pesan sukses
-            return redirect()->route('viewStoreMetaData')->with('success', 'Data berhasil diperbarui.');
+            return redirect()->route('viewEditMetaData')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             // Handle the exception (e.g., log it, delete uploaded files, return an error response)
             return response()->json(['error' => 'Error updating data: ' . $e->getMessage()], 500);

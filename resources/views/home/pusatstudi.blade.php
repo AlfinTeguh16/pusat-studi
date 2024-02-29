@@ -1,101 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('home.master')
+@section('judul')
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contoh Landing Page dengan Tailwind CSS">
-    <title>Landing Page</title>
-    <!-- Include Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Include Glider.js for carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
-    <style>
-        /* Custom Styles */
-        .navbar-bg {
-            background-color: transparent;
-            transition: background-color 0.2s ease;
-        }
-        .nav-link {
-            color: #fff;
-        }
-        .nav-link:hover {
-            color: #cbd5e0;
-        }
-        .carousel-container {
-            position: relative;
-        }
-        .section {
-            padding: 100px 0;
-            text-align: center;
-        }
-        .section h2 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .section p {
-            font-size: 1.2rem;
-            color: #555;
-        }
-    </style>
+@section('script')
 
-        <style>
-            /* Tambahkan transisi untuk perubahan warna */
-            .navbar {
-            transition: background-color 0.3s ease; /* Ubah 0.3s sesuai kebutuhan Anda */
-            width: 100%; /* Atur lebar navbar menjadi 100% */
-            }
+@endsection
 
-            /* Atur gaya untuk navbar yang di-scroll */
-            .navbar.scrolled {
-            background-color: rgba(181, 30, 30, 0.7); /* Warna hitam dengan transparansi */
-            height: 10px; /* Sesuaikan tinggi navbar yang diinginkan */
-            }
-        </style>
+@section('style')
 
-</head>
+@endsection
 
-<body class="bg-gray-100">
-
-<!-- Header with Carousel and Navbar -->
+@section('content')
+    <!-- Header with Carousel and Navbar -->
 <header class="carousel-container relative">
-    {{-- Navbar --}}
-    <nav class="navbar bg-transparent py-4 fixed top-0 w-full z-10" id="navbar">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-7">
-              <!-- Logo -->
-              <div class="flex-shrink-0">
-                <a href="#" class="text-white font-bold text-lg">Logo</a>
-              </div>
-            <div class="hidden md:block">
-                <div class="container mx-auto flex justify-between items-center">
-
-                    <ul class="hidden md:flex flex-wrap space-x-4">
-                        <li><a href="#home" class="nav-link">Home</a></li>
-                        <li><a href="#about" class="nav-link">About</a></li>
-                        <li><a href="#event" class="nav-link">Event</a></li>
-                        <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                        <li><a href="#team" class="nav-link">Team</a></li>
-                        <li><a href="#meta" class="nav-link">Meta Data</a></li>
-                        <li><a href="#contact" class="nav-link">Contact</a></li>
-                        <li><a href="/login" class="nav-link">Login</a></li>
-                    </ul>
-                </div>
-            </div>
-             <!-- Tombol Menu untuk Mobile -->
-             <div class="md:hidden">
-                <button class="text-white focus:outline-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </button>
-              </div>
-        </div>
-    </div>
-    </nav>
-
     <!-- Carousel -->
     <div class="glide h-screen">
         <div class="glide__track" data-glide-el="track">
@@ -118,7 +35,26 @@
 
 
     <!-- About Section -->
-    <section id="about" class="section bg-gray-100 py-16">
+    <section id="about" class="section bg-white">
+        <div class="container mx-auto">
+            <h2>About Us</h2>
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <!-- Gambar di sebelah kiri -->
+                <div class="w-full lg:w-1/2 mb-8 lg:mb-0 lg:mr-12">
+                    <img src="asset/images/wayang.jpg" alt="About Image" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+                <!-- Deskripsi di sebelah kanan -->
+                <div class="md:w-1/2 p-4">
+                    <div class="max-w-lg mx-auto">
+                        <p class="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lacus vel quam cursus lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam viverra dolor in elit suscipit, in varius elit gravida.</p>
+                        <p class="text-gray-600">Duis faucibus interdum dui nec fermentum. Fusce eu risus nec libero volutpat maximus. In eu lacus sit amet eros vehicula volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- <section id="about" class="section bg-gray-100 py-16">
+
         <div class="container mx-auto">
             <div class="flex flex-col lg:flex-row items-center justify-between">
                 <!-- Gambar di sebelah kiri -->
@@ -143,17 +79,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-
-
-
-    <!-- Event Section -->
    <!-- Event Section -->
-<section id="event" class="section bg-gray-200 py-16">
+   <section id="event" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
     <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
             <!-- Event 1 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
                 <img src="asset/images/wayang.jpg" alt="Event 1" class="w-full h-64 object-cover">
@@ -189,9 +121,58 @@
     </div>
 </section>
 
+
 <!-- Gallery Section -->
 <section id="gallery" class="section bg-gray-100 py-16">
-    <div class="container mx-auto">
+
+
+<div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+    <button type="button" class="text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800">All categories</button>
+    <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Shoes</button>
+    <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Bags</button>
+    <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Electronics</button>
+    <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Gaming</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="">
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg" alt="">
+    </div>
+</div>
+
+    {{-- <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8">Gallery</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <!-- Gallery Item 1 -->
@@ -220,7 +201,7 @@
             </div>
             <!-- Repeat Gallery Items as needed -->
         </div>
-    </div>
+    </div> --}}
 </section>
 
 
@@ -345,50 +326,8 @@
                 </div>
             </div>
         </div>
-        <div class="mt-8 text-center">
+        {{-- <div class="mt-8 text-center">
             <p>&copy; 2024 Contoh Perusahaan. All Rights Reserved.</p>
-        </div>
+        </div> --}}
     </footer>
-
-
-    <!-- Initialize Glide.js for carousel -->
-    <script>
-        new Glide('.glide', {
-            type: 'carousel',
-            autoplay: 3000,
-            hoverpause: true,
-            perView: 1,
-            animationDuration: 1000,
-            animationTimingFunc: 'ease'
-        }).mount();
-    </script>
-
-    {{-- scroll --}}
-    <script>window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-          var navbar = document.getElementById("navbar");
-          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            navbar.classList.add("bg-black");
-          } else {
-            navbar.classList.remove("bg-black");
-          }
-        }
-        </script>
-        <script>
-            const readMoreButton = document.getElementById('read-more');
-            const additionalDescription = document.getElementById('additional-description');
-
-            readMoreButton.addEventListener('click', function() {
-                additionalDescription.classList.toggle('hidden');
-                if (additionalDescription.classList.contains('hidden')) {
-                    readMoreButton.textContent = 'Read More';
-                } else {
-                    readMoreButton.textContent = 'Read Less';
-                }
-            });
-        </script>
-
-</body>
-
-</html>
+@endsection

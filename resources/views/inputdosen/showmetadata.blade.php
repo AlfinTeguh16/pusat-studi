@@ -1,4 +1,4 @@
-{{-- @extends('master') --}}
+
 <head>
     @vite('resources/css/app.css')
     <title>User Meta Data</title>
@@ -19,6 +19,9 @@
                 <p class="text-sm">{{ $data->nama }}</p>
             </div>
 
+        </a>
+        <a href="{{ route('viewEditMetaData', $data->id) }}" class="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            Edit
         </a>
     </div>
 </section>
