@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +29,7 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
 
-    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
     // Route::get('/importUsers', [UserController::class, 'index'])->name('index');
@@ -46,7 +47,8 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/metadata', [MetaDataController::class, 'showMetaData']);
     // Route::get('/metadata', [MetaDataController::class, 'deleteMetaData']);
 
-    Route::get('/metadata/edit', [MetaDataController::class, 'viewEditMetaData']);
+    // Route::get('/metadata/edit', [MetaDataController::class, 'viewEditMetaData']);
+    Route::get('/metadata/{id}/edit', [MetaDataController::class, 'viewEditMetaData'])->name('viewEditMetaData');
     Route::post('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
 
 
@@ -54,14 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'showProfileData']);
     Route::patch('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
-
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard/{id}', [DashboardController::class, 'userMetaData'])->name('userMetaData');
 });
-
-
-// Route::get('/log', function () {
-//     return view('auth.login');
-// });
-// Route::get('/pusat', function () {
-//     return view('home.pusatstudi');
-// });
 
