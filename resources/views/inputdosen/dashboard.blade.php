@@ -82,7 +82,11 @@
 
     <section>
         <div>
-            <button href="{{ url('/input') }}" class=" justify-center align-middle rounded-md py-2 pr-2 bg-green-700 after:bg-green-900 font-semibold text-white "><span class="material-symbols-outlined justify-center align-middle pl-1">add </span>Tambah Meta Data</button>
+            <button
+            class=" justify-center align-middle rounded-md py-2 pr-2 bg-green-700 after:bg-green-900 font-semibold text-white ">
+                <span class="material-symbols-outlined">add <a href="{{ route('viewStoreMetaData') }}"></a></span>
+
+            </button>
         </div>
     </section>
 

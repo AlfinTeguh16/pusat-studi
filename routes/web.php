@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'showProfileData']);
     Route::patch('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('userDashboard');
     Route::get('/dashboard/{id}', [DashboardController::class, 'userMetaData'])->name('userMetaData');
 });
 
