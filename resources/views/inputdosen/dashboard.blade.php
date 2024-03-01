@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <title>Dashboard</title>
 </head>
 <body class="px-3 bg-gray-50">
@@ -20,7 +21,7 @@
                 @endif
             </div>
             <div class="flex w-full">
-                <div class="flex flex-col justify-start w-full">
+                <div class="flex flex-col justify-start flex-wrap w-full">
                     <div class="m-2 font-bold">
                         <h2>{{ Auth::user()->nama }}</h2>
                     </div>
@@ -28,11 +29,13 @@
                         <p>{{ Auth::user()->nidn }}</p>
                     </div>
                 </div>
-                <div class="flex justify-end m-2">
-                    {{ Auth::user()->email }}
-                </div>
-                <div class="flex justify-center align-middle m-2">
-                    <button onclick="openUpdateForm()" class="p-1 text-white rounded bg-red-500 hover:bg-red-800">Ganti Profile</button>
+                <div class="flex flex-col justify-between">
+                    <div class="flex justify-end m-2">
+                        {{ Auth::user()->email }}
+                    </div>
+                    <div class="flex justify-center m-2 w-full h-fit">
+                        <button onclick="openUpdateForm()" class="p-1 text-white rounded bg-red-500 hover:bg-red-800"><i class="ph-bold ph-user"></i>Ganti Profile</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,13 +79,25 @@
         </div>
     </div>
 
-    <section>
-        <div class=" align-middle rounded-md p-2 bg-green-700 after:bg-green-900 font-semibold text-white w-fit">
-            <a href="{{ route('viewStoreMetaData') }}">
-                {{-- <span class="font-bold text-2xl">+</span> --}}
-                Tambah Meta Data
+    <section class="flex flex-row justify-end">
+        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 font-semibold text-white w-fit">
+            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+              <i class="ph-bold ph-plus"></i>
+              <span class="flex">Tambah Meta Data</span>
             </a>
-        </div>
+          </div>
+        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-500 hover:bg-amber-600 font-semibold text-white w-fit">
+            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+              <i class="ph-bold ph-calendar-plus"></i>
+              <span class="flex">Tambah Event</span>
+            </a>
+          </div>
+        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-500 hover:bg-cyan-700 font-semibold text-white w-fit">
+            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+              <i class="ph-bold ph-circles-three-plus"></i>
+              <span class="flex">Tambah Produk</span>
+            </a>
+          </div>
     </section>
 
     <section id="metaDataSection">
@@ -98,8 +113,11 @@
                                 <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
                             </div>
                         </div>
-                        <div class="flex justify-end w-full">
-                            <button class="p-2 rounded-md bg-red-400 hover:bg-red-600"><span class="material-symbols-outlined">chevron_right</span></button>
+                        <div class="flex justify-start w-full">
+                            <button class="p-2 rounded-md bg-red-400 hover:bg-red-600 w-fit">Lihat</button>
+                        </div>
+                        <div class="">
+                            <a href="{{ route('editMetaData', $data->id) }}">Edit Data</a>
                         </div>
                     </a>
                 </div>
@@ -127,7 +145,7 @@
             var deskripsiTeks = elem.textContent;
 
             if (deskripsiTeks.length > 20) {
-                var potonganDeskripsi = deskripsiTeks.slice(0, 300);
+                var potonganDeskripsi = deskripsiTeks.slice(0, 200);
                 elem.textContent = potonganDeskripsi + "...";
             }
             // Jika kurang dari 20 karakter, biarkan teks asli tanpa ellipsis

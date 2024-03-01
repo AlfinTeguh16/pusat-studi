@@ -10,8 +10,8 @@
 
     <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
 </head>
-<body>
-    <section class="flex flex-col items-center justify-center w-full px-4 py-8 space-y-8 bg-red-100">
+<body class="bg-red-100">
+    <section class="flex  flex-col items-center justify-center w-full px-4 py-8 space-y-8 bg-gray-00 rounded-md border-gray-200 shadow-md">
         <div class="max-w-4xl w-full">
             <div class="text-center">
                 <a href="{{ url('/metadata') }}" class="inline-block px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
