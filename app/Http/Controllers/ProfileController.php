@@ -21,7 +21,7 @@ class ProfileController extends Controller
         return view('inputdosen.profiledosen', ['user' => $user]);
     }
 
-    public function updateProfile(Request $request){
+    public function updateProfile(Request $request) {
         // Validasi data yang diterima dari formulir
         $request->validate([
             'nidn' => 'required|string|max:255',
@@ -35,29 +35,29 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Menghapus foto lama jika ada
-        $user->update([
-            'nidn' => $request->nidn,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'password' => $request->password ? bcrypt($request->password) : $user->password,
-        ]);
-
-        // Memproses foto profile jika ada
         if ($request->hasFile('foto_profile')) {
-            // Menghapus foto profile lama (jika ada)
-            if ($user->foto_profile) {
-                // Menghapus foto lama dari penyimpanan
-                Storage::delete($user->foto_profile);
-            }
-
             // Menyimpan foto profile yang baru
             $fotoPath = $request->file('foto_profile')->store('foto_profile', 'public');
-            $user->update(['foto_profile' => $fotoPath]);
+            $user->foto_profile = $fotoPath;
         }
+
+        // Mengupdate informasi user
+        $user->nidn = $request->nidn;
+        $user->nama = $request->nama;
+        $user->email = $request->email;
+
+        // Mengupdate password jika diberikan
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        // Menyimpan perubahan pada model
+        $user->save();
 
         // Redirect atau response sesuai kebutuhan
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
+
 
 
 }

@@ -1,4 +1,4 @@
-{{-- @extends('master') --}}
+@extends('home.master')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <title>Dashboard</title>
 </head>
 <body class="px-3 bg-gray-50">
     <section id="profileSection" class="w-full h-60 my-2">
         <div class="border rounded-md shadow-md border-gray-200 bg-white flex">
-            <div class="flex align-middle justify-center p-3">
+            <div class="flex align-middle justify-center p-3 max-h-40 max-w-40">
                 @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini">
+                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="rounded-sm">
                 @else
                     <p>Foto Profil tidak tersedia</p>
                 @endif
@@ -22,20 +22,16 @@
             <div class="flex w-full">
                 <div class="flex flex-col justify-start w-full">
                     <div class="m-2 font-bold">
-                        {{-- nama --}}
                         <h2>{{ Auth::user()->nama }}</h2>
                     </div>
                     <div class="m-2">
-                        {{-- nidn --}}
                         <p>{{ Auth::user()->nidn }}</p>
                     </div>
                 </div>
                 <div class="flex justify-end m-2">
-                    {{-- email --}}
                     {{ Auth::user()->email }}
                 </div>
                 <div class="flex justify-center align-middle m-2">
-                    {{-- button ganti profile --}}
                     <button onclick="openUpdateForm()" class="p-1 text-white rounded bg-red-500 hover:bg-red-800">Ganti Profile</button>
                 </div>
             </div>
@@ -81,33 +77,36 @@
     </div>
 
     <section>
-        <div>
-            <button
-            class=" justify-center align-middle rounded-md py-2 pr-2 bg-green-700 after:bg-green-900 font-semibold text-white ">
-                <span class="material-symbols-outlined">add <a href="{{ route('viewStoreMetaData') }}"></a></span>
-
-            </button>
+        <div class=" align-middle rounded-md p-2 bg-green-700 after:bg-green-900 font-semibold text-white w-fit">
+            <a href="{{ route('viewStoreMetaData') }}">
+                {{-- <span class="font-bold text-2xl">+</span> --}}
+                Tambah Meta Data
+            </a>
         </div>
     </section>
 
     <section id="metaDataSection">
         @foreach ($metaData as $data)
-        <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400">
-            <a href="{{ route('userMetaData', $data->id) }}">
-            <div class="flex justify-start flex-col w-full">
-                <div class="flex">
-                    <h2 class="font-semibold">{{ $data->judul }}</h2>
+            @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
+                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400">
+                    <a href="{{ route('userMetaData', $data->id) }}">
+                        <div class="flex justify-start flex-col">
+                            <div class="flex">
+                                <h2 class="font-semibold">{{ $data->judul }}</h2>
+                            </div>
+                            <div class="flex">
+                                <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-end w-full">
+                            <button class="p-2 rounded-md bg-red-400 hover:bg-red-600"><span class="material-symbols-outlined">chevron_right</span></button>
+                        </div>
+                    </a>
                 </div>
-                <div>
-                    <p id="deskripsi">{{ $data->deskripsi }}</p>
-                </div>
-            </div>
-            <div class="flex justify-end w-full">
-                <button class="p-2 rounded-md bg-red-400 hover:bg-red-600"><span class="material-symbols-outlined">chevron_right</span></button>
-            </div>
-        </div>
+            @endif
         @endforeach
     </section>
+
 
 
     <script>
@@ -119,19 +118,22 @@
             document.getElementById('updateFormModal').style.display = 'none';
         }
     </script>
-    <script>
-        // Ambil elemen dengan id "deskripsi"
-        var deskripsiElement = document.getElementById("deskripsi");
+     <script>
+        // Ambil semua elemen dengan kelas "deskripsi"
+        var deskripsiElements = document.querySelectorAll(".deskripsi");
 
-        // Ambil teks dari elemen
-        var deskripsiTeks = deskripsiElement.textContent;
+        // Iterasi melalui setiap elemen dan potong teks jika lebih dari 20 karakter
+        deskripsiElements.forEach(function (elem) {
+            var deskripsiTeks = elem.textContent;
 
-        // Potong teks menjadi 20 karakter
-        var potonganDeskripsi = deskripsiTeks.slice(0, 20);
-
-        // Tambahkan teks potongan kembali ke elemen
-        deskripsiElement.textContent = potonganDeskripsi + "...";
+            if (deskripsiTeks.length > 20) {
+                var potonganDeskripsi = deskripsiTeks.slice(0, 300);
+                elem.textContent = potonganDeskripsi + "...";
+            }
+            // Jika kurang dari 20 karakter, biarkan teks asli tanpa ellipsis
+        });
     </script>
+
 
 </body>
 </html>
