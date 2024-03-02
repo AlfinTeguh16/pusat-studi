@@ -53,11 +53,14 @@ class MetaDataController extends Controller
                 'kecamatan' => 'required|string',
             ]);
 
-            // Store the uploaded file
             $gambarPath = $request->file('gambar')->store('gambar', 'public');
-            $videoPath = $request->file('video')->store('videos', 'public');
 
-            // Add the authenticated user's nidn and the file path to the validated data
+            $videoPath = null;
+
+            if ($request->hasFile('video')) {
+                $videoPath = $request->file('video')->store('videos', 'public');
+            }
+
             $validatedData['nidn'] = $authenticatedUserNidn;
             $validatedData['nama'] = $authenticatedUserName;
             $validatedData['gambar'] = $gambarPath;
@@ -67,15 +70,14 @@ class MetaDataController extends Controller
             $validatedData['model_3d'] = $request->filled('model_3d') ? $request->input('model_3d') : null;
             $validatedData['link'] = $request->filled('link') ? $request->input('link') : null;
 
-            // Create a new MetaData instance and fill it with validated data
             $metaData = new MetaData($validatedData);
 
-            // Save the instance to the database
+
             $metaData->save();
 
             return redirect()->route('viewStoreMetaData')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
-            // Handle the exception (e.g., log it, delete uploaded file, return an error response)
+            
             return response()->json(['error' => 'Error saving data: ' . $e->getMessage()], 500);
         }
     }

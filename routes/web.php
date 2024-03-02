@@ -29,7 +29,7 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
 
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
     // Route::get('/importUsers', [UserController::class, 'index'])->name('index');

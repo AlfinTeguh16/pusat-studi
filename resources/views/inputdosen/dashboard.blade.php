@@ -20,22 +20,22 @@
                     <p>Foto Profil tidak tersedia</p>
                 @endif
             </div>
-            <div class="flex w-full">
-                <div class="flex flex-col justify-start flex-wrap w-full">
-                    <div class="m-2 font-bold">
-                        <h2>{{ Auth::user()->nama }}</h2>
-                    </div>
-                    <div class="m-2">
-                        <p>{{ Auth::user()->nidn }}</p>
+            <div class="flex flex-col sm:flex-row w-full">
+                <div class="flex flex-col sm:flex-row justify-start flex-wrap w-full basis-auto">
+                    <div class="flex flex-col ">
+                        <div class="flex m-2 font-bold ">
+                            <h2>{{ Auth::user()->nama }}</h2>
+                        </div>
+                        <div class="flex m-2">
+                            <p>{{ Auth::user()->nidn }}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-between">
-                    <div class="flex justify-end m-2">
-                        {{ Auth::user()->email }}
-                    </div>
-                    <div class="flex justify-center m-2 w-full h-fit">
-                        <button onclick="openUpdateForm()" class="p-1 text-white rounded bg-red-500 hover:bg-red-800"><i class="ph-bold ph-user"></i>Ganti Profile</button>
-                    </div>
+                <div class="flex sm:justify-end m-2 w-full">
+                    {{ Auth::user()->email }}
+                </div>
+                <div class="flex basis-1/2 justify-end m-2 w-auto h-fit sm:w-40 sm:align-bottom">
+                    <button onclick="openUpdateForm()" class="p-1 text-white rounded bg-red-500 hover:bg-red-800"><i class="ph-bold ph-user"></i>Ganti Profile</button>
                 </div>
             </div>
         </div>
@@ -49,10 +49,10 @@
                 class="space-y-4">
                 @csrf
                 @method('patch')
-
+{{--
                 <label for="nidn" class="block mt-10">NIDN:</label>
                 <input type="text" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
-                    class="w-full p-2 mt-2 mb-4 box-border">
+                    class="w-full p-2 mt-2 mb-4 box-border"> --}}
 
                 <label for="nama" class="block">Nama:</label>
                 <input type="text" name="nama" value="{{ old('nama', $user->nama) }}" required
@@ -79,28 +79,31 @@
         </div>
     </div>
 
-    <section class="flex flex-row justify-end">
-        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 font-semibold text-white w-fit">
-            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
-              <i class="ph-bold ph-plus"></i>
-              <span class="flex">Tambah Meta Data</span>
-            </a>
-          </div>
-        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-500 hover:bg-amber-600 font-semibold text-white w-fit">
-            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
-              <i class="ph-bold ph-calendar-plus"></i>
-              <span class="flex">Tambah Event</span>
-            </a>
-          </div>
-        <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-500 hover:bg-cyan-700 font-semibold text-white w-fit">
-            <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
-              <i class="ph-bold ph-circles-three-plus"></i>
-              <span class="flex">Tambah Produk</span>
-            </a>
-          </div>
+    <section class="flex flex-row justify-end w-full mb-2 sm:mb-4">
+        <div class="flex flex-row justify-end">
+            <h3 class="flex p-2 justify-center align-middle font-medium">Tambah Data</h3>
+            <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 font-semibold text-white w-fit">
+                <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+                  <i class="ph-bold ph-plus"></i>
+                  <span class="flex">Meta Data</span>
+                </a>
+              </div>
+            <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-500 hover:bg-amber-600 font-semibold text-white w-fit">
+                <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+                  <i class="ph-bold ph-calendar-plus"></i>
+                  <span class="flex">Event</span>
+                </a>
+              </div>
+            <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-500 hover:bg-cyan-700 font-semibold text-white w-fit">
+                <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+                  <i class="ph-bold ph-circles-three-plus"></i>
+                  <span class="flex">Produk</span>
+                </a>
+              </div>
+        </div>
     </section>
-
     <section id="metaDataSection">
+        <h2 class="align-middle font-bold">Meta Data Anda</h2>
         @foreach ($metaData as $data)
             @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
                 <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400">
@@ -123,6 +126,17 @@
                 </div>
             @endif
         @endforeach
+    </section>
+
+    <section class="container flex flex-col sm:flex-row">
+
+        <section>
+            {{-- Event --}}
+        </section>
+        <section>
+            {{-- Produk --}}
+        </section>
+
     </section>
 
 
