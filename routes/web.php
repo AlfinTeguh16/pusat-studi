@@ -18,6 +18,9 @@ use App\Http\Controllers\DashboardController;
 |
 */
 Route::get('/', [MetaDataController::class, 'getMetaData'])->name('getMetaData');
+Route::get('/tes', function () {
+    return view('inputdosen.master');
+})->name('master');
 
 Route::get('/login', function () {
     return view('auth.login');
