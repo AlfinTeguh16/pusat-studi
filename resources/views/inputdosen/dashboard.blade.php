@@ -1,4 +1,6 @@
-@extends('home.master')
+@extends('inputdosen.master')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +51,7 @@
                 class="space-y-4">
                 @csrf
                 @method('patch')
-{{--
+                {{--
                 <label for="nidn" class="block mt-10">NIDN:</label>
                 <input type="text" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
                     class="w-full p-2 mt-2 mb-4 box-border"> --}}
@@ -81,7 +83,7 @@
 
     <section class="flex flex-row justify-end w-full mb-2 sm:mb-4">
         <div class="flex flex-row justify-end">
-            <h3 class="flex p-2 justify-center align-middle font-medium">Tambah Data</h3>
+            {{-- <h3 class="flex p-2 justify-center align-middle font-medium ">Tambah Data</h3> --}}
             <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 font-semibold text-white w-fit">
                 <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-plus"></i>
@@ -169,3 +171,4 @@
 
 </body>
 </html>
+@endsection
