@@ -4,20 +4,105 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var viewerContainer = document.getElementById('sketchfab-viewer');
+        var uid = '{{ $metaData->model_3d }}';
 
+        var iframe = document.createElement('iframe');
+        iframe.src = '';
+        iframe.allow = 'autoplay; fullscreen; vr';
+        iframe.setAttribute('xr-spatial-tracking', true);
+        iframe.setAttribute('execution-while-out-of-viewport', true);
+        iframe.setAttribute('execution-while-not-rendered', true);
+        iframe.setAttribute('web-share', true);
+        iframe.setAttribute('allowfullscreen', true);
+        iframe.setAttribute('mozallowfullscreen', true);
+        iframe.setAttribute('webkitallowfullscreen', true);
+
+        viewerContainer.appendChild(iframe);
+
+        var client = new Sketchfab(iframe);
+
+        client.init(uid, {
+            success: function onSuccess(api) {
+                api.start();
+                api.addEventListener('viewerready', function () {
+                    // API is ready to use
+                    // Insert your code here
+                    console.log('Viewer is ready');
+                });
+            },
+            error: function onError() {
+                console.log('Viewer error');
+            }
+        });
+    });
+</script>
 @endsection
 
 @section('style')
+<style>.container {
+    position: relative;
+}
+.btn-back {
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(101, 93, 93);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px; /* Atur jarak dari atas */
+    left: 10px; /* Atur jarak dari kiri */
+}
+.btn-back:hover {
+    background-color: darkred;
+}
 
+</style>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #333;
+        padding-top: 20px;
+    }
+
+    .sidebar a {
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        color: white;
+        display: block;
+    }
+
+    .sidebar a:hover {
+        background-color: #555;
+    }
+
+    .content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+</style>
 @endsection
 
 @section('content')
-<button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar" aria-controls="cta-button-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-    <span class="sr-only">Open sidebar</span>
-    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-    </svg>
- </button>
+
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         <div class="container">
