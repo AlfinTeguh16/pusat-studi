@@ -37,15 +37,23 @@
                 @else
                 <p class="text-gray-500 text-center">Tidak ada gambar tersedia</p>
                 @endif
-
                 <h2 class="text-2xl font-bold">{{ $metaData->deskripsi }}</h2>
 
+                @if ($metaData->video)
+                <video width="320" height="240" controls>
+                    <source src="{{ asset('storage/' . $metaData->video) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                @endif
+
                 <div id="sketchfab-viewer" class="mb-8 border rounded-lg overflow-hidden"></div>
+
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="p-4 bg-white rounded-lg shadow-md">
                         <h2 class="text-xl font-bold mb-2">Nama Benda: {{ $metaData->nama_benda }}</h2>
                         <h2 class="text-xl mb-2">Tahun Pembuatan: {{ $metaData->tahun_pembuatan }}</h2>
+
                         <h2 class="text-xl mb-2">Periode Pembuatan Awal: {{ $metaData->periode_pembuatan_awal }}</h2>
                         <h2 class="text-xl mb-2">Periode Pembuatan Akhir: {{ $metaData->periode_pembuatan_akhir }}</h2>
                     </div>
@@ -60,4 +68,40 @@
         </section>
     </div>
  </div>
+
+ <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var viewerContainer = document.getElementById('sketchfab-viewer');
+        var uid = '{{ $metaData->model_3d }}';
+
+        var iframe = document.createElement('iframe');
+        iframe.src = '';
+        iframe.allow = 'autoplay; fullscreen; vr';
+        iframe.setAttribute('xr-spatial-tracking', true);
+        iframe.setAttribute('execution-while-out-of-viewport', true);
+        iframe.setAttribute('execution-while-not-rendered', true);
+        iframe.setAttribute('web-share', true);
+        iframe.setAttribute('allowfullscreen', true);
+        iframe.setAttribute('mozallowfullscreen', true);
+        iframe.setAttribute('webkitallowfullscreen', true);
+
+        viewerContainer.appendChild(iframe);
+
+        var client = new Sketchfab(iframe);
+
+        client.init(uid, {
+            success: function onSuccess(api) {
+                api.start();
+                api.addEventListener('viewerready', function () {
+                    // API is ready to use
+                    // Insert your code here
+                    console.log('Viewer is ready');
+                });
+            },
+            error: function onError() {
+                console.log('Viewer error');
+            }
+        });
+    });
+</script>
 @endsection
