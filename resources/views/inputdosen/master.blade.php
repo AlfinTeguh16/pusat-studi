@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Detail Meta Data</title>
 
     <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -22,10 +21,6 @@
     </svg>
   </button>
   </button>
-
-  <div class="container">
-    @yield('content')
-  </div>
 
   <div class="container">
     @yield('content')
