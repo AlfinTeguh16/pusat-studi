@@ -77,61 +77,69 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const sidebarToggle = document.querySelectorAll("[data-drawer-toggle]");
-        const sidebar = document.getElementById("cta-button-sidebar");
-        const body = document.querySelector("body");
+    const sidebarToggle = document.querySelectorAll("[data-drawer-toggle]");
+    const sidebar = document.getElementById("cta-button-sidebar");
+    const body = document.querySelector("body");
 
-        sidebarToggle.forEach(function(toggle) {
-            toggle.addEventListener("click", function(event) {
-                event.stopPropagation();
-                const target = document.getElementById(this.getAttribute("data-drawer-target"));
-                const drawerToggle = this.getAttribute("data-drawer-toggle");
+    sidebarToggle.forEach(function(toggle) {
+        toggle.addEventListener("click", function(event) {
+            event.stopPropagation();
+            const target = document.getElementById(this.getAttribute("data-drawer-target"));
+            const drawerToggle = this.getAttribute("data-drawer-toggle");
 
-                if (target) {
-                    target.classList.toggle("hidden");
-                    document.getElementById(drawerToggle).classList.toggle("hidden");
-                    sidebar.classList.toggle("-translate-x-full");
-                    sidebar.classList.toggle("sm:translate-x-0");
-                }
-            });
+            if (target) {
+                target.classList.toggle("hidden");
+                document.getElementById(drawerToggle).classList.toggle("hidden");
+                sidebar.classList.toggle("-translate-x-full");
+                sidebar.classList.toggle("sm:translate-x-0");
+            }
         });
+    });
 
-        function closeSidebar() {
+    function closeSidebar() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 640) { // Hanya tutup sidebar saat mode mobile atau tablet
             sidebar.classList.add("-translate-x-full");
             sidebar.classList.remove("sm:translate-x-0");
             sidebar.querySelectorAll("[data-drawer-target]").forEach(function(item) {
                 item.classList.add("hidden");
             });
         }
+    }
 
-        body.addEventListener("click", function(event) {
-            const isClickInsideSidebar = sidebar.contains(event.target);
-            if (!isClickInsideSidebar) {
-                closeSidebar();
-            }
-        });
+    body.addEventListener("click", function(event) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const screenWidth = window.innerWidth;
+        if (!isClickInsideSidebar && screenWidth <= 640) { // Tutup sidebar saat mode mobile atau tablet dan klik dilakukan di luar area sidebar
+            closeSidebar();
+        }
+    });
 
-        function showSidebar() {
+    function showSidebar() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 640) { // Tampilkan sidebar saat mode mobile atau tablet
             sidebar.classList.remove("-translate-x-full");
             sidebar.classList.add("sm:translate-x-0");
         }
+    }
 
-        // Fungsi untuk menampilkan sidebar saat mode tablet atau desktop
-        function handleResize() {
-            const screenWidth = window.innerWidth;
-            if (screenWidth > 640) { // Ganti nilai 640 dengan breakpoint tablet yang Anda inginkan
-                showSidebar();
-            } else {
-                closeSidebar();
-            }
+    // Fungsi untuk menampilkan sidebar saat mode tablet atau desktop
+    function handleResize() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth > 640) { // Pastikan sidebar tetap terbuka saat mode desktop aktif
+            showSidebar();
+        } else {
+            closeSidebar();
         }
+    }
 
-        // Tampilkan sidebar saat halaman dimuat
-        handleResize();
+    // Tampilkan sidebar saat halaman dimuat
+    handleResize();
 
-        // Event listener untuk menampilkan sidebar saat ukuran layar berubah menjadi tablet atau desktop
-        window.addEventListener("resize", handleResize);
-    });
+    // Event listener untuk menampilkan sidebar saat ukuran layar berubah menjadi tablet atau desktop
+    window.addEventListener("resize", handleResize);
+});
+
 </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
