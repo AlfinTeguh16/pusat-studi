@@ -31,6 +31,6 @@ class GuestController extends Controller
 
     public function viewMetaData($id){
         $metaData = MetaData::findOrFail($id);
-        return view('meta.detal', compact('metaData'));
+        return view('meta.detail', compact('metaData'));
     }
 }
