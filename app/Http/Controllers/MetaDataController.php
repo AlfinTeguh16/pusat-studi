@@ -22,7 +22,7 @@ class MetaDataController extends Controller
     }
 
     public function getMetaData(){
-        MetaData::latest()->take(3)->get();
+        $metaData = MetaData::latest()->take(3)->get();
         return view ('home.pusatstudi', compact('metaData'));
     }
 
