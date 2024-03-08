@@ -14,9 +14,9 @@
 </head>
 <body>
 
-<section class="flex flex-row flex-wrap justify-center mt-7">
+<section class="flex flex-row flex-wrap justify-center mt-10">
 @foreach($metaData as $data)
-<div class="flex flex-col aspect-square max-w-60 border shadow-lg rounded-xl m-2 bg-gray-100">
+<div class="flex flex-col aspect-[4/3] max-w-72 border shadow-lg rounded-xl my-4 mx-2 bg-gray-100 hover:shadow-xl">
     <a href="{{ route('viewMetaData', $data->id) }}">
 
             <div class=" overflow-hidden h-fit">
