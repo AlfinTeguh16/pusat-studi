@@ -34,12 +34,15 @@ class UserController extends Controller
 
         // Iterasi data dan masukkan ke tabel users
         foreach ($csvData as $row) {
+            // Trim BOM and other whitespaces from the 'nidn' value
+            $nidn = trim($row[0]);
+
             // Sesuaikan dengan struktur kolom pada tabel users
             $user = new User([
-                'nidn' => $row[0], // Sesuaikan dengan indeks kolom pada file CSV
-                'nama' => $row[0], // Set 'nama' to the value of 'nidn'
-                'email' => $row[0] . '@gmail.com', // Set 'email' to 'nidn@gmail.com'
-                'password' => Hash::make($row[0]), // Hash 'password' with the value of 'nidn'
+                'nidn' => $nidn,
+                'nama' => $nidn, // Set 'nama' to the value of 'nidn'
+                'email' => $nidn . '@gmail.com', // Set 'email' to 'nidn@gmail.com'
+                'password' => Hash::make($nidn), // Hash 'password' with the value of 'nidn'
             ]);
 
             $user->save();

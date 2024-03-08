@@ -11,7 +11,7 @@
         <h2 class="text-2xl font-semibold mb-4">Add Meta Data</h2>
         <form action="{{ route('storeMetaData') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+            {{-- <input type="hidden" name="id_user" value="{{ Auth::user()->id }}"> --}}
             <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
             <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">
 

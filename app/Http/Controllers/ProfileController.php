@@ -24,7 +24,7 @@ class ProfileController extends Controller
     public function updateProfile(Request $request) {
         // Validasi data yang diterima dari formulir
         $request->validate([
-            // 'nidn' => 'required|string|max:255',
+            'nidn' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'foto_profile' => 'image|mimes:jpeg,png,jpg,gif|nullable|max:2048',

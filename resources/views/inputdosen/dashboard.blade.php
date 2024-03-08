@@ -12,12 +12,12 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <title>Dashboard</title>
 </head>
-<body class="px-3 bg-gray-50">
+<body class="p-3 ">
     <section id="profileSection" class="w-full h-60 my-2">
         <div class="border rounded-md shadow-md border-gray-200 bg-white flex">
             <div class="flex align-middle justify-center p-3 max-h-40 max-w-40">
                 @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="rounded-sm">
+                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="aspect-square rounded-sm">
                 @else
                     <p>Foto Profil tidak tersedia</p>
                 @endif
@@ -51,17 +51,17 @@
                 class="space-y-4">
                 @csrf
                 @method('patch')
-                {{--
-                <label for="nidn" class="block mt-10">NIDN:</label>
-                <input type="text" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
-                    class="w-full p-2 mt-2 mb-4 box-border"> --}}
+
+                {{-- <label for="nidn" class="block mt-10">NIDN:</label> --}}
+                <input type="hidden" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
+                    class="w-full p-2 mt-2 mb-4 box-border">
 
                 <label for="nama" class="block">Nama:</label>
-                <input type="text" name="nama" value="{{ old('nama', $user->nama) }}" required
+                <input type="text" name="nama" value="{{ old('nama', $user->nama) }}"
                     class="w-full p-2 mt-2 mb-4 box-border">
 
                 <label for="email" class="block">Email:</label>
-                <input type="email" name="email" value="{{ old('email', $user->email) }}" required
+                <input type="text" name="email" value="{{ old('email', $user->email) }}"
                     class="w-full p-2 mt-2 mb-4 box-border">
 
                 <label for="foto_profile" class="block">Foto Profil:</label>
@@ -83,7 +83,6 @@
 
     <section class="flex flex-row justify-end w-full mb-2 sm:mb-4">
         <div class="flex flex-row justify-end">
-            {{-- <h3 class="flex p-2 justify-center align-middle font-medium ">Tambah Data</h3> --}}
             <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 font-semibold text-white w-fit">
                 <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-plus"></i>
@@ -91,7 +90,7 @@
                 </a>
               </div>
             <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-500 hover:bg-amber-600 font-semibold text-white w-fit">
-                <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+                <a href="{{ url('/event') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-calendar-plus"></i>
                   <span class="flex">Event</span>
                 </a>
@@ -108,7 +107,7 @@
         <h2 class="align-middle font-bold">Meta Data Anda</h2>
         @foreach ($metaData as $data)
             @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
-                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400">
+                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
                     <a href="{{ route('userMetaData', $data->id) }}">
                         <div class="flex justify-start flex-col">
                             <div class="flex">

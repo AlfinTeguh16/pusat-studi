@@ -7,7 +7,7 @@ use App\Models\MetaData;
 use Illuminate\Support\Facades\Auth;
 
 
-class GuestMetaDataController extends Controller
+class GuestController extends Controller
 {
     public function index()
     {

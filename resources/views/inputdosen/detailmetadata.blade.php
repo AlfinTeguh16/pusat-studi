@@ -94,7 +94,45 @@
                 </video>
                 @endif
 
+                @if($metaData->model_3d !== null)
                 <div id="sketchfab-viewer" class="mb-8 border rounded-lg overflow-hidden"></div>
+
+                <script type="text/javascript">
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var viewerContainer = document.getElementById('sketchfab-viewer');
+                        var uid = '{{ $metaData->model_3d }}';
+
+                        var iframe = document.createElement('iframe');
+                        iframe.src = '';
+                        iframe.allow = 'autoplay; fullscreen; vr';
+                        iframe.setAttribute('xr-spatial-tracking', true);
+                        iframe.setAttribute('execution-while-out-of-viewport', true);
+                        iframe.setAttribute('execution-while-not-rendered', true);
+                        iframe.setAttribute('web-share', true);
+                        iframe.setAttribute('allowfullscreen', true);
+                        iframe.setAttribute('mozallowfullscreen', true);
+                        iframe.setAttribute('webkitallowfullscreen', true);
+
+                        viewerContainer.appendChild(iframe);
+
+                        var client = new Sketchfab(iframe);
+
+                        client.init(uid, {
+                            success: function onSuccess(api) {
+                                api.start();
+                                api.addEventListener('viewerready', function () {
+                                    // API is ready to use
+                                    // Insert your code here
+                                    console.log('Viewer is ready');
+                                });
+                            },
+                            error: function onError() {
+                                console.log('Viewer error');
+                            }
+                        });
+                    });
+                </script>
+            @endif
 
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -117,39 +155,5 @@
     </div>
  </div>
 
- <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        var viewerContainer = document.getElementById('sketchfab-viewer');
-        var uid = '{{ $metaData->model_3d }}';
 
-        var iframe = document.createElement('iframe');
-        iframe.src = '';
-        iframe.allow = 'autoplay; fullscreen; vr';
-        iframe.setAttribute('xr-spatial-tracking', true);
-        iframe.setAttribute('execution-while-out-of-viewport', true);
-        iframe.setAttribute('execution-while-not-rendered', true);
-        iframe.setAttribute('web-share', true);
-        iframe.setAttribute('allowfullscreen', true);
-        iframe.setAttribute('mozallowfullscreen', true);
-        iframe.setAttribute('webkitallowfullscreen', true);
-
-        viewerContainer.appendChild(iframe);
-
-        var client = new Sketchfab(iframe);
-
-        client.init(uid, {
-            success: function onSuccess(api) {
-                api.start();
-                api.addEventListener('viewerready', function () {
-                    // API is ready to use
-                    // Insert your code here
-                    console.log('Viewer is ready');
-                });
-            },
-            error: function onError() {
-                console.log('Viewer error');
-            }
-        });
-    });
-</script>
 @endsection
