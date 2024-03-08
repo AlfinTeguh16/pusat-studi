@@ -214,18 +214,30 @@
             <div class="center">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
-                       <!-- Event 1 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="asset/images/event1.jpg" alt="Event 1" class="w-full h-64 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2">Meta Data 1</h3>
-                    <p class="text-gray-700">Date: January 10, 2024</p>
-                    <p class="text-gray-700">Location: City Hall</p>
-                    <p class="mt-2">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris rutrum vitae lacus non placerat.</p>
-                </div>
-            </div>
+                        @foreach ($metaData as $data)
+                        @if ($data->nidn === Auth::user()->nidn)
+                            <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                                <a href="{{ route('userMetaData', $data->id) }}">
+                                    <div class="flex justify-start flex-col">
+                                        <div class="flex">
+                                            <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                        </div>
+                                    </div>
+                                    @if($data->gambar)
+                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="w-full max-w-full mx-auto mb-4 rounded-lg">
+                                    @endif
+                                    <div class="flex">
+                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    </div>
+                                    <div class="flex justify-start w-full">
+                                        <button class="p-2 rounded-md bg-red-400 hover:bg-red-600 w-fit">Lihat</button>
+                                    </div>
 
-                        <!-- Repeat Events as needed -->
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+
                     </div>
                     <div class="flex justify-center items-center">
                         <div class="text-center mt-8">
