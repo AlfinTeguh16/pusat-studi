@@ -16,13 +16,35 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Detail</title>
 </head>
+<style>.container {
+    position: relative;
+}
+.btn-back {
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(101, 93, 93);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px; /* Atur jarak dari atas */
+    left: 10px; /* Atur jarak dari kiri */
+}
+.btn-back:hover {
+    background-color: darkred;
+}
+
+</style>
 <body>
 
 <section >
-    <div class="p-4 sm:ml-64">
+    <div class="mt-16 p-4">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <div class="container">
-                <a href="{{ url('/dashboard') }}" class="btn-back">
+                <a href="{{ url('/meta') }}" class="btn-back">
                     <i class="ph ph-arrow-left"></i>
                 </a>
             </div>
@@ -137,9 +159,7 @@
 
 </section>
 
-<div class="flex justify-end m-4 ">
-    {{ $metaData->appends(request()->query())->links() }}
-</div>
+
 
 
 </body>

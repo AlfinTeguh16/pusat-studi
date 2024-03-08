@@ -224,13 +224,20 @@
                                         </div>
                                     </div>
                                     @if($data->gambar)
-                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="w-full max-w-full mx-auto mb-4 rounded-lg">
+                                        <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
+                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+                                        </div>
                                     @endif
+
                                     <div class="flex">
                                         <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
                                     </div>
                                     <div class="flex justify-start w-full">
-                                        <button class="p-2 rounded-md bg-red-400 hover:bg-red-600 w-fit">Lihat</button>
+                                        <a href="{{ route('viewMetaData', $data->id) }}"
+                                            class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
+                                            <span class="flex font-semibold">Lihat</span>
+                                            <i class="ph-bold ph-caret-right"></i>
+                                        </a>
                                     </div>
 
                                 </a>
