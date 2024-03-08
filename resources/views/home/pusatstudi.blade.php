@@ -23,7 +23,7 @@
     <!-- Header with Carousel and Navbar -->
     <header class="carousel-container relative">
         <!-- Carousel -->
-        <div class="glide h-screen">
+        <div class="glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     <li class="glide__slide relative">
@@ -49,6 +49,7 @@
             <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out bg-transparent border-2 border-white hover:bg-white hover:text-blue-500">Learn More</a>
         </div>
     </header>
+
 
 
     <!-- About Section -->
@@ -207,10 +208,33 @@
 
 
     <!-- Meta Data Section -->
-    <section id="meta" class="section bg-white">
+    <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <div class="container mx-auto">
-            <h2>Meta Data</h2>
-            <p>This is the Meta Data section. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2 class="text-3xl font-bold text-center mb-8">Meta Data</h2>
+            <div class="center">
+                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
+                       <!-- Event 1 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <img src="asset/images/event1.jpg" alt="Event 1" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Meta Data 1</h3>
+                    <p class="text-gray-700">Date: January 10, 2024</p>
+                    <p class="text-gray-700">Location: City Hall</p>
+                    <p class="mt-2">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris rutrum vitae lacus non placerat.</p>
+                </div>
+            </div>
+
+                        <!-- Repeat Events as needed -->
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <div class="text-center mt-8">
+                          <a href="/meta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Show Meta Data</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
         </div>
     </section>
 

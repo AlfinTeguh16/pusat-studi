@@ -31,6 +31,8 @@ Route::get('/', [MetaDataController::class, 'getMetaData'])->name('getMetaData')
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
+
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
 

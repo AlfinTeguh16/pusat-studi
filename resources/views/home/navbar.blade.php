@@ -1,4 +1,4 @@
-<nav class="navbar bg-transparent py-4 fixed top-0 w-full z-10" id="navbar">
+{{-- <nav class="navbar bg-transparent py-4 fixed top-0 w-full z-10" id="navbar">
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between h-7">
               <!-- Logo -->
@@ -30,4 +30,4 @@
               </div>
         </div>
     </div>
-    </nav>
+    </nav> --}}
