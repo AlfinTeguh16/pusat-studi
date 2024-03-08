@@ -67,3 +67,4 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/meta', [GuestController::class, 'showMetaData'])->name('showMetaData');
+Route::get('/meta/detail/{id}', [GuestController::class, 'viewMetaData'])->name('viewMetaData');
