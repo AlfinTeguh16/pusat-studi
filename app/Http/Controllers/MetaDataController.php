@@ -22,7 +22,8 @@ class MetaDataController extends Controller
     }
 
     public function getMetaData(){
-        return view ('home.pusatstudi');
+        MetaData::latest()->take(3)->get();
+        return view ('home.pusatstudi', compact('metaData'));
     }
 
     public function viewStoreMetaData(){
@@ -77,7 +78,7 @@ class MetaDataController extends Controller
 
             return redirect()->route('viewStoreMetaData')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
-            
+
             return response()->json(['error' => 'Error saving data: ' . $e->getMessage()], 500);
         }
     }
