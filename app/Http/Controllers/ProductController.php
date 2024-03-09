@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -10,19 +12,19 @@ class ProductController extends Controller
     {
         try {
             $user = Auth::user();
-            $event = Event::where('nidn', Auth::user()->nidn)->paginate(10);
+            $product = Product::where('nidn', Auth::user()->nidn)->paginate(10);
 
-            return view('inputdosen.event', compact('user', 'events'));
+            return view('inputdosen.event', compact('user', 'product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching events: ' . $e->getMessage());
         }
     }
 
-    public function searchEvent(Request $request)
+    public function searchProduct(Request $request)
     {
         $query = $request->input('query');
 
-        $event = Event::where('nidn', Auth::user()->nidn)
+        $product = Product::where('nidn', Auth::user()->nidn)
             ->when($query, function ($q) use ($query) {
                 $q->where('judul', 'like', '%' . $query . '%')
                     ->orWhere('deskripsi', 'like', '%' . $query . '%');
@@ -30,15 +32,15 @@ class ProductController extends Controller
             ->orderByDesc('updated_at')
             ->paginate(10);
 
-        return view('inputdosen.event', compact('event'));
+        return view('inputdosen.product', compact('product'));
     }
 
-    public function detailEvent($id){
-        $event = Event::findOrFail($id);
-        return view('inputdosen.detailevent', compact('event'));
+    public function detailProduct($id){
+        $product = Product::findOrFail($id);
+        return view('inputdosen.detailproduct', compact('product'));
     }
 
-    public function viewStoreEvent(){
+    public function viewStoreProduct(){
         return view('inputdosen.inputevent');
     }
 
@@ -60,37 +62,34 @@ class ProductController extends Controller
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'sub_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'deskripsi' => 'required',
-                'tempat' => 'required',
-                'tanggal_mulai' => 'required|date',
-                'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
                 'link' => 'url',
             ]);
 
-            $gambarPath = $request->file('gambar')->store('event_images', 'public');
-            $subGambarPath = $request->file('sub_gambar')->store('sub_event_images', 'public');
+            $gambarPath = $request->file('gambar')->store('product_images', 'public');
+            $subGambarPath = $request->file('sub_gambar')->store('sub_product_images', 'public');
 
             $validatedData['nidn'] = $authenticatedUserNidn;
             $validatedData['nama'] = $authenticatedUserName;
             $validatedData['gambar'] = $gambarPath;
             $validatedData['sub_gambar'] = $subGambarPath;
 
-            $event = Event::create($validatedData);
+            $product = Product::create($validatedData);
 
-            $event->save();
+            $product->save();
 
             // return view('inputdosen.inputevent')->with('success', 'Event created successfully');
             return response()->json(['success' => 'Event created successfully']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error creating event: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creating Product: ' . $e->getMessage());
         }
     }
 
 
-    public function viewUpdateEvent($id){
+    public function viewUpdateProduct($id){
         try {
-            $event = Event::findOrFail($id);
+            $product = Product::findOrFail($id);
 
-            return view('inputdosen.editevent', compact('event'));
+            return view('inputdosen.editevent', compact('product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching event for editing: ' . $e->getMessage());
         }
@@ -117,46 +116,46 @@ class ProductController extends Controller
                 'link' => 'url',
             ]);
 
-            $event = Event::findOrFail($id);
+            $product = Product::findOrFail($id);
 
-            $event->judul = $validatedData['judul'];
-            $event->deskripsi = $validatedData['deskripsi'];
-            $event->tempat = $validatedData['tempat'];
-            $event->tanggal_mulai = $validatedData['tanggal_mulai'];
-            $event->tanggal_selesai = $validatedData['tanggal_selesai'];
-            $event->link = $validatedData['link'];
+            $product->judul = $validatedData['judul'];
+            $product->deskripsi = $validatedData['deskripsi'];
+            $product->tempat = $validatedData['tempat'];
+            $product->tanggal_mulai = $validatedData['tanggal_mulai'];
+            $product->tanggal_selesai = $validatedData['tanggal_selesai'];
+            $product->link = $validatedData['link'];
 
             if ($request->hasFile('gambar')) {
                 $gambarPath = $request->file('gambar')->store('event_images', 'public');
-                $event->gambar = $gambarPath;
+                $product->gambar = $gambarPath;
             }
 
             if ($request->hasFile('sub_gambar')) {
                 $subGambarPath = $request->file('sub_gambar')->store('sub_event_images', 'public');
-                $event->sub_gambar = $subGambarPath;
+                $product->sub_gambar = $subGambarPath;
             }
 
-            $event->save();
+            $product->save();
 
-            return redirect()->route('viewUpdateEvent', ['id' => $event->id])->with('success', 'Event updated successfully');
+            return redirect()->route('viewUpdateEvent', ['id' => $product->id])->with('success', 'Event updated successfully');
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error updating event: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error updating Product: ' . $e->getMessage());
         }
     }
 
     public function destroy($id)
     {
         try {
-            $event = Event::findOrFail($id);
+            $product = Product::findOrFail($id);
 
-            $event->delete();
+            $product->delete();
 
             return redirect()->route('yourEventListRoute')->with('success', 'Event deleted successfully');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Event not found');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error deleting event: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error deleting Product: ' . $e->getMessage());
         }
     }
 }

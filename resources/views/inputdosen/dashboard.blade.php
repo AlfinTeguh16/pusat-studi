@@ -90,13 +90,13 @@
                 </a>
               </div>
             <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-500 hover:bg-amber-600 font-semibold text-white w-fit">
-                <a href="{{ url('/event') }}" class="flex flex-row justify-center items-center">
+                <a href="{{ route('viewStoreEvent') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-calendar-plus"></i>
                   <span class="flex">Event</span>
                 </a>
               </div>
             <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-500 hover:bg-cyan-700 font-semibold text-white w-fit">
-                <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
+                <a href="{{ route('viewStoreProduct') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-circles-three-plus"></i>
                   <span class="flex">Produk</span>
                 </a>

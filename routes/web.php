@@ -8,6 +8,7 @@ use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\GuestController;
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/event/{id}/edit', [EventController::class, 'viewUpdateEvent'])->name('viewUpdateEvent');
     Route::put('/event/{id}', [EventController::class, 'update'])->name('editEvent.update');
     Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('deleteEvent');
+
+    Route::get('/product', [ProductController::class, 'index'])->name('viewProduct');
+    Route::get('/product', [ProductController::class, 'searchProduct'])->name('searchProduct');
+    Route::get('/product/detail/{id}', [ProductController::class, 'detailProduct'])->name('detailProduct');
+    Route::get('/product/input', [ProductController::class, 'viewStoreProduct'])->name('viewStoreProduct');
+    Route::post('/product/input', [ProductController::class, 'create'])->name('createProduct');
+    Route::get('/product/{id}/edit', [ProductController::class, 'viewUpdateProduct'])->name('viewUpdateProduct');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('editProduct.update');
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('deleteProduct');
 
 });
 
