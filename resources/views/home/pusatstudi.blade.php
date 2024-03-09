@@ -23,7 +23,7 @@
     <!-- Header with Carousel and Navbar -->
     <header class="carousel-container relative">
         <!-- Carousel -->
-        <div class="glide h-screen">
+        <div class="glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     <li class="glide__slide relative">
@@ -49,6 +49,7 @@
             <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out bg-transparent border-2 border-white hover:bg-white hover:text-blue-500">Learn More</a>
         </div>
     </header>
+
 
 
     <!-- About Section -->
@@ -207,10 +208,52 @@
 
 
     <!-- Meta Data Section -->
-    <section id="meta" class="section bg-white">
+    <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <div class="container mx-auto">
-            <h2>Meta Data</h2>
-            <p>This is the Meta Data section. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2 class="text-3xl font-bold text-center mb-8">Meta Data</h2>
+            <div class="center">
+                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
+                        @foreach ($metaData as $data)
+                        @if ($data->nidn === Auth::user()->nidn)
+                            <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                                <a href="{{ route('userMetaData', $data->id) }}">
+                                    <div class="flex justify-start flex-col">
+                                        <div class="flex">
+                                            <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                        </div>
+                                    </div>
+                                    @if($data->gambar)
+                                        <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
+                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+                                        </div>
+                                    @endif
+
+                                    <div class="flex">
+                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    </div>
+                                    <div class="flex justify-start w-full">
+                                        <a href="{{ route('viewMetaData', $data->id) }}"
+                                            class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
+                                            <span class="flex font-semibold">Lihat</span>
+                                            <i class="ph-bold ph-caret-right"></i>
+                                        </a>
+                                    </div>
+
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <div class="text-center mt-8">
+                          <a href="/meta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Show Meta Data</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
