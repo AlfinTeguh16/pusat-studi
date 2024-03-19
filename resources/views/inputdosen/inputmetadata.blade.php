@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('inputdosen.master')
+@section('content')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Add Meta Data</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Masukan Meta Data </title>
 </head>
-<body class="bg-gray-100 p-8">
+<body class=" p-8 sm:ml-64">
+
+    <div class="p-4 ">
+        <a href="{{ url('/metadata')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
+    </div>
     <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
         <h2 class="text-2xl font-semibold mb-4">Add Meta Data</h2>
         <form action="{{ route('storeMetaData') }}" method="POST" enctype="multipart/form-data">
@@ -99,7 +106,7 @@
                 <input type="text" name="kecamatan" id="kecamatan" class="mt-1 p-2 w-full border rounded-md">
             </div>
             <div class="mb-4">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 w-full py-2 rounded-md hover:bg-blue-600">Buat Meta Data</button>
             </div>
         </form>
     </div>
@@ -118,3 +125,5 @@
       </script>
 </body>
 </html>
+
+@endsection

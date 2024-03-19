@@ -1,8 +1,13 @@
 @extends('inputdosen.master')
-@section('judul')
-    Detail Meta Data
-@endsection
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail Meta Data</title>
+</head>
 
 @section('style')
 <style>.container {
@@ -73,11 +78,9 @@
 @section('content')
 
 <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <div class="container">
-            <a href="{{ url('/dashboard') }}" class="btn-back">
-                <i class="ph ph-arrow-left"></i>
-            </a>
+    <div class="">
+        <div class="p-4 ">
+            <a href="{{ url('/metadata')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
         </div>
         <section class="flex  flex-col items-center justify-center w-full px-4 py-8 space-y-8 bg-gray-00 rounded-md border-gray-200 shadow-md">
             <div class="max-w-4xl w-full">

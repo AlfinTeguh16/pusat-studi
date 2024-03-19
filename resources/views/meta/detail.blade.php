@@ -44,7 +44,7 @@
     <div class="mt-16 p-4">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <div class="container">
-                <a href="{{ url('/meta') }}" class="btn-back">
+                <a href="{{ url('/events') }}" class="btn-back">
                     <i class="ph ph-arrow-left"></i>
                 </a>
             </div>

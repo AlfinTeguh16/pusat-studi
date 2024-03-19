@@ -15,18 +15,24 @@
 
     <section class="w-screen ">
 
+        <div class="p-4 ">
+            <a href="{{ url('/event')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
+        </div>
+
         <div class="flex justify-center bg-gray-50 sm:w-fit sm:shadow-2xl sm:rounded-2xl sm:p-4 mx-auto ">
 
             <div class="flex flex-col justify-center sm:w-fit sm:bg-gray-50 sm:rounded-2xl sm:border-2 sm:p-9 sm:border-dashed">
                 <h2 class="text-2xl font-semibold mb-4">Ubah Event</h2>
 
-                <div id="successCard" class="hidden items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
-                    <strong class="font-bold">Success!</strong>
-                    <span class="block" id="successMessage"></span>
-                    <button type="button" onclick="hideSuccessCard()" class="ml-auto">
-                        <i class="ph-fill ph-x"></i>
-                        <title>Close</title>
-                    </button>
+                <div id="successCard" class=" items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
+                    <div class="flex justify-between w-full">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block" id="successMessage"></span>
+                        <button type="button" onclick="hideSuccessCard()" class="ml-auto">
+                            <i class="ph-fill ph-x"></i>
+                            <title>Close</title>
+                        </button>
+                    </div>
                 </div>
 
 
@@ -72,7 +78,7 @@
 
                     <button type="submit" onclick="submitForm()"
                     class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white font-semibold hover:shadow-lg my-2">
-                    Create Event</button>
+                    Ubah Event</button>
                 </form>
             </div>
         </div>

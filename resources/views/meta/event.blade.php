@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Meta Data</title>
+    <title>Event</title>
 
     <style>.container {
         position: relative;
@@ -39,13 +39,13 @@
 
 <div class="mt-16 p-4">
     <div class="w-full flex flex-row items-center my-2">
-        <form method="GET" action="{{ route('showMetaData') }}" class="flex items-center">
+        <form method="GET" action="{{ route('showGuestEvent') }}" class="flex items-center">
             <input type="text" name="query" placeholder="Cari Event" class="flex justify-start rounded-md px-3 py-2">
             <button type="submit" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3 mx-1">
                 <i class="ph-bold ph-magnifying-glass"></i>
             </button>
             @if(request()->has('query'))
-                <a href="{{ route('showMetaData') }}" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3"><i class="ph-bold ph-arrow-counter-clockwise" ></i></a>
+                <a href="{{ route('showGuestEvent') }}" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3"><i class="ph-bold ph-arrow-counter-clockwise" ></i></a>
             @endif
         </form>
     </div>
@@ -57,9 +57,9 @@
         </div>
         <section class="flex justify-center w-full mt-10">
             <div class="flex flex-row justify-evenly flex-wrap">
-                @foreach($metaData as $data)
+                @foreach($event as $data)
                     <div class="flex flex-col aspect-[4/3] max-w-72 border shadow-lg rounded-xl my-4 mx-4 bg-gray-100 hover:shadow-xl justify-center">
-                        <a href="{{ route('viewMetaData', $data->id) }}">
+                        <a href="{{ route('viewGuestEvent', $data->id) }}">
                             <div class="overflow-hidden h-fit">
                                 @if($data->gambar)
                                     <img src="{{ asset('storage/' . $data->gambar) }}"
@@ -71,7 +71,7 @@
 
                         <div class="w-full">
                             <div class="flex justify-end align-middle rounded-md p-2 font-semibold w-full">
-                                <a href="{{ route('viewMetaData', $data->id) }}"
+                                <a href="{{ route('viewGuestEvent', $data->id) }}"
                                     class="flex flex-row bg-blue-500 hover:bg-blue-700 justify-center text-white items-center p-2 w-full rounded-md">
                                     <span class="flex font-semibold">Lihat</span>
                                     <i class="ph-bold ph-caret-right"></i>
@@ -86,7 +86,7 @@
 </div>
 
 <div class="flex justify-end m-4 ">
-    {{ $metaData->appends(request()->query())->links() }}
+    {{ $event->appends(request()->query())->links() }}
 </div>
 
 

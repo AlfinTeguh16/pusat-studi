@@ -12,12 +12,12 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <title>Dashboard</title>
 </head>
-<body class="p-3 ">
+<body class="p-3 sm:ml-64">
     <section id="profileSection" class="w-full h-60 my-2">
         <div class="border rounded-md shadow-md border-gray-200 bg-white flex">
-            <div class="flex align-middle justify-center p-3 max-h-40 max-w-40">
+            <div class="flex align-middle justify-center p-3 max-h-40 max-w-40 aspect-square ">
                 @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="aspect-square rounded-sm">
+                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="object-cover aspect-square rounded-sm">
                 @else
                     <p>Foto Profil tidak tersedia</p>
                 @endif
@@ -43,8 +43,8 @@
         </div>
     </section>
 
-    <div id="updateFormModal" class="fixed top-0 left-0 w-full h-full overflow-auto bg-black bg-opacity-50 hidden">
-        <div class="modal-content bg-white mx-auto my-20 p-8 border border-gray-800 w-1/2">
+    <div id="updateFormModal" class="fixed top-0 left-0 w-full h-full overflow-auto bg-black bg-opacity-50 hidden ">
+        <div class="modal-content bg-white mx-auto my-20 p-8 border rounded-lg border-gray-800 w-1/2">
             <span class="close text-gray-700 float-right text-2xl font-bold cursor-pointer" onclick="closeUpdateForm()" >&times;</span>
 
             <form action="{{ route('updateProfile') }}" method="post" enctype="multipart/form-data"
@@ -54,27 +54,27 @@
 
                 {{-- <label for="nidn" class="block mt-10">NIDN:</label> --}}
                 <input type="hidden" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
-                    class="w-full p-2 mt-2 mb-4 box-border">
+                    class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <label for="nama" class="block">Nama:</label>
+                <label for="nama" class="block">Nama</label>
                 <input type="text" name="nama" value="{{ old('nama', $user->nama) }}"
-                    class="w-full p-2 mt-2 mb-4 box-border">
+                    class="w-full p-2 mt-2 mb-4 box-border border-2 rounded-md">
 
-                <label for="email" class="block">Email:</label>
+                <label for="email" class="block">Email</label>
                 <input type="text" name="email" value="{{ old('email', $user->email) }}"
-                    class="w-full p-2 mt-2 mb-4 box-border">
+                    class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <label for="foto_profile" class="block">Foto Profil:</label>
-                <input type="file" name="foto_profile" class="w-full p-2 mt-2 mb-4 box-border">
+                <label for="foto_profile" class="block">Foto Profil</label>
+                <input type="file" name="foto_profile" class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <label for="password" class="block">Password:</label>
+                <label for="password" class="block">Password</label>
                 <input type="password" name="password" placeholder="Isi hanya jika ingin mengganti password"
-                    class="w-full p-2 mt-2 mb-4 box-border">
+                    class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <label for="password_confirmation" class="block">Konfirmasi Password:</label>
-                <input type="password" name="password_confirmation" class="w-full p-2 mt-2 mb-4 box-border">
+                <label for="password_confirmation" class="block">Konfirmasi Password</label>
+                <input type="password" name="password_confirmation" placeholder="Ketik ulang password" class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <button type="submit" class="bg-green-500 text-white p-2 px-4 border-none rounded cursor-pointer hover:bg-green-600">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white p-2 px-4 border-none rounded cursor-pointer w-full">
                     Perbarui Profil
                 </button>
             </form>
@@ -95,7 +95,7 @@
                   <span class="flex">Event</span>
                 </a>
               </div>
-            <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-500 hover:bg-cyan-700 font-semibold text-white w-fit">
+            <div class=" flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-600 hover:bg-cyan-700 font-semibold text-white w-fit">
                 <a href="{{ route('viewStoreProduct') }}" class="flex flex-row justify-center items-center">
                   <i class="ph-bold ph-circles-three-plus"></i>
                   <span class="flex">Produk</span>
@@ -103,11 +103,13 @@
               </div>
         </div>
     </section>
-    <section id="metaDataSection">
+
+
+    <section id="metaDataSection" class="mx-2 p-2 border-2 border-dashed border-gray-100  rounded-lg">
         <h2 class="align-middle font-bold">Meta Data Anda</h2>
         @foreach ($metaData as $data)
             @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
-                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                     <a href="{{ route('userMetaData', $data->id) }}">
                         <div class="flex justify-start flex-col">
                             <div class="flex">
@@ -117,28 +119,63 @@
                                 <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
                             </div>
                         </div>
-                        <div class="flex justify-start w-full">
-                            <button class="p-2 rounded-md bg-red-400 hover:bg-red-600 w-fit">Lihat</button>
-                        </div>
-                        <div class="">
-                            <a href="{{ route('editMetaData', $data->id) }}">Edit Data</a>
-                        </div>
+
                     </a>
                 </div>
             @endif
         @endforeach
     </section>
 
-    <section class="container flex flex-col sm:flex-row">
 
-        <section>
-            {{-- Event --}}
-        </section>
-        <section>
-            {{-- Produk --}}
-        </section>
+    <div class=" flex flex-row  justify-start w-full invisible sm:visible">
+        <h2 class="align-middle basis-1/2 ml-4 font-bold">Produk Anda</h2>
+        <h2 class="align-middle basis-1/2 ml-4 font-bold">Event Anda</h2>
+    </div>
 
+    <section id="DataSection" class="flex flex-col sm:flex-row ">
+        <div class="flex flex-col basis-1/2 mx-2 border-2 border-dashed border-gray-100 p-2 rounded-lg">
+            <h2 class="align-middle basis-1/2 ml-4 font-bold sm:hidden">Produk Anda</h2>
+            @foreach ($product as $data)
+                @if ($data->nidn === Auth::user()->nidn)
+                    <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                        <a href="{{ route('detailProduct', $data->id) }}">
+                            <div class="flex justify-start flex-col">
+                                <div class="flex">
+                                    <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                </div>
+                                <div class="flex">
+                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
+        <div class="flex flex-col basis-1/2 mx-2 border-2 border-dashed border-gray-100 p-2 rounded-lg">
+            <h2 class="align-middle basis-1/2 ml-4 font-bold sm:hidden">Event Anda</h2>
+            @foreach ($event as $data)
+                @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
+                    <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                        <a href="{{ route('detailEvent', $data->id) }}">
+                            <div class="flex justify-start flex-col">
+                                <div class="flex">
+                                    <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                </div>
+                                <div class="flex">
+                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </section>
+
 
 
 
@@ -151,6 +188,7 @@
             document.getElementById('updateFormModal').style.display = 'none';
         }
     </script>
+
      <script>
         // Ambil semua elemen dengan kelas "deskripsi"
         var deskripsiElements = document.querySelectorAll(".deskripsi");

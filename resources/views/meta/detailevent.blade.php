@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('home.master')
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -12,12 +12,12 @@
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <title>Detail Event</title>
 </head>
-<body class="pr-3 sm:ml-64">
+<body class="pr-3 mt-20">
 
 <section class="flex flex-col justify-start">
 <div class="max-w-4xl flex flex-col justify-center mx-auto">
     <div class="p-4 ">
-        <a href="{{ url('/event')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
+        <a href="{{ url('/events')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
     </div>
 
 

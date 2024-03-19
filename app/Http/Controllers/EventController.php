@@ -156,7 +156,7 @@ class EventController extends Controller
 
             $event->delete();
 
-            return redirect()->route('yourEventListRoute')->with('success', 'Event deleted successfully');
+            return redirect()->route('searchEvent')->with('success', 'Event deleted successfully');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Event not found');
         } catch (\Exception $e) {

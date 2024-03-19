@@ -13,7 +13,22 @@ class MetaDataController extends Controller
     public function index()
     {
         $metaData = MetaData::all();
-        return view('inputdosen.profiledosen', compact('metaData'));
+        return view('inputdosen.metadata', compact('metaData'));
+    }
+
+    public function searchMetaData(Request $request)
+    {
+        $query = $request->input('query');
+
+        $metaData = MetaData::where('nidn', Auth::user()->nidn)
+            ->when($query, function ($q) use ($query) {
+                $q->where('judul', 'like', '%' . $query . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $query . '%');
+            })
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+
+        return view('inputdosen.metadata', compact('metaData'));
     }
 
     public function viewMetaData($id){
@@ -21,10 +36,6 @@ class MetaDataController extends Controller
         return view('inputdosen.detailmetadata', compact('metaData'));
     }
 
-    public function getMetaData(){
-        $metaData = MetaData::latest()->take(3)->get();
-        return view ('home.pusatstudi', compact('metaData'));
-    }
 
     public function viewStoreMetaData(){
         return view('inputdosen.inputmetadata');

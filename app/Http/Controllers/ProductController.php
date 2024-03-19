@@ -41,7 +41,7 @@ class ProductController extends Controller
     }
 
     public function viewStoreProduct(){
-        return view('inputdosen.inputevent');
+        return view('inputdosen.inputproduct');
     }
 
     public function create(Request $request)
@@ -77,8 +77,8 @@ class ProductController extends Controller
 
             $product->save();
 
-            // return view('inputdosen.inputevent')->with('success', 'Event created successfully');
-            return response()->json(['success' => 'Event created successfully']);
+            return view('inputdosen.inputproduct')->with('success', 'Event created successfully');
+            // return response()->json(['success' => 'Event created successfully']);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error creating Product: ' . $e->getMessage());
         }
@@ -89,7 +89,7 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
 
-            return view('inputdosen.editevent', compact('product'));
+            return view('inputdosen.editproduct', compact('product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching event for editing: ' . $e->getMessage());
         }
@@ -110,9 +110,6 @@ class ProductController extends Controller
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'sub_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'deskripsi' => 'required',
-                'tempat' => 'required',
-                'tanggal_mulai' => 'required|date',
-                'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
                 'link' => 'url',
             ]);
 
@@ -120,24 +117,21 @@ class ProductController extends Controller
 
             $product->judul = $validatedData['judul'];
             $product->deskripsi = $validatedData['deskripsi'];
-            $product->tempat = $validatedData['tempat'];
-            $product->tanggal_mulai = $validatedData['tanggal_mulai'];
-            $product->tanggal_selesai = $validatedData['tanggal_selesai'];
             $product->link = $validatedData['link'];
 
             if ($request->hasFile('gambar')) {
-                $gambarPath = $request->file('gambar')->store('event_images', 'public');
+                $gambarPath = $request->file('gambar')->store('product_images', 'public');
                 $product->gambar = $gambarPath;
             }
 
             if ($request->hasFile('sub_gambar')) {
-                $subGambarPath = $request->file('sub_gambar')->store('sub_event_images', 'public');
+                $subGambarPath = $request->file('sub_gambar')->store('sub_product_images', 'public');
                 $product->sub_gambar = $subGambarPath;
             }
 
             $product->save();
 
-            return redirect()->route('viewUpdateEvent', ['id' => $product->id])->with('success', 'Event updated successfully');
+            return redirect()->route('viewUpdateProduct', ['id' => $product->id])->with('success', 'Event updated successfully');
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating Product: ' . $e->getMessage());
@@ -151,7 +145,7 @@ class ProductController extends Controller
 
             $product->delete();
 
-            return redirect()->route('yourEventListRoute')->with('success', 'Event deleted successfully');
+            return redirect()->route('searchProduct')->with('success', 'Event deleted successfully');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Event not found');
         } catch (\Exception $e) {

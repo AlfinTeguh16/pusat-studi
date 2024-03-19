@@ -21,17 +21,19 @@
                 <h2 class="text-2xl font-semibold mb-4">Buat Produk</h2>
 
                 <div id="successCard" class="hidden items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
-                    <strong class="font-bold">Success!</strong>
-                    <span class="block" id="successMessage"></span>
-                    <button type="button" onclick="hideSuccessCard()" class="ml-auto">
-                        <i class="ph-fill ph-x"></i>
-                        <title>Close</title>
-                    </button>
+                    <div class="flex justify-between w-full">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block" id="successMessage"></span>
+                        <button type="button" onclick="hideSuccessCard()" class="ml-auto">
+                            <i class="ph-fill ph-x"></i>
+                            <title>Close</title>
+                        </button>
+                    </div>
                 </div>
 
 
 
-                <form id="createEventForm" action="{{ route('createProduct') }}" method="post" enctype="multipart/form-data"
+                <form id="createProductForm" action="{{ route('createProduct') }}" method="post" enctype="multipart/form-data"
                 class="flex justify-center flex-col p-3">
                     @csrf
 
@@ -60,7 +62,7 @@
 
                     <button type="button" onclick="submitForm()"
                     class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white font-semibold hover:shadow-lg my-2">
-                    Submit</button>
+                    Buat Produk</button>
                 </form>
             </div>
         </div>
@@ -82,12 +84,12 @@
 
 <script>
     function submitForm() {
-        var form = document.getElementById('createEventForm');
+        var form = document.getElementById('createProductForm');
         var formData = new FormData(form);
 
         $.ajax({
             type: 'POST',
-            url: '{{ route("createEvent") }}',
+            url: '{{ route("createProduct") }}',
             data: formData,
             processData: false,
             contentType: false,

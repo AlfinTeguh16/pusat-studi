@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'event';
+    protected $table = 'product';
 
     protected $fillable = [
         'nidn',
