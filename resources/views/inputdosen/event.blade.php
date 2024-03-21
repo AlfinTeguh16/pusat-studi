@@ -14,7 +14,7 @@
 </head>
 <body class="p-3 sm:ml-64">
     <section class="flex w-full justify-end">
-        <div class="flex justify-center align-middle rounded-md p-2 mr-1 bg-amber-400 hover:bg-amber-600 font-semibold  w-fit">
+        <div class="flex justify-center align-middle rounded-md p-2 mr-1 text-white bg-amber-500 hover:bg-amber-600 font-semibold  w-fit">
             <a href="{{ route('viewStoreEvent') }}" class="flex flex-row justify-center items-center">
                 <i class="ph-bold ph-calendar-plus"></i>
                 <span class="flex font-semibold">Buat Event</span>

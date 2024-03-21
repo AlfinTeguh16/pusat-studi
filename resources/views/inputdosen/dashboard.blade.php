@@ -105,8 +105,8 @@
     </section>
 
 
-    <section id="metaDataSection" class="mx-2 p-2 border-2 border-dashed border-gray-100  rounded-lg">
-        <h2 class="align-middle font-bold">Meta Data Anda</h2>
+    <section id="metaDataSection" class="mx-2 p-2 border-2 border-dashed border-gray-100 bg-white  rounded-lg">
+        <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Meta Data Anda <a href="{{ url('metadata') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
         @foreach ($metaData as $data)
             @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
                 <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
@@ -126,16 +126,12 @@
         @endforeach
     </section>
 
+    <section id="DataSection" class="flex flex-col sm:flex-row p-1">
 
-    <div class=" flex flex-row  justify-start w-full invisible sm:visible">
-        <h2 class="align-middle basis-1/2 ml-4 font-bold">Produk Anda</h2>
-        <h2 class="align-middle basis-1/2 ml-4 font-bold">Event Anda</h2>
-    </div>
-
-    <section id="DataSection" class="flex flex-col sm:flex-row ">
-        <div class="flex flex-col basis-1/2 mx-2 border-2 border-dashed border-gray-100 p-2 rounded-lg">
-            <h2 class="align-middle basis-1/2 ml-4 font-bold sm:hidden">Produk Anda</h2>
-            @foreach ($product as $data)
+        <div class=" bg-white flex flex-col border-2 m-1 border-dashed border-gray-100 p-2 rounded-lg">
+            <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Produk Anda <a href="{{ url('product') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
+            <div class="flex flex-col ">
+                @foreach ($product as $data)
                 @if ($data->nidn === Auth::user()->nidn)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                         <a href="{{ route('detailProduct', $data->id) }}">
@@ -152,10 +148,13 @@
                     </div>
                 @endif
             @endforeach
-        </div>
 
-        <div class="flex flex-col basis-1/2 mx-2 border-2 border-dashed border-gray-100 p-2 rounded-lg">
-            <h2 class="align-middle basis-1/2 ml-4 font-bold sm:hidden">Event Anda</h2>
+        </div>
+    </div>
+
+    <div class="bg-white flex flex-col  m-1 border-2 border-dashed border-gray-100 p-2 rounded-lg">
+        <div class="flex flex-col ">
+            <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Event Anda <a href="{{ url('event') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
             @foreach ($event as $data)
                 @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
@@ -173,7 +172,9 @@
                     </div>
                 @endif
             @endforeach
+            
         </div>
+     </div>
     </section>
 
 

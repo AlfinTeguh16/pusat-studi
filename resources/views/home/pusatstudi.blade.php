@@ -27,15 +27,15 @@
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     <li class="glide__slide relative">
-                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/1.jpg"
+                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/Gedung-Depan-INSTIKI.jpg"
                             alt="Slide 1">
                     </li>
                     <li class="glide__slide relative">
-                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/2.jpg"
+                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/P1200116.JPG"
                             alt="Slide 2">
                     </li>
                     <li class="glide__slide relative">
-                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/3.jpg"
+                        <img class="object-cover object-center w-full h-auto max-h-screen" src="asset/images/P1200116.JPG"
                             alt="Slide 3">
                     </li>
                     <!-- Add more slides here -->
@@ -46,7 +46,7 @@
         <div class="absolute inset-0 flex flex-col justify-center items-center text-center">
             <h1 class="text-white text-4xl md:text-6xl font-bold mb-4">Pusat Studi Digitalisasi</h1>
             <p class="text-white text-4xl md:text-6xl font-bold mb-8">Budaya Bali</p>
-            <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-500">Learn More</a>
+            <a href="#about" class="btn btn-primary text-lg font-semibold py-3 px-6 rounded-full transition duration-200 ease-in-out bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-500">Learn More</a>
         </div>
     </header>
 
@@ -79,40 +79,39 @@
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-8">Event</h2>
             <div class="center">
-                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
                         @foreach ($event as $data)
                         {{-- @if ($data->nidn === Auth::user()->nidn) --}}
-                            <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
-                                <a href="{{ route('detailEvent', $data->id) }}">
-                                    <div class="flex justify-start flex-col">
-                                        <div class="flex">
-                                            <h2 class="font-semibold">{{ $data->judul }}</h2>
-                                        </div>
-                                    </div>
-                                    @if($data->gambar)
-                                        <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
-                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
-                                        </div>
-                                    @endif
-
+                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                            <a href="{{ route('detailEvent', $data->id) }}">
+                                <div class="flex justify-start flex-col">
                                     <div class="flex">
-                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
                                     </div>
-                                    <div class="flex justify-start w-full">
-                                        <a href="{{ route('viewMetaData', $data->id) }}"
-                                            class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
-                                            <span class="flex font-semibold">Lihat</span>
-                                            <i class="ph-bold ph-caret-right"></i>
-                                        </a>
-                                    </div>
+                                </div>
+                                @if($data->gambar)
+                                <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
+                                    <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+                                </div>
+                                @endif
 
-                                </a>
-                            </div>
+                                <div class="flex flex-grow">
+                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                </div>
+
+                                <div class="flex justify-between items-end w-full mt-auto">
+                                    <a href="{{ route('viewMetaData', $data->id) }}" class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
+                                        <span class="flex font-semibold">Lihat</span>
+                                        <i class="ph-bold ph-caret-right"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
                         {{-- @endif --}}
-                    @endforeach
-
+                        @endforeach
                     </div>
+
                     <div class="flex justify-center items-center">
                         <div class="text-center mt-8">
                         <a href="/events" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lihat lebih banyak</a>
@@ -126,51 +125,51 @@
 
 
 <!-- Gallery Section -->
-<section id="gallery" class="section bg-gray-100 py-16">
+<section id="gallery" class="section bg-gray-100 py-16 mx-4">
 
 
-<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery1.jpg" alt="">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery1.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/desa-batuan-A.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery2.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery4.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery5.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery6.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery7.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery8.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery9.jpg" alt="">
+        </div>
+        {{-- <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery10.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery12.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery11.jpg" alt="">
+        </div> --}}
     </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery3.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery2.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery4.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery5.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery6.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery7.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery8.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery9.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery10.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery12.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="asset/images/galery11.jpg" alt="">
-    </div>
-</div>
 </section>
 
    <!-- Team Section -->
-<section id="team" class="section bg-gray-100 py-16">
+<section id="team" class="section bg-gray-100 py-16 mx-4">
     <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8">Our Team</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -217,40 +216,39 @@
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-8">Meta Data</h2>
             <div class="center">
-                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg ">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
                         @foreach ($metaData as $data)
                         {{-- @if ($data->nidn === Auth::user()->nidn) --}}
-                            <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
-                                <a href="{{ route('userMetaData', $data->id) }}">
-                                    <div class="flex justify-start flex-col">
-                                        <div class="flex">
-                                            <h2 class="font-semibold">{{ $data->judul }}</h2>
-                                        </div>
-                                    </div>
-                                    @if($data->gambar)
-                                        <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
-                                        <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
-                                        </div>
-                                    @endif
-
+                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                            <a href="{{ route('userMetaData', $data->id) }}">
+                                <div class="flex justify-start flex-col">
                                     <div class="flex">
-                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
                                     </div>
-                                    <div class="flex justify-start w-full">
-                                        <a href="{{ route('viewMetaData', $data->id) }}"
-                                            class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
-                                            <span class="flex font-semibold">Lihat</span>
-                                            <i class="ph-bold ph-caret-right"></i>
-                                        </a>
-                                    </div>
+                                </div>
+                                @if($data->gambar)
+                                <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
+                                    <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+                                </div>
+                                @endif
 
-                                </a>
-                            </div>
+                                <div class="flex flex-grow">
+                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                </div>
+
+                                <div class="flex justify-between items-end w-full mt-auto">
+                                    <a href="{{ route('viewMetaData', $data->id) }}" class="flex flex-row bg-sky-400 hover:bg-sky-600 justify-center items-center p-2 w-full rounded-md">
+                                        <span class="flex font-semibold">Lihat</span>
+                                        <i class="ph-bold ph-caret-right"></i>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
                         {{-- @endif --}}
-                    @endforeach
-
+                        @endforeach
                     </div>
+
                     <div class="flex justify-center items-center">
                         <div class="text-center mt-8">
                           <a href="/meta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Lihat lebih banyak</a>
@@ -263,7 +261,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section bg-gray-200">
+    <section id="contact" class="section bg-gray-200 px-4">
             <div class="container mx-auto">
                 <div class="text-center">
                     <h2 class="text-3xl font-semibold text-gray-800">Kritik dan Saran</h2>

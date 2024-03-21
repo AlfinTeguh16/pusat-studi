@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
     <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         /* Custom Styles */
         .navbar-bg {
@@ -46,14 +47,19 @@
 </head>
 <body>
 @yield('content')
-<nav id="navbar" class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 ">
+<nav id="navbar" class=" font-sans bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 drop-shadow-lg ">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="{{ asset('asset/images/Vertical-Logo-instiki-1024x1024.png') }}" alt="" class="max-w-12 max-h-12">
-        <span class="self-center text-2xl font-semibold whitespace-nowrap">INSTIKI</span>
+        <img src="{{ asset('asset/images/pusat-studi-logo.png') }}" alt="" class=" filter invert max-h-10">
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button type="button" onclick="window.location.href='/login'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center ">Login</button>
+        @if (Auth::check())
+            <button type="button" onclick="window.location.href='/dashboard'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Dashboard</button>
+        @else
+            <button type="button" onclick="window.location.href='/login'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Login</button>
+        @endif
+
         <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">

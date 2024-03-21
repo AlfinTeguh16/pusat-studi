@@ -46,7 +46,7 @@
                         <p class="text-green-800">Meta Data berhasil dihapus!</p>
                     </div>
                 </div>
-                    <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
+                    <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                         <a href="{{ route('metadata.view', $data->id) }}">
                             <div class="flex justify-start flex-col">
                                 <div class="flex">

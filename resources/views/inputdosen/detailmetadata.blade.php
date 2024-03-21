@@ -69,8 +69,8 @@
 </style>
 <style>
     #sketchfab-viewer iframe {
-        width: 320px;
-        height: 175px;
+        width: 100%;
+        height: 500px;
     }
 </style>
 @endsection
@@ -89,58 +89,87 @@
                 <h2 class="text-xl text-center">{{ $metaData->nidn }}</h2>
                 <h2 class="text-xl text-center">{{ $metaData->nama }}</h2>
 
-                <div class="border rounded-lg overflow-hidden shadow-lg">
+                <div class="border rounded-lg overflow-hidden shadow-lg mb-4">
                     @if($metaData->gambar)
-                        <img src="{{ asset('storage/' . $metaData->gambar) }}" class="w-full max-w-full mx-auto mb-4 rounded-lg">
+                        <img src="{{ asset('storage/' . $metaData->gambar) }}" class="w-full max-w-full mx-auto rounded-lg">
 
                     @endif
                 </div>
 
-                <form>
-                    <textarea class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" rows="5">{{ $metaData->deskripsi }}</textarea>
-                </form>
+                <div class="px-4">
+                    <p class="text-justify">{{ $metaData->deskripsi }}</p>
+                </div>
 
+                @if($metaData->model_3d !== null)
+                    <h1 class="font-bold">Model 3D</h1>
+                    <div id="sketchfab-viewer" class="mb-4 border h-full rounded-lg overflow-hidden"></div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="mb-8 border overflow-hidden">
-                        <div id="sketchfab-viewer" class="flex justify-center items-center h-full"></div>
-                    </div>
+                    <script type="text/javascript">
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var viewerContainer = document.getElementById('sketchfab-viewer');
+                            var uid = '{{ $metaData->model_3d }}';
 
-                    @if ($metaData->video)
-                    <div class="mb-8 border overflow-hidden flex justify-center items-center">
-                        <video width="320" height="240" controls>
+                            var iframe = document.createElement('iframe');
+                            iframe.src = '';
+                            iframe.allow = 'autoplay; fullscreen; vr';
+                            iframe.setAttribute('xr-spatial-tracking', true);
+                            iframe.setAttribute('execution-while-out-of-viewport', true);
+                            iframe.setAttribute('execution-while-not-rendered', true);
+                            iframe.setAttribute('web-share', true);
+                            iframe.setAttribute('allowfullscreen', true);
+                            iframe.setAttribute('mozallowfullscreen', true);
+                            iframe.setAttribute('webkitallowfullscreen', true);
+
+                            viewerContainer.appendChild(iframe);
+
+                            var client = new Sketchfab(iframe);
+
+                            client.init(uid, {
+                                success: function onSuccess(api) {
+                                    api.start();
+                                    api.addEventListener('viewerready', function () {
+                                        // API is ready to use
+                                        // Insert your code here
+                                        console.log('Viewer is ready');
+                                    });
+                                },
+                                error: function onError() {
+                                    console.log('Viewer error');
+                                }
+                            });
+                        });
+                    </script>
+                 @endif
+
+                @if ($metaData->video !== null)
+                <h1 class="font-bold">Video</h1>
+                    <div class="mb-8 border rounded-lg overflow-hidden flex justify-center items-center">
+                        <video width="100%" height="500px" controls>
                             <source src="{{ asset('storage/' . $metaData->video) }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    @endif
-                </div>
+                @endif
 
-                <div class="mb-8 border overflow-hidden">
-                    <div class="text-center">
-                        @if($metaData->link)
-                            <a href="{{ $metaData->link }}" class="flex items-center justify-center text-blue-500 hover:text-blue-700 transition-colors duration-300">
-                                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                                <span class="border-b border-gray-500">Tautan ke Situs</span>
-                            </a>
-                        @endif
-                    </div>
-                </div>
+                @if ($metaData->link !== null)
+                    <a href="{{ $metaData->link }}" class="flex items-center justify-center p-2 bg-blue-500 hover:bg-blue-700 hover:shadow-lg rounded-lg text-white transition-colors duration-300">
+                        <span class="border-b border-gray-500">Tautan ke Situs</span>
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                @endif
 
-
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     <div class="p-4 bg-white rounded-lg shadow-md">
-                        <h2 class="text-xl font-bold mb-2">Nama Benda: {{ $metaData->nama_benda }}</h2>
+                        <h2 class="text-xl mb-2">Nama Benda: {{ $metaData->nama_benda }}</h2>
                         <h2 class="text-xl mb-2">Tahun Pembuatan: {{ $metaData->tahun_pembuatan }}</h2>
 
                         <h2 class="text-xl mb-2">Periode Pembuatan Awal: {{ $metaData->periode_pembuatan_awal }}</h2>
                         <h2 class="text-xl mb-2">Periode Pembuatan Akhir: {{ $metaData->periode_pembuatan_akhir }}</h2>
                     </div>
                     <div class="p-4 bg-white rounded-lg shadow-md">
-                        <h2 class="text-xl font-bold mb-2">Provinsi: {{ $metaData->provinsi }}</h2>
+                        <h2 class="text-xl mb-2">Provinsi: {{ $metaData->provinsi }}</h2>
                         <h2 class="text-xl mb-2">Kabupaten: {{ $metaData->kabupaten }}</h2>
                         <h2 class="text-xl mb-2">Kecamatan: {{ $metaData->kecamatan }}</h2>
                     </div>
@@ -151,43 +180,6 @@
     </div>
  </div>
 
- @if($metaData->model_3d !== null)
- <div id="sketchfab-viewer" class="mb-8 border rounded-lg overflow-hidden"></div>
 
- <script type="text/javascript">
-     document.addEventListener('DOMContentLoaded', function () {
-         var viewerContainer = document.getElementById('sketchfab-viewer');
-         var uid = '{{ $metaData->model_3d }}';
 
-         var iframe = document.createElement('iframe');
-         iframe.src = '';
-         iframe.allow = 'autoplay; fullscreen; vr';
-         iframe.setAttribute('xr-spatial-tracking', true);
-         iframe.setAttribute('execution-while-out-of-viewport', true);
-         iframe.setAttribute('execution-while-not-rendered', true);
-         iframe.setAttribute('web-share', true);
-         iframe.setAttribute('allowfullscreen', true);
-         iframe.setAttribute('mozallowfullscreen', true);
-         iframe.setAttribute('webkitallowfullscreen', true);
-
-         viewerContainer.appendChild(iframe);
-
-         var client = new Sketchfab(iframe);
-
-         client.init(uid, {
-             success: function onSuccess(api) {
-                 api.start();
-                 api.addEventListener('viewerready', function () {
-                     // API is ready to use
-                     // Insert your code here
-                     console.log('Viewer is ready');
-                 });
-             },
-             error: function onError() {
-                 console.log('Viewer error');
-             }
-         });
-     });
- </script>
- @endif
 @endsection
