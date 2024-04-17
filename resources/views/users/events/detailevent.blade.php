@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('users.master')
 @section('content')
 <!DOCTYPE html>
 <html lang="en">

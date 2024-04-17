@@ -16,7 +16,7 @@ class EventController extends Controller
             $user = Auth::user();
             $event = Event::where('nidn', Auth::user()->nidn)->paginate(10);
 
-            return view('inputdosen.event', compact('user', 'events'));
+            return view('users.events.event', compact('user', 'events'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching events: ' . $e->getMessage());
         }
@@ -34,16 +34,16 @@ class EventController extends Controller
             ->orderByDesc('updated_at')
             ->paginate(10);
 
-        return view('inputdosen.event', compact('event'));
+        return view('users.events.event', compact('event'));
     }
 
     public function detailEvent($id){
         $event = Event::findOrFail($id);
-        return view('inputdosen.detailevent', compact('event'));
+        return view('users.events.detailevent', compact('event'));
     }
 
     public function viewStoreEvent(){
-        return view('inputdosen.inputevent');
+        return view('users.events.inputevent');
     }
 
     public function create(Request $request)
@@ -94,7 +94,7 @@ class EventController extends Controller
         try {
             $event = Event::findOrFail($id);
 
-            return view('inputdosen.editevent', compact('event'));
+            return view('users.events.editevent', compact('event'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching event for editing: ' . $e->getMessage());
         }

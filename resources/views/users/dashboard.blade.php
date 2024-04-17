@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('users.master')
 
 @section('content')
 <!DOCTYPE html>
@@ -107,8 +107,16 @@
 
     <section id="metaDataSection" class="mx-2 p-2 border-2 border-dashed border-gray-100 bg-white  rounded-lg">
         <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Meta Data Anda <a href="{{ url('metadata') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
+
+        @php
+        $dataFound = false;
+        @endphp
+
         @foreach ($metaData as $data)
             @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
+                @php
+                $dataFound = true;
+                @endphp
                 <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                     <a href="{{ route('userMetaData', $data->id) }}">
                         <div class="flex justify-start flex-col">
@@ -119,63 +127,88 @@
                                 <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
                             </div>
                         </div>
-
                     </a>
                 </div>
             @endif
         @endforeach
+
+        @if (!$dataFound)
+            <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                <p class="text-center text-red-500">Anda belum membuat Meta Data</p>
+            </div>
+        @endif
     </section>
 
     <section id="DataSection" class="flex flex-col sm:flex-row p-1">
-
-        <div class=" bg-white flex flex-col border-2 m-1 border-dashed border-gray-100 p-2 rounded-lg">
-            <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Produk Anda <a href="{{ url('product') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
+        <div class=" flex flex-col border-2 m-1 border-dashed border-gray-100 p-2 rounded-lg sm:w-screen bg-white h-fit">
+            <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Produk Anda <a href="{{ url('product') }}" class="px-2 py-1 max-h-8 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
             <div class="flex flex-col ">
+                @php
+                $dataFound = false;
+                @endphp
                 @foreach ($product as $data)
-                @if ($data->nidn === Auth::user()->nidn)
+                    @if ($data->nidn === Auth::user()->nidn)
+                        @php
+                        $dataFound = true;
+                        @endphp
+                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                            <a href="{{ route('detailProduct', $data->id) }}">
+                                <div class="flex justify-start flex-col">
+                                    <div class="flex">
+                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                    </div>
+                                    <div class="flex">
+                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+                {{-- Menampilkan pesan jika produk tidak ditemukan --}}
+                @if (!$dataFound)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                        <a href="{{ route('detailProduct', $data->id) }}">
-                            <div class="flex justify-start flex-col">
-                                <div class="flex">
-                                    <h2 class="font-semibold">{{ $data->judul }}</h2>
-                                </div>
-                                <div class="flex">
-                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
-                                </div>
-                            </div>
-
-                        </a>
+                        <p class="text-center text-red-500">Anda belum membuat Produk</p>
                     </div>
                 @endif
-            @endforeach
-
+            </div>
         </div>
-    </div>
 
-    <div class="bg-white flex flex-col  m-1 border-2 border-dashed border-gray-100 p-2 rounded-lg">
-        <div class="flex flex-col ">
-            <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Event Anda <a href="{{ url('event') }}" class="px-2 py-1 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
-            @foreach ($event as $data)
-                @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
+        <div class="bg-white flex flex-col m-1 border-2 border-dashed border-gray-100 p-2 rounded-lg sm:w-screen h-fit">
+            <div class="flex flex-col ">
+                <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Event Anda <a href="{{ url('event') }}" class="px-2 py-1 max-h-8  text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
+                @php
+                $dataFound = false;
+                @endphp
+                @foreach ($event as $data)
+                    @if ($data->nidn === Auth::user()->nidn)
+                        @php
+                        $dataFound = true;
+                        @endphp
+                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                            <a href="{{ route('detailEvent', $data->id) }}">
+                                <div class="flex justify-start flex-col">
+                                    <div class="flex">
+                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                    </div>
+                                    <div class="flex">
+                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+                {{-- Menampilkan pesan jika event tidak ditemukan --}}
+                @if (!$dataFound)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                        <a href="{{ route('detailEvent', $data->id) }}">
-                            <div class="flex justify-start flex-col">
-                                <div class="flex">
-                                    <h2 class="font-semibold">{{ $data->judul }}</h2>
-                                </div>
-                                <div class="flex">
-                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
-                                </div>
-                            </div>
-
-                        </a>
+                        <p class="text-center text-red-500">Anda belum membuat Event</p>
                     </div>
                 @endif
-            @endforeach
-            
+            </div>
         </div>
-     </div>
     </section>
+
 
 
 

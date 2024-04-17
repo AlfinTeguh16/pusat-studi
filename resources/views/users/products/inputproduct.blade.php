@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('users.master')
 @section('content')
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Ubah Data Produk</title>
+    <title>Masukan Data Produk</title>
 </head>
 
 <body>
@@ -18,9 +18,9 @@
         <div class="flex justify-center bg-gray-50 sm:w-fit sm:shadow-2xl sm:rounded-2xl sm:p-4 mx-auto ">
 
             <div class="flex flex-col justify-center sm:w-fit sm:bg-gray-50 sm:rounded-2xl sm:border-2 sm:p-9 sm:border-dashed">
-                <h2 class="text-2xl font-semibold mb-4">Ubah Produk</h2>
+                <h2 class="text-2xl font-semibold mb-4">Buat Produk</h2>
 
-                <div id="successCard" class="hidden items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
+                {{-- <div id="successCard" class="hidden items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
                     <div class="flex justify-between w-full">
                         <strong class="font-bold">Success!</strong>
                         <span class="block" id="successMessage"></span>
@@ -29,12 +29,12 @@
                             <title>Close</title>
                         </button>
                     </div>
-                </div>
+                </div> --}}
 
 
-                <form id="createProductForm" action="{{ route('editProduct.update', ['id' => $product->id]) }}" method="post" enctype="multipart/form-data"
-                    class="flex justify-center flex-col p-3">
-                    @method('PUT')
+
+                <form id="createProductForm" action="{{ route('createProduct') }}" method="post" enctype="multipart/form-data"
+                class="flex justify-center flex-col p-3">
                     @csrf
 
                     <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
@@ -42,11 +42,11 @@
 
                     <label for="judul" class="font-semibold">Judul</label>
                     <input type="text" id="judul" name="judul" placeholder="Masukan Judul"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" value="{{ $product->judul }}">
+                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" required>
 
                     <label for="gambar">Gambar</label>
                     <input type="file" id="gambar" name="gambar" accept="image/*"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" >
+                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
 
                     <label for="sub_gambar">Sub Gambar</label>
                     <input type="file" id="sub_gambar" name="sub_gambar" accept="image/*"
@@ -54,15 +54,15 @@
 
                     <label for="deskripsi">Deskripsi</label>
                     <textarea id="deskripsi" name="deskripsi" placeholder="Masukan Deskripsi"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" >{{ $product->deskripsi }}</textarea>
+                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" required></textarea>
 
                     <label for="link">URL</label>
                     <input type="text" id="link" name="link" placeholder="Masukan URL atau Link"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2"  value="{{ $product->link }}">
+                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
 
                     <button type="submit" onclick="submitForm()"
                     class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white font-semibold hover:shadow-lg my-2">
-                    Ubah Product</button>
+                    Buat Produk</button>
                 </form>
             </div>
         </div>
@@ -95,13 +95,13 @@
             contentType: false,
             success: function(response) {
                 showSuccessCard(response.success);
-
+                // Tambahkan logika untuk menampilkan card atau pesan sukses lainnya di sini
             },
             error: function(error) {
                 // Menanggapi kesalahan
                 $('#errorMessage').text('Error creating event: ' + error.responseJSON.error);
                 $('#errorMessage').show();
-
+                // Tambahkan logika untuk menampilkan pesan kesalahan atau melakukan hal lainnya di sini
             }
         });
     }

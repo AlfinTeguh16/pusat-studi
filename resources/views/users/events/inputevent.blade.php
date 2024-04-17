@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('users.master')
 @section('content')
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 <body>
 
 
-    <section class="w-[100%] ">
+    <section class="w-[100%] flex justify-center align-middle sm:mt-4">
 
         <div class="p-4 ">
             <a href="{{ url('/event')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i>  Kembali</a>
@@ -77,7 +77,7 @@
                     <input type="text" id="link" name="link" placeholder="Masukan URL atau Link"
                     class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
 
-                    <button type="button" onclick="submitForm()"
+                    <button type="submit" onclick="submitForm()"
                     class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white font-semibold hover:shadow-lg my-2">
                     Buat Event</button>
                 </form>

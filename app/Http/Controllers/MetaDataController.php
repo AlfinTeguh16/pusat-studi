@@ -13,7 +13,7 @@ class MetaDataController extends Controller
     public function index()
     {
         $metaData = MetaData::all();
-        return view('inputdosen.metadata', compact('metaData'));
+        return view('users.meta-datas.metadata', compact('metaData'));
     }
 
     public function searchMetaData(Request $request)
@@ -28,17 +28,17 @@ class MetaDataController extends Controller
             ->orderByDesc('updated_at')
             ->paginate(10);
 
-        return view('inputdosen.metadata', compact('metaData'));
+        return view('users.meta-datas.metadata', compact('metaData'));
     }
 
     public function viewMetaData($id){
         $metaData = MetaData::findOrFail($id);
-        return view('inputdosen.detailmetadata', compact('metaData'));
+        return view('users.meta-datas.detailmetadata', compact('metaData'));
     }
 
 
     public function viewStoreMetaData(){
-        return view('inputdosen.inputmetadata');
+        return view('users.meta-datas.inputmetadata');
     }
     public function storeMetaData(Request $request)
     {
@@ -94,14 +94,20 @@ class MetaDataController extends Controller
         }
     }
 
-    public function deleteMetaData(){
 
+    public function viewEditMetaData($id){
+        // $metaData = MetaData::findOrFail($id);
+        // return view('users.meta-datas.editdetail', ['metaData' => $metaData]);
+
+        try {
+            $metaData = MetaData::findOrFail($id);
+
+            return view('users.meta-datas.editdetail', compact('metaData'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error fetching Meta Data for editing: ' . $e->getMessage());
+        }
     }
 
-    public function viewEditMetaData(){
-        $metaData = MetaData::all();
-        return view('inputdosen.editdetail', ['metaData' => $metaData]);
-    }
     public function editMetaData(Request $request, $id)
     {
         try {
@@ -114,9 +120,9 @@ class MetaDataController extends Controller
                 'judul' => 'required|string',
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
                 'deskripsi' => 'required|string',
-                'model_3d' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
-                'video' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
-                'link' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
+                // 'model_3d' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
+                // 'video' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
+                // 'link' => 'string', // Sesuaikan dengan aturan validasi yang sesuai
                 'nama_benda' => 'required|string',
                 'tahun_pembuatan' => 'required|date',
                 'periode_pembuatan_awal' => 'required|date',
@@ -130,7 +136,7 @@ class MetaDataController extends Controller
             $metaData->update([
                 'judul' => $validatedData['judul'],
                 'deskripsi' => $validatedData['deskripsi'],
-                'model_3d' => $validatedData['model_3d'],
+                // 'model_3d' => $validatedData['model_3d'],
                 'nama_benda' => $validatedData['nama_benda'],
                 'tahun_pembuatan' => $validatedData['tahun_pembuatan'],
                 'periode_pembuatan_awal' => $validatedData['periode_pembuatan_awal'],
@@ -157,10 +163,27 @@ class MetaDataController extends Controller
             }
 
             // Redirect dengan pesan sukses
-            return redirect()->route('viewEditMetaData')->with('success', 'Data berhasil diperbarui.');
+            return redirect()->route('viewEditMetaData', ['id' => $metaData->id])->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             // Handle the exception (e.g., log it, delete uploaded files, return an error response)
             return response()->json(['error' => 'Error updating data: ' . $e->getMessage()], 500);
+        }
+    }
+
+
+
+    public function destroy($id)
+    {
+        try {
+            $metaData = MetaData::findOrFail($id);
+
+            $metaData->delete();
+
+            return redirect()->route('searchMetaData')->with('success', 'Event deleted successfully');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Meta Data not found');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting Meta Data: ' . $e->getMessage());
         }
     }
 

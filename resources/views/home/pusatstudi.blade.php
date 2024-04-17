@@ -261,7 +261,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section bg-gray-200 px-4">
+    {{-- <section id="contact" class="section bg-gray-200 px-4">
             <div class="container mx-auto">
                 <div class="text-center">
                     <h2 class="text-3xl font-semibold text-gray-800">Kritik dan Saran</h2>
@@ -307,7 +307,7 @@
                 </div>
             </div>
 
-    </section>
+    </section> --}}
 
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-center">

@@ -14,7 +14,7 @@ class ProductController extends Controller
             $user = Auth::user();
             $product = Product::where('nidn', Auth::user()->nidn)->paginate(10);
 
-            return view('inputdosen.event', compact('user', 'product'));
+            return view('users.products.product', compact('user', 'product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching events: ' . $e->getMessage());
         }
@@ -32,16 +32,16 @@ class ProductController extends Controller
             ->orderByDesc('updated_at')
             ->paginate(10);
 
-        return view('inputdosen.product', compact('product'));
+        return view('users.products.product', compact('product'));
     }
 
     public function detailProduct($id){
         $product = Product::findOrFail($id);
-        return view('inputdosen.detailproduct', compact('product'));
+        return view('users.products.detailproduct', compact('product'));
     }
 
     public function viewStoreProduct(){
-        return view('inputdosen.inputproduct');
+        return view('users.products.inputproduct');
     }
 
     public function create(Request $request)
@@ -65,8 +65,11 @@ class ProductController extends Controller
                 'link' => 'url',
             ]);
 
-            $gambarPath = $request->file('gambar')->store('product_images', 'public');
-            $subGambarPath = $request->file('sub_gambar')->store('sub_product_images', 'public');
+            // $gambarPath = $request->file('gambar')->store('product_images', 'public');
+            // $subGambarPath = $request->file('sub_gambar')->store('sub_product_images', 'public');
+
+            $gambarPath = $request->hasFile('gambar') ? $request->file('gambar')->store('product_images', 'public') : null;
+            $subGambarPath = $request->hasFile('sub_gambar') ? $request->file('sub_gambar')->store('sub_product_images', 'public') : null;
 
             $validatedData['nidn'] = $authenticatedUserNidn;
             $validatedData['nama'] = $authenticatedUserName;
@@ -77,7 +80,7 @@ class ProductController extends Controller
 
             $product->save();
 
-            return view('inputdosen.inputproduct')->with('success', 'Event created successfully');
+            return view('users.products.inputproduct')->with('success', 'Event created successfully');
             // return response()->json(['success' => 'Event created successfully']);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error creating Product: ' . $e->getMessage());
@@ -89,7 +92,7 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
 
-            return view('inputdosen.editproduct', compact('product'));
+            return view('users.products.editproduct', compact('product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error fetching event for editing: ' . $e->getMessage());
         }

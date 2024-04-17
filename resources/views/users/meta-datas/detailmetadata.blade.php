@@ -1,4 +1,4 @@
-@extends('inputdosen.master')
+@extends('users.master')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,9 +89,9 @@
                 <h2 class="text-xl text-center">{{ $metaData->nidn }}</h2>
                 <h2 class="text-xl text-center">{{ $metaData->nama }}</h2>
 
-                <div class="border rounded-lg overflow-hidden shadow-lg mb-4">
+                <div class=" overflow-hidden  w-full mb-4">
                     @if($metaData->gambar)
-                        <img src="{{ asset('storage/' . $metaData->gambar) }}" class="w-full max-w-full mx-auto rounded-lg">
+                        <img src="{{ asset('storage/' . $metaData->gambar) }}" class="shadow-lg border w-full  mx-auto rounded-lg">
 
                     @endif
                 </div>

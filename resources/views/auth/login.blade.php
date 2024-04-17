@@ -15,7 +15,7 @@
         <h1 class="text-3xl font-bold mb-6 text-center">Welcome!</h1>
 
         <!-- Form Login -->
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('postLogin') }}">
             @csrf
             <div class="mb-4">
                 <label for="nidn" class="block text-gray-600 text-sm font-semibold mb-2">NIDN</label>

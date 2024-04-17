@@ -10,16 +10,16 @@ use App\Models\MetaData;
 
 class ProfileController extends Controller
 {
-    public function index(){
-        $metaData = MetaData::all();
-        return view('inputdosen.profiledosen', compact('metaData'));
-    }
+    // public function index(){
+    //     $metaData = MetaData::all();
+    //     return view('inputdosen.profiledosen', compact('metaData'));
+    // }
 
-    public function showProfileData(){
-        $user = Auth::user();
+    // public function showProfileData(){
+    //     $user = Auth::user();
 
-        return view('inputdosen.profiledosen', ['user' => $user]);
-    }
+    //     return view('inputdosen.profiledosen', ['user' => $user]);
+    // }
 
     public function updateProfile(Request $request) {
         // Validasi data yang diterima dari formulir
