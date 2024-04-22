@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nidn')->unique();
-            $table->string('username');
-            $table->string('email');
-            $table->string('password');
-            $table->text('profile_picture')->nullable(          );
-            $table->rememberToken();
+        Schema::create('tb-description', function (Blueprint $table) {
+            $table->id('descriptionID');
+            $table->foreignId('metaID')->nullable()->constrained('tb-metadata', 'metaID');
+            $table->foreignId('productID')->nullable()->constrained('tb-product', 'productID');
+            $table->integer('orderNumber');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };

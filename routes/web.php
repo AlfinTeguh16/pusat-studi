@@ -52,14 +52,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/detail/{id}', [DashboardController::class, 'detailDashboardProduct'])->name('detailDashboardProduct');
 
 // Meta Data
-    Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
-    Route::post('/input', [MetaDataController::class, 'storeMetaData'])->name('storeMetaData');
-    Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
-    Route::get('/metadata', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
-    Route::get('/metadata/{id}' , [MetadataController::class, 'viewMetaData'])->name('metadata.view');
-    Route::get('/metadata/{id}/edit', [MetaDataController::class, 'viewEditMetaData'])->name('viewEditMetaData');
-    Route::put('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
-    Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');
+    // Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
+    // Route::post('/input', [MetaDataController::class, 'storeMetaData'])->name('storeMetaData');
+    // Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
+    // Route::get('/metadata', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
+    // Route::get('/metadata/{id}' , [MetadataController::class, 'viewMetaData'])->name('metadata.view');
+    // Route::get('/metadata/{id}/edit', [MetaDataController::class, 'viewEditMetaData'])->name('viewEditMetaData');
+    // Route::put('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
+    // Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');
 
 // Event
     Route::get('/event', [EventController::class, 'index'])->name('viewEvent');
@@ -93,3 +93,13 @@ Route::get('/events/detail/{id}', [GuestController::class, 'viewGuestEvent'])->n
 
 Route::get('/products', [GuestController::class, 'showGuestProduct'])->name('showGuestProduct');
 Route::get('/products/detail/{id}', [GuestController::class, 'viewGuestProduct'])->name('viewGuestProduct');
+
+
+Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
+Route::post('/input', [MetaDataController::class, 'storeMetaData'])->name('storeMetaData');
+Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
+Route::get('/metadata', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
+Route::get('/metadata/{id}' , [MetadataController::class, 'viewMetaData'])->name('metadata.view');
+Route::get('/metadata/{id}/edit', [MetaDataController::class, 'viewEditMetaData'])->name('viewEditMetaData');
+Route::put('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
+Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');

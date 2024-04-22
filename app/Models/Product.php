@@ -9,15 +9,16 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'product';
+    protected $table = 'tb-product';
+
+    protected $primaryKey = 'productID';
 
     protected $fillable = [
-        'nidn',
-        'nama',
-        'judul',
-        'gambar',
-        'sub_gambar',
-        'deskripsi',
-        'link',
+        'nidn', 'username', 'productTitle'
     ];
+
+    public function metadata()
+    {
+        return $this->hasOne(Metadata::class, 'nidn');
+    }
 }

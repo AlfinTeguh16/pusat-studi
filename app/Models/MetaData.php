@@ -9,23 +9,11 @@ class MetaData extends Model
 {
     use HasFactory;
 
-    protected $table = 'meta_data';
+    protected $table = 'tb-metadata';
+
+    protected $primaryKey = 'metaID';
 
     protected $fillable = [
-        'nidn',
-        'nama',
-        'judul',
-        'gambar',
-        'deskripsi',
-        'model_3d',
-        'video',
-        'link',
-        'nama_benda',
-        'tahun_pembuatan',
-        'periode_pembuatan_awal',
-        'periode_pembuatan_akhir',
-        'provinsi',
-        'kabupaten',
-        'kecamatan',
+        'nidn', 'username', 'metaTitle'
     ];
 }

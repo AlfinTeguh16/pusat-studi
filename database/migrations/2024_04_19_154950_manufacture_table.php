@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nidn')->unique();
-            $table->string('username');
-            $table->string('email');
-            $table->string('password');
-            $table->text('profile_picture')->nullable(          );
-            $table->rememberToken();
+        Schema::create('tb-manufacture', function (Blueprint $table) {
+            $table->id('manufactureID');
+            $table->foreignId('metaID')->nullable()->constrained('tb-metadata', 'metaID');
+            $table->integer('orderNumber');
+            $table->year('manufactureYear');
+            $table->date('manufactureStart');
+            $table->date('manufactureFinish');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };

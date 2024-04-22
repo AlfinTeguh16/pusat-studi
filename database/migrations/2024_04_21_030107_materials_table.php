@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb-metadata', function (Blueprint $table) {
-            $table->id('metaID');
-            $table->integer('nidn')->unique();
-            $table->string('username');
-            $table->string('metaTitle');
+        Schema::create('tb-materials', function (Blueprint $table) {
+            $table->id('materialsID');
+            $table->foreignId('metaID')->constrained('tb-metadata', 'metaID');
+            $table->integer('orderNumber');
+            $table->string('mainMaterial')->nullable();
+            $table->string('additionalMaterial')->nullable();
+            $table->string('creationTechnique')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
