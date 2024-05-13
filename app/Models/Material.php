@@ -14,7 +14,7 @@ class Material extends Model
     protected $primaryKey = 'materialsID';
 
     protected $fillable = [
-        'metaID', 'orderNumber', 'mainMaterial', 'additionalMaterial', 'creationTechnique'
+        'metaID', 'mainMaterial', 'additionalMaterial', 'creationTechnique', 'orderNumber'
     ];
 
     public function metadata()

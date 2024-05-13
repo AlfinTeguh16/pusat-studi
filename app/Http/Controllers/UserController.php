@@ -40,7 +40,7 @@ class UserController extends Controller
             // Sesuaikan dengan struktur kolom pada tabel users
             $user = new User([
                 'nidn' => $nidn,
-                'nama' => $nidn, // Set 'nama' to the value of 'nidn'
+                'username' => $nidn, // Set 'nama' to the value of 'nidn'
                 'email' => $nidn . '@gmail.com', // Set 'email' to 'nidn@gmail.com'
                 'password' => Hash::make($nidn), // Hash 'password' with the value of 'nidn'
             ]);

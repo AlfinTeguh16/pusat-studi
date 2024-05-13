@@ -14,7 +14,7 @@ class ObjectModel extends Model
     protected $primaryKey = 'objectID';
 
     protected $fillable = [
-        'metaID', 'orderNumber', 'objectOrnament', 'objectWidth', 'objectHeight', 'objectVolume'
+        'metaID',  'objectOrnament', 'objectWidth', 'objectHeight', 'objectVolume', 'objectNation', 'objectProvince', 'orderNumber'
     ];
 
     public function metadata()

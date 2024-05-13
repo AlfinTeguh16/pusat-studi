@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MetaData;
+use App\Models\Karya;
 use App\Models\Event;
 use App\Models\Product;
 use App\Models\User;
@@ -13,15 +14,18 @@ class DashboardController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $metaData =  MetaData::latest()->take(3)->get();
-        $event =  Event::latest()->take(3)->get();
-        $product =  Product::latest()->take(3)->get();
+        $metaData =  Karya::latest()->take(3)->get();
+        // $content = MetaData::all();
+        $content = MetaData::select('jenis', 'content')->where('jenis', 'description')->get();
+        // $event =  Event::latest()->take(3)->get();
+        // $product =  Product::latest()->take(3)->get();
 
-        return view('users.dashboard', ['user' => $user], compact('metaData', 'event', 'product'));
+        return view('users.dashboard', ['user' => $user], compact('metaData', 'content'));
     }
 
     public function userMetaData($id){
-        $metaData = MetaData::findOrFail($id);
+        $metaData = Metadata::findOrFail($id);
+
 
         return view('users.meta-datas.detailmetadata', compact('metaData'));
     }

@@ -13,7 +13,7 @@ class Manufacture extends Model
     protected $primaryKey = 'manufactureID';
 
     protected $fillable = [
-        'metaID', 'orderNumber', 'manufactureYear', 'manufactureStart', 'manufactureFinish'
+        'metaID', 'manufactureYear', 'manufactureStart', 'manufactureFinish', 'orderNumber'
     ];
 
     public function metadata()

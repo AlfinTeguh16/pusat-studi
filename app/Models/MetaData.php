@@ -9,11 +9,12 @@ class MetaData extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb-metadata';
+    protected $table = 'tb_metadatas';
 
-    protected $primaryKey = 'metaID';
+    protected $primaryKey = 'metadatas_id';
 
     protected $fillable = [
-        'nidn', 'username', 'metaTitle'
+        'karyas_id', 'jenis', 'content', 'order'
     ];
+
 }

@@ -14,7 +14,7 @@ class Description extends Model
     protected $primaryKey = 'descriptionID';
 
     protected $fillable = [
-        'metaID', 'productID', 'orderNumber', 'description'
+        'metaID', 'productID',  'description', 'orderNumber'
     ];
 
     public function metadata()

@@ -113,7 +113,7 @@
         @endphp
 
         @foreach ($metaData as $data)
-            @if ($data->nidn === Auth::user()->nidn) {{-- Menampilkan hanya data dari user yang sedang login --}}
+            @if ($data->users_id === Auth::user()->id)
                 @php
                 $dataFound = true;
                 @endphp
@@ -123,9 +123,12 @@
                             <div class="flex">
                                 <h2 class="font-semibold">{{ $data->judul }}</h2>
                             </div>
+                            @foreach ($content as $data)
                             <div class="flex">
-                                <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+
+                                <p  class="deskripsi">{{ $data->content }}</p>
                             </div>
+                            @endforeach
                         </div>
                     </a>
                 </div>
@@ -139,7 +142,7 @@
         @endif
     </section>
 
-    <section id="DataSection" class="flex flex-col sm:flex-row p-1">
+    {{-- <section id="DataSection" class="flex flex-col sm:flex-row p-1">
         <div class=" flex flex-col border-2 m-1 border-dashed border-gray-100 p-2 rounded-lg sm:w-screen bg-white h-fit">
             <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Produk Anda <a href="{{ url('product') }}" class="px-2 py-1 max-h-8 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
             <div class="flex flex-col ">
@@ -165,7 +168,7 @@
                         </div>
                     @endif
                 @endforeach
-                {{-- Menampilkan pesan jika produk tidak ditemukan --}}
+
                 @if (!$dataFound)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                         <p class="text-center text-red-500">Anda belum membuat Produk</p>
@@ -199,7 +202,7 @@
                         </div>
                     @endif
                 @endforeach
-                {{-- Menampilkan pesan jika event tidak ditemukan --}}
+
                 @if (!$dataFound)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                         <p class="text-center text-red-500">Anda belum membuat Event</p>
@@ -207,7 +210,7 @@
                 @endif
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 

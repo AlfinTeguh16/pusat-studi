@@ -14,7 +14,7 @@ class Image extends Model
     protected $primaryKey = 'imagesID';
 
     protected $fillable = [
-        'metaID', 'productID', 'orderNumber', 'imageTitle', 'imageDescription'
+        'metaID', 'productID', 'imageTitle', 'orderNumber'
     ];
 
     public function metadata()

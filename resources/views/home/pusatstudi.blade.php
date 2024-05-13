@@ -156,15 +156,6 @@
         <div>
             <img class="h-auto max-w-full rounded-lg" src="asset/images/galery9.jpg" alt="">
         </div>
-        {{-- <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery10.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery12.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery11.jpg" alt="">
-        </div> --}}
     </div>
 </section>
 
@@ -221,7 +212,7 @@
                         @foreach ($metaData as $data)
                         {{-- @if ($data->nidn === Auth::user()->nidn) --}}
                         <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
-                            <a href="{{ route('userMetaData', $data->id) }}">
+                            <a href="{{ route('getMetaData', $data->id) }}">
                                 <div class="flex justify-start flex-col">
                                     <div class="flex">
                                         <h2 class="font-semibold">{{ $data->judul }}</h2>

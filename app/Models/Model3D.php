@@ -9,12 +9,12 @@ class Model3D extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb-model_3d';
+    protected $table = 'tb_model_3d';
 
     protected $primaryKey = 'model_3dID';
 
     protected $fillable = [
-        'metaID', 'productID', 'orderNumber', 'model_3d', 'model_3dDescription'
+        'metaID', 'productID',  'model_3d', 'orderNumber'
     ];
 
     public function metadata()

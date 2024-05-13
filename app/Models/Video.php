@@ -13,7 +13,7 @@ class Video extends Model
     protected $primaryKey = 'videosID';
 
     protected $fillable = [
-        'metaID', 'productID', 'orderNumber', 'videoTitle', 'videoDescription'
+        'metaID', 'productID', 'videoTitle'
     ];
 
     public function metadata()

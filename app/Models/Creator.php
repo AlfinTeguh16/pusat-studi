@@ -14,7 +14,7 @@ class Creator extends Model
     protected $primaryKey = 'creatorID';
 
     protected $fillable = [
-        'metaID', 'orderNumber', 'creatorName', 'creatorNationality', 'creatorStyle'
+        'metaID', 'creatorName', 'creatorNationality', 'creatorStyle', 'orderNumber'
     ];
 
     public function metadata()
