@@ -34,11 +34,22 @@ class ProfileController extends Controller
         // Mengambil user yang sedang login
         $user = Auth::user();
 
-        // Menghapus foto lama jika ada
+        // Menghapus foto lama jika ada dan menyimpan foto profile yang baru
         if ($request->hasFile('profile_picture')) {
+            // Hapus foto lama jika ada
+            if ($user->profile_picture) {
+                $oldFilePath = public_path($user->profile_picture);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
             // Menyimpan foto profile yang baru
-            $fotoPath = $request->file('profile_picture')->store('profile_picture', 'public');
-            $user->profile_picture = $fotoPath;
+            $file = $request->file('profile_picture');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'storage/profile_picture/' . $fileName;
+            $file->move(public_path('storage/profile_picture'), $fileName);
+            $user->profile_picture = $filePath;
         }
 
         // Mengupdate informasi user
@@ -57,6 +68,7 @@ class ProfileController extends Controller
         // Redirect atau response sesuai kebutuhan
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
+
 
 
 
