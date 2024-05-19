@@ -22,9 +22,9 @@
         </div>
     </section>
 
-    <div class="w-full flex flex-row items-center">
+    {{-- <div class="w-full flex flex-row items-center">
         <form method="GET" action="{{ route('searchMetaData') }}" class="flex items-center">
-            <input type="text" name="query" placeholder="Cari Event" class="flex justify-start rounded-md px-3 py-2">
+            <input type="text" name="query" placeholder="Cari Meta Data" class="flex justify-start rounded-md px-3 py-2">
 
             <button type="submit" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3 mx-1">
                 <i class="ph-bold ph-magnifying-glass"></i>
@@ -34,7 +34,7 @@
                 <a href="{{ route('searchMetaData') }}" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3"><i class="ph-bold ph-arrow-counter-clockwise"></i></a>
             @endif
         </form>
-    </div>
+    </div> --}}
 
 
     <section id="showDataMetaData">
@@ -43,8 +43,8 @@
             $metaDataFound = false;
             @endphp
 
-            @foreach ($metaData as $data)
-                @if ($data->nidn === Auth::user()->nidn)
+            @foreach ($karyas as $data)
+                @if ($data->users_id === Auth::user()->id)
                     @php
                     $metaDataFound = true;
                     @endphp
@@ -54,18 +54,18 @@
                         </div>
                     </div>
                     <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                        <a href="{{ route('metadata.view', $data->id) }}">
+                        <a href="{{ route('metadata.show', $data->id) }}">
                             <div class="flex justify-start flex-col">
                                 <div class="flex">
                                     <h2 class="font-semibold">{{ $data->judul }}</h2>
                                 </div>
                                 <div class="flex">
-                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    <p id="deskripsi" class="deskripsi">{{ $data->description }}</p>
                                 </div>
                             </div>
                             <div class="flex justify-end w-full items-center">
                                 <button class="rounded-md bg-sky-400 hover:bg-sky-600 py-2 px-3 mr-1"><i class="ph-bold ph-eye"></i></button>
-                                <a href="{{ route('viewEditMetaData', $data->id) }}" class="rounded-md bg-amber-400 hover:bg-amber-600 py-2 px-3 mr-1"><i class="ph-bold ph-pencil-simple-line"></i></a>
+                                <a href="{{ route('editMetaData', $data->id) }}" class="rounded-md bg-amber-400 hover:bg-amber-600 py-2 px-3 mr-1"><i class="ph-bold ph-pencil-simple-line"></i></a>
                                 <form action="{{ route('deleteMetaData', $data->id) }}" method="post" onsubmit="return confirmAndShowCard('successCard')">
                                     @csrf
                                     @method('DELETE')
@@ -88,7 +88,7 @@
         </div>
 
         <div class="mt-4">
-            {{ $metaData->appends(request()->query())->links() }}
+            {{ $karyas->appends(request()->query())->links() }}
         </div>
     </section>
 

@@ -1,127 +1,190 @@
 @extends('users.master')
 @section('content')
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Meta Data</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Edit Meta Data</title>
 </head>
-<body>
-<section class="w-screen">
 
-    <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Edit Meta Data</h2>
-        <form action="{{ route('editMetaData', ['id' => $metaData->id]) }}" method="post" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
-            <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">
+<body class="p-8 sm:ml-64">
 
-            <div class="mb-4">
-                <label for="judul" class="block text-sm font-medium text-gray-600">Judul</label>
-                <input type="text" name="judul" id="judul" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->judul }}">
-            </div>
-            <div class="mb-4">
-                <label for="gambar" class="block text-sm font-medium text-gray-600">Gambar</label>
-                <input type="file" name="gambar" id="gambar" accept="image/*" class="mt-1 p-2 w-full border rounded-md">
-            </div>
-            <div class="mb-4">
-                <label for="deskripsi" class="block text-sm font-medium text-gray-600">Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi" rows="4" class="mt-1 p-2 w-full border rounded-md">{{ $metaData->deskripsi }}</textarea>
-            </div>
-
-            <div>
-                <div>
-                  <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
-                    <div class="flex divide-x divide-gray-800 row">
-                      <button id="button_3d"
-                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-r-none border-r-0"
-                              type="button" onclick="showForm('model_3d')">
-                        3d Model
-                      </button>
-                      <button id="button_video"
-                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-r-none border-r-0 rounded-l-none"
-                              type="button" onclick="showForm('video')">
-                        Video
-                      </button>
-                      <button id="button_link"
-                              class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-l-none"
-                              type="button" onclick="showForm('link')">
-                        URL Lain
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div id="formContainer">
-
-                  <div class="mb-4" id="model_3d_form" style="display: none;">
-                    <label for="model_3d" class="block text-sm font-medium text-gray-600">3D Model</label>
-                    <input type="text" name="model_3d" id="model_3d" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->model_3d}}">
-                  </div>
-
-                  <div class="mb-4" id="video_form" style="display: none;">
-                    <label for="video" class="block text-sm font-medium text-gray-600">Video</label>
-                    <input type="file" name="video" id="video" accept="video/*" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->video}}">
-                  </div>
-
-                  <div class="mb-4" id="link_form" style="display: none;">
-                    <label for="link" class="block text-sm font-medium text-gray-600">URL Lain</label>
-                    <input type="text" name="link" id="link" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->link }}">
-                  </div>
-
-                </div>
-              </div>
-
-            <div class="mb-4">
-                <label for="nama_benda" class="block text-sm font-medium text-gray-600">Nama Benda</label>
-                <input type="text" name="nama_benda" id="nama_benda" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->nama_benda }}" >
-            </div>
-            <div class="mb-4">
-                <label for="tahun_pembuatan" class="block text-sm font-medium text-gray-600">Tahun Pembuatan</label>
-                <input type="date" name="tahun_pembuatan" id="tahun_pembuatan" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->tahun_pembuatan }}">
-            </div>
-            <div class="mb-4">
-                <label for="periode_pembuatan_awal" class="block text-sm font-medium text-gray-600">Periode Pembuatan Awal</label>
-                <input type="date" name="periode_pembuatan_awal" id="periode_pembuatan_awal" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->periode_pembuatan_awal }}">
-            </div>
-            <div class="mb-4">
-                <label for="periode_pembuatan_akhir" class="block text-sm font-medium text-gray-600">Periode Pembuatan Akhir</label>
-                <input type="date" name="periode_pembuatan_akhir" id="periode_pembuatan_akhir" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->periode_pembuatan_akhir }}">
-            </div>
-            <div class="mb-4">
-                <label for="provinsi" class="block text-sm font-medium text-gray-600">Provinsi</label>
-                <input type="text" name="provinsi" id="provinsi" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->provinsi }}">
-            </div>
-            <div class="mb-4">
-                <label for="kabupaten" class="block text-sm font-medium text-gray-600">Kabupaten</label>
-                <input type="text" name="kabupaten" id="kabupaten" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->kabupaten }}">
-            </div>
-            <div class="mb-4">
-                <label for="kecamatan" class="block text-sm font-medium text-gray-600">Kecamatan</label>
-                <input type="text" name="kecamatan" id="kecamatan" class="mt-1 p-2 w-full border rounded-md" value="{{ $metaData->kecamatan }}">
-            </div>
-            <div class="mb-4 w-full">
-                <button type="submit" class="bg-blue-500 w-full text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
-            </div>
-        </form>
+    <div class="p-4">
+        <a href="{{ url('/dashboard')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i> Kembali</a>
     </div>
-</section>
 
+    <section class="border rounded border-solid border-gray-200 bg-gray-100 shadow-lg p-4 sm:w-3/5 mx-auto ">
+        <button onclick="openInputForm()" class="p-2 rounded bg-green-700 hover:bg-green-900 text-white"><span><i class="ph ph-rows-plus-bottom"></i></span>Form</button>
 
-    <script>
-        function showForm(formId) {
-          // Menyembunyikan semua formulir
-          document.getElementById('model_3d_form').style.display = 'none';
-          document.getElementById('video_form').style.display = 'none';
-          document.getElementById('link_form').style.display = 'none';
+        <div id="inputFormModal" onclick="closeInputForm()"  class="fixed top-0 left-0 w-full h-full overflow-auto bg-gray-500 bg-opacity-50 hidden ">
 
-          // Menampilkan formulir yang sesuai dengan tombol yang diklik
-          document.getElementById(formId + '_form').style.display = 'block';
+                <div class="modal-content bg-white mx-auto my-20 p-4 border rounded-lg border-gray-800 w-fit">
+
+                    <div class="h-fit w-60 flex flex-col justify-end">
+                        <h1 class="font-bold">Tambah Form</h1>
+                    </div>
+
+                    <div class="flex flex-col justify-start">
+                        <button id="formButton" onclick="addForm('Model 3D', 'text', 'model_3d'); closeInputForm();" class="p-2 my-1  z-10 hover:bg-blue-100 rounded hover:font-semibold">Model 3D</button>
+                        <button id="formButton" onclick="addForm('Gambar', 'file', 'imageTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Gambar</button>
+                        <button id="formButton" onclick="addForm('Video', 'file', 'videoTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Video</button>
+                        <button id="formButton" onclick="addForm('URL', 'text', 'link'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">URL</button>
+                        <button id="formButton" onclick="addForm('Deskripsi', 'text', 'description'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Deskripsi</button>
+                        <button id="formButton" onclick="addForm('Tahun Pembuatan', 'number', 'manufactureYear'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Tahun pembuatan</button>
+                        <button id="formButton" onclick="addForm('Periode Pembuatan Awal', 'date', 'manufactureStart'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Periode Pembuatan Awal</button>
+                        <button id="formButton" onclick="addForm('Periode Pembuatan Akhir', 'date', 'manufactureFinish'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Periode Pembuatan Akhir</button>
+                        <button id="formButton" onclick="addForm('Nama Pencipta', 'text', 'creatorName'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Nama Pencipta</button>
+                        <button id="formButton" onclick="addForm('Negara Asal Pencipta', 'text', 'creatorNationality'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Negara Asal Pencipta</button>
+                        <button id="formButton" onclick="addForm('Gaya Pencipta', 'text', 'creatorStyle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Gaya Pencipta</button>
+                        <button id="formButton" onclick="addForm('Ornamen Objek', 'text', 'objectOrnament'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Ornamen Objek</button>
+                        <button id="formButton" onclick="addForm('Lebar Objek', 'number', 'objectWidth'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Lebar Objek</button>
+                        <button id="formButton" onclick="addForm('Tinggi Objek', 'number', 'objectHeight'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Tinggi Objek</button>
+                        <button id="formButton" onclick="addForm('Volume Objek', 'number', 'objectVolume'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Volume Objek</button>
+                        <button id="formButton" onclick="addForm('Bahan Utama', 'text', 'mainMaterial'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Bahan Utama</button>
+                        <button id="formButton" onclick="addForm('Bahan Tambahan', 'text', 'additionalMaterial'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Bahan Tambahan</button>
+                        <button id="formButton" onclick="addForm('Teknik Pembuatan', 'text', 'creationTechnique'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Teknik Pembuatan</button>
+                        <button id="formButton" onclick="addForm('Negara Objek', 'text', 'objectNation'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Negara Objek</button>
+                        <button id="formButton" onclick="addForm('Provinsi Objek', 'text', 'objectProvince'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Provinsi Objek</button>
+                    </div>
+
+                </div>
+
+        </div>
+
+        <form id="updateMetaDataForm" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="flex flex-col mb-4">
+                <label for="judul" class="font-medium">Masukan Judul</label>
+                <input type="text" name="judul" id="judul" class="rounded border-2 border-gray-300 focus:bg-gray-200 active:border-blue-400 active:border-solid active:border-2" value="{{ $karya->judul }}">
+            </div>
+
+            <div id="metaForm" class="flex flex-col w-full">
+                @foreach($metadatas as $data)
+                    <label class="font-semibold">{{ ucwords(str_replace('_', ' ', $data->jenis)) }}</label>
+                    @if($data->jenis == 'imageTitle' || $data->jenis == 'videoTitle')
+                        <div class="flex items-center">
+                            <input id="{{ $data->jenis }}" type="file" name="metadata[]" placeholder="{{ $data->content }}" class="rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4">
+                            <input type="hidden" name="jenis[]" value="{{ $data->jenis }}">
+                            <button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>
+                        </div>
+                        @if($data->jenis == 'imageTitle')
+                            <img src="{{ asset($data->content) }}" alt="preview" class="w-32 h-32 object-cover mb-2">
+                        @elseif($data->jenis == 'videoTitle')
+                            <video controls class="w-32 h-32 object-cover mb-2">
+                                <source src="{{ asset($data->content) }}" type="video/mp4">
+                            </video>
+                        @endif
+                    @else
+                        <div class="flex items-center">
+                            <input id="{{ $data->jenis }}" type="text" name="metadata[]" class="rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4" value="{{ $data->content }}">
+                            <input type="hidden" name="jenis[]" value="{{ $data->jenis }}">
+                            <button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+            <button id="submitForm" type="button" class="p-2 bg-blue-500 w-full rounded text-white">Update Meta Data</button>
+        </form>
+    </section>
+
+    {{-- <div id="successPopUp" class="flex flex-col justify-center p-8 m-auto z-20 align-middle rounded bg-gray-100 border-gray-200 shadow-lg w-full max-w-md" style="display: none;">
+        <section class="flex justify-center my-10 sm:my-20 ">
+            <h1 class="font-semibold text-lg sm:text-xl">Data Behasil Dibuat!</h1>
+        </section>
+        <section class="felx-row mx-auto">
+            <a href="/input" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-blue-500 hover:bg-blue-700 hover:shadow-lg border rounded-lg">
+                <span> Buat Data Lagi </span>
+            </a>
+            <a href="/dashboard" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-gray-400 hover:bg-gray-500 hover:shadow-lg border rounded-lg">
+                Kembali Ke Dashboard
+            </a>
+        </section>
+    </div> --}}
+
+<script>
+    function openInputForm() {
+        document.getElementById('inputFormModal').style.display = 'block';
+    }
+    function closeInputForm() {
+        document.getElementById('inputFormModal').style.display = 'none';
+    }
+</script>
+
+<script>
+
+    function addForm(formName, type, name) {
+            let formClasses = "rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4";
+            let formLabel = '<label class="font-semibold">'+ formName +'</label>';
+            let deleteButton = '<button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>';
+            let form = '<div class="flex items-center">' +
+                '<input id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'">' +
+                '<input type="hidden" name="jenis[]" value="' + name + '">' +
+                '<input type="hidden" name="label[]" value="' + formName + '">' +
+                deleteButton +
+                '</div>';
+
+            $('#metaForm').append(formLabel);
+            $('#metaForm').append(form);
         }
-      </script>
+
+        function removeForm(button) {
+            $(button).parent().prev().remove();
+            $(button).parent().remove();
+        }
+
+
+
+        $(document).ready(function () {
+            $('#submitForm').on('click', function (event) {
+                event.preventDefault();
+                let formData = new FormData();
+                formData.append('judul', $('#judul').val());
+
+                $('input[name="metadata[]"]').each(function (index, element) {
+                    if (element.type === 'file' && element.files.length > 0) {
+                        formData.append('metadata[' + index + ']', element.files[0]);
+                    } else {
+                        formData.append('metadata[' + index + ']', $(element).val());
+                    }
+                });
+
+                $('input[name="label[]"]').each(function (index, element) {
+                    formData.append('label[]', $(element).val());
+                });
+                $('input[name="jenis[]"]').each(function (index, element) {
+                    formData.append('jenis[]', $(element).val());
+                });
+
+                formData.append('_token', '{{ csrf_token() }}');
+
+                $.ajax({
+                    url: '{{ route("metaData.update", ['id' => $karya->id]) }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert('Data berhasil diupdate!');
+                    },
+                    error: function (response) {
+                        alert('Terjadi kesalahan!');
+                    }
+                });
+            });
+        });
+
+
+</script>
+
 </body>
+
+</html>
 @endsection

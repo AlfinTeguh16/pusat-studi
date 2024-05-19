@@ -25,9 +25,9 @@ class ProfileController extends Controller
         // Validasi data yang diterima dari formulir
         $request->validate([
             'nidn' => 'required|string|max:255',
-            'nama' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'foto_profile' => 'image|mimes:jpeg,png,jpg,gif|nullable|max:2048',
+            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|nullable|max:2048',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
@@ -35,15 +35,15 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Menghapus foto lama jika ada
-        if ($request->hasFile('foto_profile')) {
+        if ($request->hasFile('profile_picture')) {
             // Menyimpan foto profile yang baru
-            $fotoPath = $request->file('foto_profile')->store('foto_profile', 'public');
-            $user->foto_profile = $fotoPath;
+            $fotoPath = $request->file('profile_picture')->store('profile_picture', 'public');
+            $user->profile_picture = $fotoPath;
         }
 
         // Mengupdate informasi user
         $user->nidn = $request->nidn;
-        $user->nama = $request->nama;
+        $user->username = $request->username;
         $user->email = $request->email;
 
         // Mengupdate password jika diberikan

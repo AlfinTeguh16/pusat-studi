@@ -18,9 +18,9 @@ class GuestController extends Controller
 
     public function getMetaData(){
         $metaData = MetaData::latest()->take(3)->get();
-        $event =  Event::latest()->take(3)->get();
-        $product =  Product::latest()->take(3)->get();
-        return view ('home.pusatstudi', compact('metaData', 'event', 'product'));
+        // $event =  Event::latest()->take(3)->get();
+        // $product =  Product::latest()->take(3)->get();
+        return view ('home.pusatstudi', compact('metaData'));
     }
 
 

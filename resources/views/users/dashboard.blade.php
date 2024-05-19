@@ -16,8 +16,8 @@
     <section id="profileSection" class="w-full h-60 my-2">
         <div class="border rounded-md shadow-md border-gray-200 bg-white flex">
             <div class="flex align-middle justify-center p-3 max-h-40 max-w-40 aspect-square ">
-                @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil Saat Ini" class="object-cover aspect-square rounded-sm">
+                @if(Auth::user()->profile_picture)
+                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Foto Profil Saat Ini" class="object-cover aspect-square rounded-sm">
                 @else
                     <p>Foto Profil tidak tersedia</p>
                 @endif
@@ -26,7 +26,7 @@
                 <div class="flex flex-col sm:flex-row justify-start flex-wrap w-full basis-auto">
                     <div class="flex flex-col ">
                         <div class="flex m-2 font-bold ">
-                            <h2>{{ Auth::user()->nama }}</h2>
+                            <h2>{{ Auth::user()->username }}</h2>
                         </div>
                         <div class="flex m-2">
                             <p>{{ Auth::user()->nidn }}</p>
@@ -53,19 +53,19 @@
                 @method('patch')
 
                 {{-- <label for="nidn" class="block mt-10">NIDN:</label> --}}
-                <input type="hidden" name="nidn" value="{{ old('nidn', $user->nidn) }}" required
+                <input type="hidden" name="nidn" value="{{ old('nidn', $user->nidn) }}"
                     class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
                 <label for="nama" class="block">Nama</label>
-                <input type="text" name="nama" value="{{ old('nama', $user->nama) }}"
+                <input type="text" name="username" value="{{ old('username', $user->username) }}"
                     class="w-full p-2 mt-2 mb-4 box-border border-2 rounded-md">
 
                 <label for="email" class="block">Email</label>
                 <input type="text" name="email" value="{{ old('email', $user->email) }}"
                     class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
-                <label for="foto_profile" class="block">Foto Profil</label>
-                <input type="file" name="foto_profile" class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
+                <label for="profile_picture" class="block">Foto Profil</label>
+                <input type="file" name="profile_picture" class="w-full p-2 mt-2 mb-4 box-border  border-2 rounded-md">
 
                 <label for="password" class="block">Password</label>
                 <input type="password" name="password" placeholder="Isi hanya jika ingin mengganti password"
@@ -112,7 +112,7 @@
         $dataFound = false;
         @endphp
 
-        @foreach ($metaData as $data)
+        @foreach ($karya as $data)
             @if ($data->users_id === Auth::user()->id)
                 @php
                 $dataFound = true;
@@ -123,11 +123,12 @@
                             <div class="flex">
                                 <h2 class="font-semibold">{{ $data->judul }}</h2>
                             </div>
-                            @foreach ($content as $data)
-                            <div class="flex">
-
-                                <p  class="deskripsi">{{ $data->content }}</p>
-                            </div>
+                            @foreach ($metaData as $metaData)
+                                @if ($data->karyas_id == $data->id)
+                                    <div class="flex">
+                                        <p class="deskripsi">{{ $metaData->content }}</p>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </a>

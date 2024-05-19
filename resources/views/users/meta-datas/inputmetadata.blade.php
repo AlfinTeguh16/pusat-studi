@@ -35,6 +35,7 @@
                         <button id="formButton" onclick="addForm('Model 3D', 'text', 'model_3d'); closeInputForm();" class="p-2 my-1  z-10 hover:bg-blue-100 rounded hover:font-semibold">Model 3D</button>
                         <button id="formButton" onclick="addForm('Gambar', 'file', 'imageTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Gambar</button>
                         <button id="formButton" onclick="addForm('Video', 'file', 'videoTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Video</button>
+                        <button id="formButton" onclick="addForm('URL', 'text', 'link'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">URL</button>
                         <button id="formButton" onclick="addForm('Deskripsi', 'text', 'description'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Deskripsi</button>
                         <button id="formButton" onclick="addForm('Tahun Pembuatan', 'number', 'manufactureYear'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Tahun pembuatan</button>
                         <button id="formButton" onclick="addForm('Periode Pembuatan Awal', 'date', 'manufactureStart'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Periode Pembuatan Awal</button>
@@ -57,7 +58,7 @@
 
         </div>
 
-        <form id="createMetaDataForm" action="{{ route('metaData.store') }}" method="post" enctype="multipart/form-data">
+        <form id="createMetaDataForm"  method="post" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col mb-4">
                 <label for="judul" class="font-medium">Masukan Judul</label>
@@ -69,80 +70,97 @@
             </div>
 
 
-            <button type="submit" class="p-2 bg-blue-500 w-full rounded text-white">Buat Meta Data</button>
+            <button id="submitForm" type="buton" class="p-2 bg-blue-500 w-full rounded text-white">Buat Meta Data</button>
 
         </form>
     </section>
 
-    <script>
-        function openInputForm() {
-            document.getElementById('inputFormModal').style.display = 'block';
-        }
+    {{-- <div id="successPopUp" class="flex flex-col justify-center p-8 m-auto z-20 align-middle rounded bg-gray-100 border-gray-200 shadow-lg w-full max-w-md" style="display: none;">
+        <section class="flex justify-center my-10 sm:my-20 ">
+            <h1 class="font-semibold text-lg sm:text-xl">Data Behasil Dibuat!</h1>
+        </section>
+        <section class="felx-row mx-auto">
+            <a href="/input" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-blue-500 hover:bg-blue-700 hover:shadow-lg border rounded-lg">
+                <span> Buat Data Lagi </span>
+            </a>
+            <a href="/dashboard" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-gray-400 hover:bg-gray-500 hover:shadow-lg border rounded-lg">
+                Kembali Ke Dashboard
+            </a>
+        </section>
+    </div> --}}
 
-        function closeInputForm() {
-            document.getElementById('inputFormModal').style.display = 'none';
-        }
-
-    </script>
+<script>
+    function openInputForm() {
+        document.getElementById('inputFormModal').style.display = 'block';
+    }
+    function closeInputForm() {
+        document.getElementById('inputFormModal').style.display = 'none';
+    }
+</script>
 
 <script>
 
-
     function addForm(formName, type, name) {
-        let formClasses = "rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4";
-        let formLabel;
-        let form;
-        let deleteButton = '<button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>';
-
-        if (type === 'text') {
-            formLabel = '<label class="font-semibold">'+ formName +'</label>';
-            form = '<div class="flex items-center">' +
-                '<textarea id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'"></textarea>' +
+            let formClasses = "rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4";
+            let formLabel = '<label class="font-semibold">'+ formName +'</label>';
+            let deleteButton = '<button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>';
+            let form = '<div class="flex items-center">' +
+                '<input id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'">' +
                 '<input type="hidden" name="jenis[]" value="' + name + '">' +
+                '<input type="hidden" name="label[]" value="' + formName + '">' +
                 deleteButton +
                 '</div>';
 
-                $('#metaForm').append(formLabel);
-                $('#metaForm').append(form);
-            }
-        if (type === 'file') {
-            formLabel = '<label class="font-semibold">'+ formName +'</label>';
-            form = '<div class="flex items-center">' +
-                '<input id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'">' +
-                '<input type="hidden" name="jenis[]" value="' + name + '">' +
-                        deleteButton +
-                  '</div>';
             $('#metaForm').append(formLabel);
             $('#metaForm').append(form);
         }
-        if (type === 'number') {
-            formLabel = '<label class="font-semibold">'+ formName +'</label>';
-            form = '<div class="flex items-center">' +
-                '<input id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'">' +
-                '<input type="hidden" name="jenis[]" value="' + name + '">' +
-                        deleteButton +
-                  '</div>';
-            $('#metaForm').append(formLabel);
-            $('#metaForm').append(form);
+
+        function removeForm(button) {
+            $(button).parent().prev().remove();
+            $(button).parent().remove();
         }
-        if (type === 'date') {
-            formLabel = '<label class="font-semibold">'+ formName +'</label>';
-            form = '<div class="flex items-center">' +
-                '<input id="' + name + '" type="' + type + '" name="metadata[]" class="'+ formClasses +'">' +
-                '<input type="hidden" name="jenis[]" value="' + name + '">' +
-                        deleteButton +
-                  '</div>';
-            $('#metaForm').append(formLabel);
-            $('#metaForm').append(form);
-        }
-    }
 
-    function removeForm(button) {
-        $(button).parent().prev().remove();
-        $(button).parent().remove();
-    }
+        $(document).ready(function () {
+            $('#submitForm').on('click', function (event) {
+                event.preventDefault();
+                let formData = new FormData();
+                formData.append('judul', $('#judul').val());
 
+                $('input[name="metadata[]"]').each(function (index, element) {
+                    if (element.type === 'file' && element.files.length > 0) {
+                        formData.append('metadata[' + index + ']', element.files[0]);
+                    } else {
+                        formData.append('metadata[' + index + ']', $(element).val());
+                    }
+                });
 
+                $('input[name="label[]"]').each(function (index, element) {
+                    formData.append('label[]', $(element).val());
+                });
+                $('input[name="jenis[]"]').each(function (index, element) {
+                    formData.append('jenis[]', $(element).val());
+                });
+
+                formData.append('_token', '{{ csrf_token() }}');
+
+                $.ajax({
+                    url: '{{ route("metaData.store") }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('#response-message').text(response.message);
+                        // $('#successPopUp').show();
+                        alert('Data berhasil dikirim!');
+
+                    },
+                    error: function (response) {
+                        $('#response-message').text('Error occurred!');
+                    }
+                });
+            });
+        });
 </script>
 
 </body>

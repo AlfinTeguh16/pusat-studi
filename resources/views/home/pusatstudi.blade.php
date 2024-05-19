@@ -75,14 +75,14 @@
     </section>
 
    <!-- Event Section -->
-   <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+   {{-- <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-8">Event</h2>
             <div class="center">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
                         @foreach ($event as $data)
-                        {{-- @if ($data->nidn === Auth::user()->nidn) --}}
+
                         <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
                             <a href="{{ route('detailEvent', $data->id) }}">
                                 <div class="flex justify-start flex-col">
@@ -108,7 +108,7 @@
                                 </div>
                             </a>
                         </div>
-                        {{-- @endif --}}
+
                         @endforeach
                     </div>
 
@@ -121,7 +121,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
 
 <!-- Gallery Section -->
@@ -203,14 +203,14 @@
 
 
     <!-- Meta Data Section -->
-    <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+    {{-- <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-8">Meta Data</h2>
             <div class="center">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg ">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
                         @foreach ($metaData as $data)
-                        {{-- @if ($data->nidn === Auth::user()->nidn) --}}
+
                         <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
                             <a href="{{ route('getMetaData', $data->id) }}">
                                 <div class="flex justify-start flex-col">
@@ -236,7 +236,7 @@
                                 </div>
                             </a>
                         </div>
-                        {{-- @endif --}}
+
                         @endforeach
                     </div>
 
@@ -249,7 +249,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <!-- Contact Section -->
     {{-- <section id="contact" class="section bg-gray-200 px-4">

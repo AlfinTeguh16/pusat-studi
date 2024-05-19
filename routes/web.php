@@ -51,11 +51,13 @@ Route::middleware(['auth'])->group(function () {
 // Meta Data
     Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
     Route::post('/input/metadata', [MetaDataController::class, 'storeMetaData'])->name('metaData.store');
-    Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
+    // Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
     Route::get('/metadata', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
-    Route::get('/metadata/{id}' , [MetadataController::class, 'viewMetaData'])->name('metadata.view');
-    Route::get('/metadata/{id}/edit', [MetaDataController::class, 'viewEditMetaData'])->name('viewEditMetaData');
-    Route::put('/metadata/{id}/edit', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
+    Route::get('/metadata' , [MetadataController::class, 'listMetaData'])->name('metadata.list');
+    Route::get('/metadata/{id}' , [MetadataController::class, 'showMetaData'])->name('metadata.show');
+    Route::get('/metadata/detail/{id}' , [MetadataController::class, 'detailMetaData'])->name('metadata.detail');
+    Route::get('/metadata/edit/{id}', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
+    Route::post('/metadata/edit/{id}', [MetaDataController::class, 'updateMetaData'])->name('metaData.update');
     Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');
 
 // Event

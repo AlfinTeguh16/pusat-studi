@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('tb_metadatas', function(Blueprint $table){
             $table->id();
             $table->foreignId('karyas_id')->constrained('tb_karyas');
+            $table->string('label');
             $table->string('jenis');
-            $table->text('content');
+            $table->text('content')->nullable();
+            $table->text('media')->nullable();;
             $table->integer('order');
             $table->timestamps();
         });
