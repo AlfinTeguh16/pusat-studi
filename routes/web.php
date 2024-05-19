@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
     Route::post('/input/metadata', [MetaDataController::class, 'storeMetaData'])->name('metaData.store');
     // Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
-    Route::get('/metadata', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
+    Route::get('/metadata/search', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
     Route::get('/metadata' , [MetadataController::class, 'listMetaData'])->name('metadata.list');
     Route::get('/metadata/{id}' , [MetadataController::class, 'showMetaData'])->name('metadata.show');
     Route::get('/metadata/detail/{id}' , [MetadataController::class, 'detailMetaData'])->name('metadata.detail');

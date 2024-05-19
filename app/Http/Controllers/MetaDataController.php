@@ -31,15 +31,17 @@ class MetaDataController extends Controller
     {
         $query = $request->input('query');
 
-        $karya = Karya::where('users_id', Auth::user()->id)
-            ->when($query, function ($q) use ($query) {
-                $q->where('judul', 'like', '%' . $query . '%');
-                    // ->orWhere('deskripsi', 'like', '%' . $query . '%');
+        $karyas = DB::table('tb_karyas')
+            ->leftJoin('tb_metadatas', function ($join) {
+                $join->on('tb_karyas.id', '=', 'tb_metadatas.karyas_id')
+                     ->where('tb_metadatas.jenis', '=', 'description');
             })
-            ->orderByDesc('updated_at')
+            ->select('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul', DB::raw('GROUP_CONCAT(tb_metadatas.content SEPARATOR ", ") as description'))
+            ->where('tb_karyas.judul', 'LIKE', "%{$query}%")
+            ->groupBy('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul')
             ->paginate(10);
 
-        return view('users.meta-datas.metadata', compact('karya'));
+        return view('users.meta-datas.metadata', compact('karyas', 'query'));
     }
 
     // public function viewMetaData($id){
@@ -51,17 +53,19 @@ class MetaDataController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $metaData = Karya::where($id);
+        DB::table('tb_metadatas')->where('karyas_id', $id)->delete();
+        // Menghapus karya
+        DB::table('tb_karyas')->where('id', $id)->delete();
 
-            $metaData->delete();
+        // Menambahkan log aktivitas
+        Activity::create([
+            'users_id' => Auth::user()->id,
+            'activity' => 'Menghapus metadata dan karya ID ' . $id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            return redirect()->route('searchMetaData')->with('success', 'Event deleted successfully');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->back()->with('error', 'Meta Data not found');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error deleting Meta Data: ' . $e->getMessage());
-        }
+        return redirect()->route('metadata.list')->with('success', 'Data berhasil dihapus');
     }
 
     public function viewStoreMetaData()
@@ -69,7 +73,7 @@ class MetaDataController extends Controller
         return view('users.meta-datas.inputmetadata');
     }
 
-    // ====================================================================================================================
+
 
     public function showMetaData($id)
     {
@@ -78,18 +82,17 @@ class MetaDataController extends Controller
 
         return view('users.meta-datas.detailmetadata', compact('karya', 'metadata'));
     }
-
-    public function listMetaData(){
+    public function listMetaData() {
         $karyas = DB::table('tb_karyas')
-        ->leftJoin('tb_metadatas', function ($join) {
-            $join->on('tb_karyas.id', '=', 'tb_metadatas.karyas_id')
-                ->where('tb_metadatas.jenis', '=', 'description');
-        })
-        ->select('tb_karyas.id','tb_karyas.users_id', 'tb_karyas.judul', 'tb_metadatas.content as description')
-        ->paginate(10);
+            ->leftJoin('tb_metadatas', 'tb_karyas.id', '=', 'tb_metadatas.karyas_id')
+            ->select('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul',
+                DB::raw('(SELECT content FROM tb_metadatas WHERE tb_metadatas.karyas_id = tb_karyas.id AND jenis = "description" LIMIT 1) as description'))
+            ->groupBy('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul')
+            ->paginate(10);
 
         return view('users.meta-datas.metadata', compact('karyas'));
     }
+
 
     public function storeMetaData(Request $request)
     {
