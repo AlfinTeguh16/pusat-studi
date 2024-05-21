@@ -1,6 +1,6 @@
 @extends('users.master')
 @section('content')
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,45 +22,51 @@
         </div>
     </section>
 
-    <div class="w-full flex flex-row items-center">
-        <form method="GET" action="{{ route('searchProduct') }}" class="flex items-center">
-            <input type="text" name="query" placeholder="Cari Event" class="flex justify-start rounded-md px-3 py-2">
-
+    <div class="w-full flex flex-row items-center mb-4">
+        <form method="GET" action="{{ route('searchProducts') }}" class="flex items-center">
+            <input type="text" name="query" value="{{ request()->input('query') }}" placeholder="Cari Produk" class="flex justify-start rounded-md px-3 py-2">
             <button type="submit" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3 mx-1">
                 <i class="ph-bold ph-magnifying-glass"></i>
             </button>
 
             @if(request()->has('query'))
-                <a href="{{ route('searchProduct') }}" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3"><i class="ph-bold ph-arrow-counter-clockwise"></i></a>
+                <a href="{{ route('searchProducts') }}" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3">
+                    <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                </a>
             @endif
         </form>
     </div>
 
 
-    <section id="showDataProduct">
+    <section id="showDataProducts">
         <div>
-            @foreach ($product as $data)
-                @if ($data->nidn === Auth::user()->nidn)
-                <div id="successCard" class=" hidden bg-green-200 p-4 rounded-md shadow-md z-50 ">
-                    <div class="flex justify-center align-middle ">
-                        <p class="text-green-800">Produk berhasil dihapus!</p>
+            @php
+            $productFound = false;
+            @endphp
+
+            @foreach ($products as $data)
+                @if ($data->users_id === Auth::user()->id)
+                    @php
+                    $productFound = true;
+                    @endphp
+                    <div id="successCard" class="hidden bg-green-200 p-4 rounded-md shadow-md z-50">
+                        <div class="flex justify-center align-middle">
+                            <p class="text-green-800">Produk berhasil dihapus!</p>
+                        </div>
                     </div>
-                </div>
                     <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                        <a href="{{ route('detailProduct', $data->id) }}">
+                        <a href="{{ route('product.show', $data->id) }}">
                             <div class="flex justify-start flex-col">
                                 <div class="flex">
                                     <h2 class="font-semibold">{{ $data->judul }}</h2>
                                 </div>
                                 <div class="flex">
-                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    <p id="deskripsi" class="deskripsi">{{ $data->description }}</p>
                                 </div>
                             </div>
                             <div class="flex justify-end w-full items-center">
-                                <button class=" rounded-md bg-sky-400 hover:bg-sky-600 py-2 px-3 mr-1"><i class="ph-bold ph-eye"></i></button>
-
-                                <a href="{{ route('viewUpdateProduct', $data->id) }}" class=" rounded-md bg-amber-400 hover:bg-amber-600 py-2 px-3 mr-1"><i class="ph-bold ph-pencil-simple-line"></i></a>
-
+                                <button class="rounded-md bg-sky-400 hover:bg-sky-600 py-2 px-3 mr-1"><i class="ph-bold ph-eye"></i></button>
+                                <a href="{{ route('editProduct', $data->id) }}" class="rounded-md bg-amber-400 hover:bg-amber-600 py-2 px-3 mr-1"><i class="ph-bold ph-pencil-simple-line"></i></a>
                                 <form action="{{ route('deleteProduct', $data->id) }}" method="post" onsubmit="return confirmAndShowCard('successCard')">
                                     @csrf
                                     @method('DELETE')
@@ -68,26 +74,30 @@
                                         <i class="ph-bold ph-trash-simple"></i>
                                     </button>
                                 </form>
-
                             </div>
                         </a>
                     </div>
                 @endif
             @endforeach
+
+            {{-- Menampilkan pesan jika meta data tidak ditemukan --}}
+            @if (!$productFound)
+                <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                    <p class="text-center text-red-500">Anda belum membuat Produk</p>
+                </div>
+            @endif
         </div>
 
-
-
         <div class="mt-4">
-            {{ $product->appends(request()->query())->links() }}
+            {{ $products->appends(request()->query())->links() }}
         </div>
     </section>
 
+
     <script>
-        // Ambil semua elemen dengan kelas "deskripsi"
         var deskripsiElements = document.querySelectorAll(".deskripsi");
 
-        // Iterasi melalui setiap elemen dan potong teks jika lebih dari 20 karakter
+        // potong teks deskripsi jika lebih dari 20 karakter
         deskripsiElements.forEach(function (elem) {
             var deskripsiTeks = elem.textContent;
 
@@ -95,18 +105,17 @@
                 var potonganDeskripsi = deskripsiTeks.slice(0, 200);
                 elem.textContent = potonganDeskripsi + "...";
             }
-            // Jika kurang dari 20 karakter, biarkan teks asli tanpa ellipsis
+
         });
     </script>
 
 <script>
     function confirmAndShowCard(cardId) {
         if (confirm('Yakin akan menghapus data?')) {
-            // If user confirms, show the success card
             document.getElementById(cardId).classList.remove('hidden');
-            return true; // Allow form submission
+            return true;
         } else {
-            return false; // Prevent form submission
+            return false;
         }
     }
 </script>

@@ -60,25 +60,27 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/metadata/edit/{id}', [MetaDataController::class, 'updateMetaData'])->name('metaData.update');
     Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');
 
+// Product
+    Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('product.show');
+    Route::get('/product/search', [ProductController::class, 'searchProducts'])->name('searchProducts');
+    Route::get('/product', [ProductController::class, 'listProduct'])->name('products.list');
+    Route::get('/product/detail/{id}', [ProductController::class, 'detailProduct'])->name('detailProduct');
+    Route::get('/products/input', [ProductController::class, 'viewStoreProduct'])->name('viewStoreProduct');
+    Route::post('/product/input', [ProductController::class, 'storeProducts'])->name('product.store');
+    Route::get('/product/edit/{id}', [ProductController::class, 'editProducts'])->name('editProduct');
+    Route::post('/product/edit/{id}', [ProductController::class, 'updateProducts'])->name('product.update');
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('deleteProduct');
 // Event
-    Route::get('/event', [EventController::class, 'index'])->name('viewEvent');
-    Route::get('/event', [EventController::class, 'searchEvent'])->name('searchEvent');
+    Route::get('/event', [EventController::class, 'listEvent'])->name('event.list');
+    Route::get('/event/search', [EventController::class, 'searchEvent'])->name('searchEvent');
     Route::get('/event/detail/{id}', [EventController::class, 'detailEvent'])->name('detailEvent');
     Route::get('/event/input', [EventController::class, 'viewStoreEvent'])->name('viewStoreEvent');
-    Route::post('/event/input', [EventController::class, 'create'])->name('createEvent');
-    Route::get('/event/{id}/edit', [EventController::class, 'viewUpdateEvent'])->name('viewUpdateEvent');
-    Route::put('/event/{id}', [EventController::class, 'update'])->name('editEvent.update');
+    Route::get('/event/{id}', [EventController::class, 'showEvent'])->name('event.show');
+    Route::post('/event/input', [EventController::class, 'storeEvent'])->name('event.store');
+    Route::get('/event/edit/{id}', [EventController::class, 'editEvents'])->name('event.edit');
+    Route::post('/event/edit/{id}', [EventController::class, 'updateEvent'])->name('event.update');
     Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('deleteEvent');
 
-    // Product
-    Route::get('/product', [ProductController::class, 'index'])->name('viewProduct');
-    Route::get('/product', [ProductController::class, 'searchProduct'])->name('searchProduct');
-    Route::get('/product/detail/{id}', [ProductController::class, 'detailProduct'])->name('detailProduct');
-    Route::get('/product/input', [ProductController::class, 'viewStoreProduct'])->name('viewStoreProduct');
-    Route::post('/product/input', [ProductController::class, 'create'])->name('createProduct');
-    Route::get('/product/{id}/edit', [ProductController::class, 'viewUpdateProduct'])->name('viewUpdateProduct');
-    Route::put('/product/{id}', [ProductController::class, 'update'])->name('editProduct.update');
-    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('deleteProduct');
 
 });
 

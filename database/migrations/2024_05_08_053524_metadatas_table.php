@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('label');
             $table->string('jenis');
             $table->text('content')->nullable();
-            $table->text('media')->nullable();;
             $table->integer('order');
             $table->timestamps();
         });

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class ProductItems extends Model
 {
     use HasFactory;
-    protected $table = 'tb_events';
 
-    protected $primaryKey = 'events_id';
+    protected $table = 'tb_products_items';
+
+    protected $primaryKey = 'products_items_id';
 
     protected $fillable = [
-        'judul', 'users_id'
+        'products_id','label', 'jenis', 'content', 'order'
     ];
-
 }

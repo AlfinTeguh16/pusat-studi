@@ -10,101 +10,138 @@
     <title>Masukan Data Produk</title>
 </head>
 
-<body>
+<body class="p-8 sm:ml-64">
 
 
-    <section class="w-screen ">
+    <div class="p-4">
+        <a href="{{ url('/dashboard')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i> Kembali</a>
+    </div>
 
-        <div class="flex justify-center bg-gray-50 sm:w-fit sm:shadow-2xl sm:rounded-2xl sm:p-4 mx-auto ">
+    <section class="border rounded border-solid border-gray-200 bg-gray-100 shadow-lg p-4 sm:w-3/5 mx-auto ">
+        <button onclick="openInputForm()" class="p-2 rounded bg-green-700 hover:bg-green-900 text-white"><span><i class="ph ph-rows-plus-bottom"></i></span>Form</button>
 
-            <div class="flex flex-col justify-center sm:w-fit sm:bg-gray-50 sm:rounded-2xl sm:border-2 sm:p-9 sm:border-dashed">
-                <h2 class="text-2xl font-semibold mb-4">Buat Produk</h2>
+        <div id="inputFormModal" onclick="closeInputForm()"  class="fixed top-0 left-0 w-full h-full overflow-auto bg-gray-500 bg-opacity-50 hidden ">
 
-                {{-- <div id="successCard" class="hidden items-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative">
-                    <div class="flex justify-between w-full">
-                        <strong class="font-bold">Success!</strong>
-                        <span class="block" id="successMessage"></span>
-                        <button type="button" onclick="hideSuccessCard()" class="ml-auto">
-                            <i class="ph-fill ph-x"></i>
-                            <title>Close</title>
-                        </button>
+                <div class="modal-content bg-white mx-auto my-20 p-4 border rounded-lg border-gray-800 w-fit">
+
+                    <div class="h-fit w-60 flex flex-col justify-end">
+                        <h1 class="font-bold">Tambah Form</h1>
                     </div>
-                </div> --}}
 
+                    <div class="flex flex-col justify-start">
+                        <button id="formButton" onclick="addForm('Gambar', 'file', 'imageTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Gambar</button>
+                        <button id="formButton" onclick="addForm('Video', 'file', 'videoTitle'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Video</button>
+                        <button id="formButton" onclick="addForm('URL', 'text', 'link'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">URL</button>
+                        <button id="formButton" onclick="addForm('Deskripsi', 'text', 'description'); closeInputForm();" class="p-2 my-1  hover:bg-blue-100 rounded hover:font-semibold">Deskripsi</button>
+                    </div>
 
+                </div>
 
-                <form id="createProductForm" action="{{ route('createProduct') }}" method="post" enctype="multipart/form-data"
-                class="flex justify-center flex-col p-3">
-                    @csrf
-
-                    <input type="hidden" name="nidn" value="{{ Auth::user()->nidn }}">
-                    <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">
-
-                    <label for="judul" class="font-semibold">Judul</label>
-                    <input type="text" id="judul" name="judul" placeholder="Masukan Judul"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" required>
-
-                    <label for="gambar">Gambar</label>
-                    <input type="file" id="gambar" name="gambar" accept="image/*"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
-
-                    <label for="sub_gambar">Sub Gambar</label>
-                    <input type="file" id="sub_gambar" name="sub_gambar" accept="image/*"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
-
-                    <label for="deskripsi">Deskripsi</label>
-                    <textarea id="deskripsi" name="deskripsi" placeholder="Masukan Deskripsi"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2" required></textarea>
-
-                    <label for="link">URL</label>
-                    <input type="text" id="link" name="link" placeholder="Masukan URL atau Link"
-                    class="my-2 border-solid border-gray-500 border-2 hover:bg-gray-100 focus:bg-gray-100 focus:shadow-lg hover:shadow-xl rounded-md p-2">
-
-                    <button type="submit" onclick="submitForm()"
-                    class="bg-blue-500 hover:bg-blue-700 rounded-md p-2 text-white font-semibold hover:shadow-lg my-2">
-                    Buat Produk</button>
-                </form>
-            </div>
         </div>
+
+        <form id="createDataForm"  method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="flex flex-col mb-4">
+                <label for="judul" class="font-medium">Masukan Judul</label>
+                <input type="text" name="judul" id="judul" class="rounded border-2 border-gray-300 focus:bg-gray-200 active:border-blue-400 active:border-solid active:border-2">
+            </div>
+
+            <div id="dynamicForm" class="flex flex-col  w-full">
+                <!-- Tempat untuk menambahkan form -->
+            </div>
+
+
+            <button id="submitForm" type="buton" class="p-2 bg-blue-500 w-full rounded text-white">Buat Produk</button>
+
+        </form>
     </section>
 
-
-
+    {{-- <div id="successPopUp" class="flex flex-col justify-center p-8 m-auto z-20 align-middle rounded bg-gray-100 border-gray-200 shadow-lg w-full max-w-md" style="display: none;">
+        <section class="flex justify-center my-10 sm:my-20 ">
+            <h1 class="font-semibold text-lg sm:text-xl">Data Behasil Dibuat!</h1>
+        </section>
+        <section class="felx-row mx-auto">
+            <a href="/input" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-blue-500 hover:bg-blue-700 hover:shadow-lg border rounded-lg">
+                <span> Buat Data Lagi </span>
+            </a>
+            <a href="/dashboard" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-gray-400 hover:bg-gray-500 hover:shadow-lg border rounded-lg">
+                Kembali Ke Dashboard
+            </a>
+        </section>
+    </div> --}}
 
 <script>
-    function showSuccessCard(message) {
-        $('#successMessage').text(message);
-        $('#successCard').removeClass('hidden');
+    function openInputForm() {
+        document.getElementById('inputFormModal').style.display = 'block';
     }
-
-    function hideSuccessCard() {
-        $('#successCard').addClass('hidden');
+    function closeInputForm() {
+        document.getElementById('inputFormModal').style.display = 'none';
     }
 </script>
 
 <script>
-    function submitForm() {
-        var form = document.getElementById('createProductForm');
-        var formData = new FormData(form);
 
-        $.ajax({
-            type: 'POST',
-            url: '{{ route("createProduct") }}',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                showSuccessCard(response.success);
-                // Tambahkan logika untuk menampilkan card atau pesan sukses lainnya di sini
-            },
-            error: function(error) {
-                // Menanggapi kesalahan
-                $('#errorMessage').text('Error creating event: ' + error.responseJSON.error);
-                $('#errorMessage').show();
-                // Tambahkan logika untuk menampilkan pesan kesalahan atau melakukan hal lainnya di sini
-            }
+    function addForm(formName, type, name) {
+            let formClasses = "rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 focus:bg-blue-50 bg-white flex-grow w-full mb-2 p-4";
+            let formLabel = '<label class="font-semibold">'+ formName +'</label>';
+            let deleteButton = '<button type="button" onclick="removeForm(this)" class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700 hover:shadow-lg"><i class="ph ph-x"></i></button>';
+            let form = '<div class="flex items-center">' +
+                '<input id="' + name + '" type="' + type + '" name="product[]" class="'+ formClasses +'">' +
+                '<input type="hidden" name="jenis[]" value="' + name + '">' +
+                '<input type="hidden" name="label[]" value="' + formName + '">' +
+                deleteButton +
+                '</div>';
+
+            $('#dynamicForm').append(formLabel);
+            $('#dynamicForm').append(form);
+        }
+
+        function removeForm(button) {
+            $(button).parent().prev().remove();
+            $(button).parent().remove();
+        }
+
+        $(document).ready(function () {
+            $('#submitForm').on('click', function (event) {
+                event.preventDefault();
+                let formData = new FormData();
+                formData.append('judul', $('#judul').val());
+
+                $('input[name="product[]"]').each(function (index, element) {
+                    if (element.type === 'file' && element.files.length > 0) {
+                        formData.append('product[' + index + ']', element.files[0]);
+                    } else {
+                        formData.append('product[' + index + ']', $(element).val());
+                    }
+                });
+
+                $('input[name="label[]"]').each(function (index, element) {
+                    formData.append('label[]', $(element).val());
+                });
+                $('input[name="jenis[]"]').each(function (index, element) {
+                    formData.append('jenis[]', $(element).val());
+                });
+
+                formData.append('_token', '{{ csrf_token() }}');
+
+                $.ajax({
+                    url: '{{ route("product.store") }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('#response-message').text(response.message);
+                        // $('#successPopUp').show();
+                        alert('Data berhasil dikirim!');
+
+                    },
+                    error: function (response) {
+                        $('#response-message').text('Error occurred!');
+                    }
+                });
+            });
         });
-    }
 </script>
 
 </body>

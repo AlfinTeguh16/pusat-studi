@@ -4,16 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Karya;
 use Illuminate\Http\Request;
-use App\Models\Creator;
-use App\Models\Description;
-use App\Models\Image;
-use App\Models\Manufacture;
-use App\Models\Material;
-use App\Models\MetaData;
-use App\Models\Model3D;
-use App\Models\ObjectModel;
-use App\Models\Product;
-use App\Models\Video;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -54,10 +44,9 @@ class MetaDataController extends Controller
     public function destroy($id)
     {
         DB::table('tb_metadatas')->where('karyas_id', $id)->delete();
-        // Menghapus karya
+
         DB::table('tb_karyas')->where('id', $id)->delete();
 
-        // Menambahkan log aktivitas
         Activity::create([
             'users_id' => Auth::user()->id,
             'activity' => 'Menghapus metadata dan karya ID ' . $id,
@@ -88,6 +77,7 @@ class MetaDataController extends Controller
             ->select('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul',
                 DB::raw('(SELECT content FROM tb_metadatas WHERE tb_metadatas.karyas_id = tb_karyas.id AND jenis = "description" LIMIT 1) as description'))
             ->groupBy('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul')
+            ->orderBy('tb_karyas.created_at', 'desc')
             ->paginate(10);
 
         return view('users.meta-datas.metadata', compact('karyas'));
@@ -158,16 +148,14 @@ class MetaDataController extends Controller
 
     public function updateMetaData(Request $request, $id)
     {
-        // Update judul
+
         DB::table('tb_karyas')->where('id', $id)->update([
             'judul' => $request->judul,
             'updated_at' => now()
         ]);
 
-        // Hapus metadata lama
         DB::table('tb_metadatas')->where('karyas_id', $id)->delete();
 
-        // Insert metadata baru
         foreach ($request->metadata as $key => $value) {
             if (is_file($value)) {
                 $fileName = time() . '_' . $value->getClientOriginalName();

@@ -57,12 +57,12 @@
         </div>
         <section class="flex justify-center w-full mt-10">
             <div class="flex flex-row justify-evenly flex-wrap">
-                @foreach($metaData as $data)
+                @foreach($karyas as $data)
                     <div class="flex flex-col aspect-[4/3] max-w-72 border shadow-lg rounded-xl my-4 mx-4 bg-gray-100 hover:shadow-xl justify-center">
                         <a href="{{ route('viewMetaData', $data->id) }}">
                             <div class="overflow-hidden h-fit">
-                                @if($data->gambar)
-                                    <img src="{{ asset('storage/' . $data->gambar) }}"
+                                @if($data->imageTitle)
+                                    <img src="{{ asset( $data->imageTitle) }}"
                                         class="object-cover rounded-t-lg h-48 w-96">
                                 @endif
                             </div>
@@ -86,7 +86,7 @@
 </div>
 
 <div class="flex justify-end m-4 ">
-    {{ $metaData->appends(request()->query())->links() }}
+    {{ $karyas->appends(request()->query())->links() }}
 </div>
 
 

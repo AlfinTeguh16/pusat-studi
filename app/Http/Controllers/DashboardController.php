@@ -16,29 +16,43 @@ class DashboardController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $karya =  Karya::latest()->take(3)->get();
-        $metaData = MetaData::select('karyas_id' , 'jenis', 'content')->where('karyas_id' , 'jenis', 'description')->get();
 
-        return view('users.dashboard', ['user' => $user], compact('karya', 'metaData'));
+        $karyas = DB::table('tb_karyas')
+        ->leftJoin('tb_metadatas', 'tb_karyas.id', '=', 'tb_metadatas.karyas_id')
+        ->select('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul',
+            DB::raw('(SELECT content FROM tb_metadatas WHERE tb_metadatas.karyas_id = tb_karyas.id AND jenis = "description" LIMIT 1) as description'),
+            'tb_karyas.created_at')
+        ->groupBy('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul', 'tb_karyas.created_at')
+        ->orderBy('tb_karyas.created_at', 'desc')
+        ->take(3)
+        ->get();
+
+
+
+        return view('users.dashboard', ['user' => $user], compact('karyas'));
     }
 
-    public function userMetaData($id){
+    // public function userMetaData($id){
 
-        $karya = DB::table('tb_karyas')->where('id', $id)->first();
-        $metaData = DB::table('tb_metadatas')->where('karyas_id', $id)->orderBy('order')->get();
+    //     $karyas = DB::table('tb_karyas')
+    //         ->leftJoin('tb_metadatas', 'tb_karyas.id', '=', 'tb_metadatas.karyas_id')
+    //         ->select('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul',
+    //             DB::raw('(SELECT content FROM tb_metadatas WHERE tb_metadatas.karyas_id = tb_karyas.id AND jenis = "description" LIMIT 1) as description'))
+    //         ->groupBy('tb_karyas.id', 'tb_karyas.users_id', 'tb_karyas.judul')
+    //         ->latest()
+    //         ->take(3)
+    //         ->get();
 
+    //     return view('users.meta-datas.metadata', compact('karyas'));
+    // }
+    // public function detailDashboardProduct($id){
+    //     $product = Product::findOrFail($id);
+    //     return view('users.products.detailproduct', compact('product'));
+    // }
 
-
-        return view('users.meta-datas.detailmetadata', compact('metaData', 'karya'));
-    }
-    public function detailDashboardProduct($id){
-        $product = Product::findOrFail($id);
-        return view('users.products.detailproduct', compact('product'));
-    }
-
-    public function detailDashboardEvent($id){
-        $event = Event::findOrFail($id);
-        return view('users.events.detailevent', compact('event'));
-    }
+    // public function detailDashboardEvent($id){
+    //     $event = Event::findOrFail($id);
+    //     return view('users.events.detailevent', compact('event'));
+    // }
 
 }

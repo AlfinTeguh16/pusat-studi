@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_products_items', function(Blueprint $table){
+        Schema::create('tb_events', function(Blueprint $table){
             $table->id();
-            $table->foreignId('products_id')->constrained('tb_products');
-            $table->string('label');
-            $table->string('jenis');
-            $table->text('content')->nullable();
-            $table->integer('order');
+            $table->string('judul');
+            $table->foreignId('users_id')->constrained('users');
             $table->timestamps();
         });
     }

@@ -203,29 +203,29 @@
 
 
     <!-- Meta Data Section -->
-    {{-- <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+    <section id="meta" class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-8">Meta Data</h2>
             <div class="center">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg ">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto">
-                        @foreach ($metaData as $data)
+                        @foreach ($karyas as $data)
 
                         <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-400 hover:duration-150 hover:shadow-xl">
                             <a href="{{ route('getMetaData', $data->id) }}">
                                 <div class="flex justify-start flex-col">
-                                    <div class="flex">
-                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
+                                    <div class="flex ">
+                                        <h2 id="judul" class="judul font-semibold">{{ $data->judul }}</h2>
                                     </div>
                                 </div>
-                                @if($data->gambar)
+                                @if($data->imageTitle)
                                 <div class="relative w-full h-0 aspect-w-16 aspect-h-9 mb-4">
-                                    <img src="{{ asset('storage/' . $data->gambar) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+                                    <img src="{{ asset( $data->imageTitle) }}" class="absolute inset-0 w-full h-full object-cover rounded-lg">
                                 </div>
                                 @endif
 
                                 <div class="flex flex-grow">
-                                    <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
+                                    <p id="deskripsi" class="deskripsi">{{ $data->description }}</p>
                                 </div>
 
                                 <div class="flex justify-between items-end w-full mt-auto">
@@ -249,7 +249,7 @@
             </div>
 
         </div>
-    </section> --}}
+    </section>
 
     <!-- Contact Section -->
     {{-- <section id="contact" class="section bg-gray-200 px-4">
@@ -316,10 +316,10 @@
 
 
     <script>
-        // Ambil semua elemen dengan kelas "deskripsi"
+
         var deskripsiElements = document.querySelectorAll(".deskripsi");
 
-        // Iterasi melalui setiap elemen dan potong teks jika lebih dari 20 karakter
+
         deskripsiElements.forEach(function (elem) {
             var deskripsiTeks = elem.textContent;
 
@@ -327,7 +327,20 @@
                 var potonganDeskripsi = deskripsiTeks.slice(0, 200);
                 elem.textContent = potonganDeskripsi + "...";
             }
-            // Jika kurang dari 20 karakter, biarkan teks asli tanpa ellipsis
+
+        });
+
+        var judulElements = document.querySelectorAll(".judul");
+
+
+        judulElements.forEach(function (elem) {
+            var judulTeks = elem.textContent;
+
+            if (judulTeks.length > 10) {
+                var potonganJudul = judulTeks.slice(0, 200);
+                elem.textContent = potonganJudul + "...";
+            }
+
         });
     </script>
 @endsection

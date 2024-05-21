@@ -14,7 +14,7 @@ class MetaData extends Model
     protected $primaryKey = 'metadatas_id';
 
     protected $fillable = [
-        'karyas_id','label', 'jenis', 'content', 'media', 'order'
+        'karyas_id','label', 'jenis', 'content', 'order'
     ];
 
 }

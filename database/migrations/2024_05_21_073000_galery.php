@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_products_items', function(Blueprint $table){
+        Schema::create('tb_galery', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('products_id')->constrained('tb_products');
-            $table->string('label');
-            $table->string('jenis');
-            $table->text('content')->nullable();
-            $table->integer('order');
+            $table->text('image');
             $table->timestamps();
         });
     }

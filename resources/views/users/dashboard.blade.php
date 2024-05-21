@@ -112,24 +112,20 @@
         $dataFound = false;
         @endphp
 
-        @foreach ($karya as $data)
+        @foreach ($karyas as $data)
             @if ($data->users_id === Auth::user()->id)
                 @php
                 $dataFound = true;
                 @endphp
                 <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                    <a href="{{ route('userMetaData', $data->id) }}">
+                    <a href="{{ route('metadata.show', $data->id) }}">
                         <div class="flex justify-start flex-col">
                             <div class="flex">
                                 <h2 class="font-semibold">{{ $data->judul }}</h2>
                             </div>
-                            @foreach ($metaData as $metaData)
-                                @if ($data->karyas_id == $data->id)
-                                    <div class="flex">
-                                        <p class="deskripsi">{{ $metaData->content }}</p>
-                                    </div>
-                                @endif
-                            @endforeach
+                                <div class="flex">
+                                    <p class="deskripsi">{{ $data->description }}</p>
+                                </div>
                         </div>
                     </a>
                 </div>
