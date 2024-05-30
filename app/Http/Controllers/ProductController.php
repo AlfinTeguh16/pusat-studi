@@ -120,7 +120,7 @@ class ProductController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Membuat product pada ID ' . $products_id,
+            'activity' => 'Membuat Produk : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -179,7 +179,7 @@ class ProductController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Mengupdate product pada ID ' . $id,
+            'activity' => 'Update Produk : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);

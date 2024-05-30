@@ -71,6 +71,22 @@ class MetaDataController extends Controller
 
         return view('users.meta-datas.detailmetadata', compact('karya', 'metadata'));
     }
+
+    // public function showMetaData($id)
+    // {
+    //     $karya = DB::table('tb_karyas')
+    //                 ->join('users', 'tb_karyas.user_id', '=', 'users.id')
+    //                 ->where('tb_karyas.id', $id)
+    //                 ->select('tb_karyas.*', 'users.username', 'users.nidn')
+    //                 ->first();
+
+    //     $metadata = DB::table('tb_metadatas')
+    //                     ->where('karyas_id', $id)
+    //                     ->orderBy('order')
+    //                     ->get();
+
+    //     return view('users.meta-datas.detailmetadata', compact('karya', 'metadata'));
+    // }
     public function listMetaData() {
         $karyas = DB::table('tb_karyas')
             ->leftJoin('tb_metadatas', 'tb_karyas.id', '=', 'tb_metadatas.karyas_id')
@@ -127,7 +143,7 @@ class MetaDataController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Membuat metadata untuk karya ID ' . $karya_id,
+            'activity' => 'Membuat Meta Data : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -186,7 +202,7 @@ class MetaDataController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Mengupdate metadata untuk karya ID ' . $id,
+            'activity' => 'Update Meta Data : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);

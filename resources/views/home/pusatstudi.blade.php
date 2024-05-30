@@ -129,33 +129,11 @@
 
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        @foreach ($galery as $data)
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery1.jpg" alt="">
+            <img class="h-auto max-w-full rounded-lg" src="{{ $data->image }}" alt="">
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/desa-batuan-A.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery2.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery4.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery5.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery6.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery7.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery8.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="asset/images/galery9.jpg" alt="">
-        </div>
+        @endforeach
     </div>
 </section>
 

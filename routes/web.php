@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\ProfileController;
@@ -25,19 +26,29 @@ Route::get('/importUsers', [UserController::class, 'index'])->name('index');
 Route::post('/importUsers', [UserController::class, 'importUsers'])->name('import.users');
 
 
+Route::get('/error', function () {
+    return view('errors');
+})->name('customError');
 
 
 Route::get('/login', function () {
-    return view ('auth.login');
+    return view('auth.login');
 })->name('login');
 
-
 Route::post('/login', [LoginController::class, 'login'])->name('postLogin');
-Route::middleware(['auth'])->group(function () {
 
+Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//Profile
+    // Admin
+    Route::middleware(['checkAdmin'])->group(function () {
+        Route::get('/admin', [AdminController::class, 'viewAdmin'])->name('viewAdmin');
+        Route::post('/galery', [AdminController::class, 'store'])->name('galery.store');
+        Route::put('/galery/{id}', [AdminController::class, 'update'])->name('galery.update');
+        Route::delete('/galery/{id}', [AdminController::class, 'destroy'])->name('galery.destroy');
+    });
+
+    // Profile
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'showProfileData']);
     Route::patch('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile');
@@ -45,22 +56,21 @@ Route::middleware(['auth'])->group(function () {
     // User Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('userDashboard');
     Route::get('/dashboard/{id}', [DashboardController::class, 'userMetaData'])->name('userMetaData');
-    Route::get('/dashboard/detail/{id}', [DashboardController::class, 'detailDashboardEvent'])->name('detailDashboardEvent');
-    Route::get('/dashboard/detail/{id}', [DashboardController::class, 'detailDashboardProduct'])->name('detailDashboardProduct');
+    // Route::get('/dashboard/detail/{id}', [DashboardController::class, 'detailDashboardEvent'])->name('detailDashboardEvent');
+    // Route::get('/dashboard/detail/{id}', [DashboardController::class, 'detailDashboardProduct'])->name('detailDashboardProduct');
 
-// Meta Data
+    // Meta Data
     Route::get('/input', [MetaDataController::class, 'viewStoreMetaData'])->name('viewStoreMetaData');
     Route::post('/input/metadata', [MetaDataController::class, 'storeMetaData'])->name('metaData.store');
-    // Route::get('/metadata', [MetaDataController::class, 'index'])->name('showMetaData');
     Route::get('/metadata/search', [MetaDataController::class, 'searchMetaData'])->name('searchMetaData');
-    Route::get('/metadata' , [MetadataController::class, 'listMetaData'])->name('metadata.list');
-    Route::get('/metadata/{id}' , [MetadataController::class, 'showMetaData'])->name('metadata.show');
-    Route::get('/metadata/detail/{id}' , [MetadataController::class, 'detailMetaData'])->name('metadata.detail');
+    Route::get('/metadata', [MetadataController::class, 'listMetaData'])->name('metadata.list');
+    Route::get('/metadata/{id}', [MetadataController::class, 'showMetaData'])->name('metadata.show');
+    Route::get('/metadata/detail/{id}', [MetadataController::class, 'detailMetaData'])->name('metadata.detail');
     Route::get('/metadata/edit/{id}', [MetaDataController::class, 'editMetaData'])->name('editMetaData');
     Route::post('/metadata/edit/{id}', [MetaDataController::class, 'updateMetaData'])->name('metaData.update');
     Route::delete('/metadata/{id}', [MetaDataController::class, 'destroy'])->name('deleteMetaData');
 
-// Product
+    // Product
     Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('product.show');
     Route::get('/product/search', [ProductController::class, 'searchProducts'])->name('searchProducts');
     Route::get('/product', [ProductController::class, 'listProduct'])->name('products.list');
@@ -70,7 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/product/edit/{id}', [ProductController::class, 'editProducts'])->name('editProduct');
     Route::post('/product/edit/{id}', [ProductController::class, 'updateProducts'])->name('product.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('deleteProduct');
-// Event
+
+    // Event
     Route::get('/event', [EventController::class, 'listEvent'])->name('event.list');
     Route::get('/event/search', [EventController::class, 'searchEvent'])->name('searchEvent');
     Route::get('/event/detail/{id}', [EventController::class, 'detailEvent'])->name('detailEvent');
@@ -80,11 +91,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/event/edit/{id}', [EventController::class, 'editEvents'])->name('event.edit');
     Route::post('/event/edit/{id}', [EventController::class, 'updateEvent'])->name('event.update');
     Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('deleteEvent');
-
-
 });
 
-Route::view('/admin', 'admin.admin');
+
+// Route::view('/admin', 'admin.admin');
 
 Route::get('/', [GuestController::class, 'getMetaData'])->name('getMetaData');
 

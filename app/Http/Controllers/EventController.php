@@ -122,7 +122,7 @@ class EventController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Membuat Events dengan ID ' . $events_id,
+            'activity' => 'Membuat Events : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -181,7 +181,7 @@ class EventController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Mengupdate Events dengan ID ' . $id,
+            'activity' => 'Update Events : ' . $request->judul,
             'created_at' => now(),
             'updated_at' => now()
         ]);

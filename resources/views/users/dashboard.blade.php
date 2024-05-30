@@ -139,32 +139,32 @@
         @endif
     </section>
 
-    {{-- <section id="DataSection" class="flex flex-col sm:flex-row p-1">
+    <section id="DataSection" class="flex flex-col sm:flex-row p-1">
         <div class=" flex flex-col border-2 m-1 border-dashed border-gray-100 p-2 rounded-lg sm:w-screen bg-white h-fit">
             <h2 class="flex align-middle my-1 basis-1/2 justify-between font-bold">Produk Anda <a href="{{ url('product') }}" class="px-2 py-1 max-h-8 text-white rounded-md bg-blue-500 hover:bg-blue-700 hover:duration-300"><i class="ph ph-caret-right"></i></a></h2>
             <div class="flex flex-col ">
                 @php
                 $dataFound = false;
                 @endphp
-                @foreach ($product as $data)
-                    @if ($data->nidn === Auth::user()->nidn)
-                        @php
-                        $dataFound = true;
-                        @endphp
-                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                            <a href="{{ route('detailProduct', $data->id) }}">
-                                <div class="flex justify-start flex-col">
-                                    <div class="flex">
-                                        <h2 class="font-semibold">{{ $data->judul }}</h2>
-                                    </div>
-                                    <div class="flex">
-                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
-                                    </div>
+                @foreach ($events as $data)
+                @if ($data->users_id === Auth::user()->id)
+                    @php
+                    $dataFound = true;
+                    @endphp
+                    <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                        <a href="{{ route('metadata.show', $data->id) }}">
+                            <div class="flex justify-start flex-col">
+                                <div class="flex">
+                                    <h2 class="font-semibold">{{ $data->judul }}</h2>
                                 </div>
-                            </a>
-                        </div>
-                    @endif
-                @endforeach
+                                    <div class="flex">
+                                        <p class="deskripsi">{{ $data->description }}</p>
+                                    </div>
+                            </div>
+                        </a>
+                    </div>
+                @endif
+            @endforeach
 
                 @if (!$dataFound)
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
@@ -180,20 +180,20 @@
                 @php
                 $dataFound = false;
                 @endphp
-                @foreach ($event as $data)
-                    @if ($data->nidn === Auth::user()->nidn)
+                @foreach ($products as $data)
+                    @if ($data->users_id === Auth::user()->id)
                         @php
                         $dataFound = true;
                         @endphp
-                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 m-1 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                            <a href="{{ route('detailEvent', $data->id) }}">
+                        <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
+                            <a href="{{ route('metadata.show', $data->id) }}">
                                 <div class="flex justify-start flex-col">
                                     <div class="flex">
                                         <h2 class="font-semibold">{{ $data->judul }}</h2>
                                     </div>
-                                    <div class="flex">
-                                        <p id="deskripsi" class="deskripsi">{{ $data->deskripsi }}</p>
-                                    </div>
+                                        <div class="flex">
+                                            <p class="deskripsi">{{ $data->description }}</p>
+                                        </div>
                                 </div>
                             </a>
                         </div>
@@ -207,7 +207,7 @@
                 @endif
             </div>
         </div>
-    </section> --}}
+    </section>
 
 
 

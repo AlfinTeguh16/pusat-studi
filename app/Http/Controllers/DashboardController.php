@@ -27,9 +27,28 @@ class DashboardController extends Controller
         ->take(3)
         ->get();
 
+        $events = DB::table('tb_events')
+        ->leftJoin('tb_events_items', 'tb_events.id', '=', 'tb_events_items.events_id')
+        ->select('tb_events.id', 'tb_events.users_id', 'tb_events.judul',
+            DB::raw('(SELECT content FROM tb_events_items WHERE tb_events_items.events_id = tb_events.id AND jenis = "description" LIMIT 1) as description'),
+            'tb_events.created_at')
+        ->groupBy('tb_events.id', 'tb_events.users_id', 'tb_events.judul', 'tb_events.created_at')
+        ->orderBy('tb_events.created_at', 'desc')
+        ->take(3)
+        ->get();
+
+        $products = DB::table('tb_products')
+        ->leftJoin('tb_products_items', 'tb_products.id', '=', 'tb_products_items.products_id')
+        ->select('tb_products.id', 'tb_products.users_id', 'tb_products.judul',
+            DB::raw('(SELECT content FROM tb_products_items WHERE tb_products_items.products_id = tb_products.id AND jenis = "description" LIMIT 1) as description'),
+            'tb_products.created_at')
+        ->groupBy('tb_products.id', 'tb_products.users_id', 'tb_products.judul', 'tb_products.created_at')
+        ->orderBy('tb_products.created_at', 'desc')
+        ->take(3)
+        ->get();
 
 
-        return view('users.dashboard', ['user' => $user], compact('karyas'));
+        return view('users.dashboard', ['user' => $user], compact('karyas', 'events' , 'products'));
     }
 
     // public function userMetaData($id){

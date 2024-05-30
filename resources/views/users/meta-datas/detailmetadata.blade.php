@@ -84,6 +84,7 @@
 
         <section class="border rounded border-solid border-gray-200 bg-gray-100 shadow-lg p-4 sm:w-3/5 mx-auto">
             <h1 class="text-2xl font-bold mb-4">{{ $karya->judul }}</h1>
+            {{-- <h1 class="text-2xl font-bold mb-4">{{ $karya->username }}</h1> --}}
 
             <div id="metaDataContainer" class="flex flex-col w-full">
                 @foreach($metadata as $data)

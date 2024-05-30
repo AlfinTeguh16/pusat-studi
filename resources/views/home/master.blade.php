@@ -51,7 +51,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="{{ asset('asset/images/Vertical-Logo-instiki-1024x1024.png') }}" alt="" class="max-w-12 max-h-12">
-        <img src="{{ asset('asset/images/pusat-studi-logo.png') }}" alt="" class=" filter invert max-h-10 w-32 sm:w-44 md:w-52 lg:w-full ">
+        <img src="{{ asset('asset/images/pusat-studi-logo.png') }}" alt="" class=" filter invert max-h-10 w-32 sm:w-44 md:w-48 lg:w-full ">
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         @if (Auth::check())
