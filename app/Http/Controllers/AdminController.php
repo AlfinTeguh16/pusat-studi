@@ -25,6 +25,7 @@ class AdminController extends Controller
         $userActivities = DB::table('users')
         ->join('tb_user_activitys', 'users.id', '=', 'tb_user_activitys.users_id')
         ->select('users.username', 'tb_user_activitys.activity', 'tb_user_activitys.created_at')
+        ->orderBy('tb_user_activitys.created_at', 'desc')
         ->paginate(10);
 
         return view('admins.admin', compact('galery', 'userActivities'));

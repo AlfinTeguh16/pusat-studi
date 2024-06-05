@@ -44,7 +44,7 @@ class EventController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Menghapus Events dengan ID ' . $id,
+            'activity' => 'Menghapus Events :' . $id,
             'created_at' => now(),
             'updated_at' => now()
         ]);

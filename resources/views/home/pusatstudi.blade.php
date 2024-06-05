@@ -59,7 +59,7 @@
             <div class="flex flex-col lg:flex-row items-center justify-between border border-gray-300 rounded-lg p-6">
                 <!-- Gambar di sebelah kiri -->
                 <div class="w-full lg:w-1/2 mb-8 lg:mb-0 lg:mr-12">
-                    <img src="asset/images/about.jpg" alt="About Image" class="w-full h-auto rounded-lg shadow-md">
+                    <img src="asset/images/about.JPG" alt="About Image" class="w-full h-auto rounded-lg shadow-md">
                 </div>
                 <!-- Deskripsi di sebelah kanan -->
                 <div class="md:w-1/2 p-4">
@@ -144,7 +144,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <!-- Team Member 1 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="asset/images/about.jpg" alt="Team Member 1" class="w-full h-64 object-cover">
+                <img src={{ asset('asset/images/about.webp') }} alt="Team Member 1" class="w-full h-64 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-bold mb-2">John Doe</h3>
                     <p class="text-gray-700">CEO</p>
@@ -152,7 +152,7 @@
             </div>
             <!-- Team Member 2 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="asset/images/about.jpg" alt="Team Member 2" class="w-full h-64 object-cover">
+                <img src={{ asset('asset/images/about.webp') }} alt="Team Member 2" class="w-full h-64 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-bold mb-2">Jane Doe</h3>
                     <p class="text-gray-700">CTO</p>
@@ -160,7 +160,7 @@
             </div>
             <!-- Team Member 3 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="asset/images/about.jpg" alt="Team Member 3" class="w-full h-64 object-cover">
+                <img src={{ asset('asset/images/about.webp') }} alt="Team Member 3" class="w-full h-64 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-bold mb-2">Alice Smith</h3>
                     <p class="text-gray-700">Designer</p>
@@ -168,7 +168,7 @@
             </div>
             <!-- Team Member 4 -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="asset/images/about.jpg" alt="Team Member 4" class="w-full h-64 object-cover">
+                <img src={{ asset('asset/images/about.webp') }} alt="Team Member 4" class="w-full h-64 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-bold mb-2">Bob Johnson</h3>
                     <p class="text-gray-700">Developer</p>
@@ -228,55 +228,6 @@
 
         </div>
     </section>
-
-    <!-- Contact Section -->
-    {{-- <section id="contact" class="section bg-gray-200 px-4">
-            <div class="container mx-auto">
-                <div class="text-center">
-                    <h2 class="text-3xl font-semibold text-gray-800">Kritik dan Saran</h2>
-                    <h3 class="text-lg text-gray-600">Terimakasih.</h3>
-                </div>
-                <!-- Form -->
-                <form id="contactForm" class="mt-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col">
-                            <!-- Name input -->
-                            <input class="form-input border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500" id="name" type="text" placeholder="Your Name *" required>
-                            <div class="text-red-500 mt-1 text-sm hidden" id="name-error">A name is required.</div>
-                        </div>
-                        <div class="flex flex-col">
-                            <!-- Email input -->
-                            <input class="form-input border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500" id="email" type="email" placeholder="Your Email *" required>
-                            <div class="text-red-500 mt-1 text-sm hidden" id="email-error">An email is required.</div>
-                            <div class="text-red-500 mt-1 text-sm hidden" id="email-error-invalid">Email is not valid.</div>
-                        </div>
-                        <div class="flex flex-col">
-                            <!-- Phone number input -->
-                            <input class="form-input border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500" id="phone" type="tel" placeholder="Your Phone *" required>
-                            <div class="text-red-500 mt-1 text-sm hidden" id="phone-error">A phone number is required.</div>
-                        </div>
-                        <div class="flex flex-col">
-                            <!-- Message input -->
-                            <textarea class="form-textarea border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500" id="message" placeholder="Your Message *" required></textarea>
-                            <div class="text-red-500 mt-1 text-sm hidden" id="message-error">A message is required.</div>
-                        </div>
-                    </div>
-                    <!-- Submit Button-->
-                    <div class="text-center mt-8">
-                        <button class="btn btn-primary btn-xl text-uppercase py-3 px-8 rounded-md bg-blue-500 text-white focus:outline-none disabled" id="submitButton" type="submit">Send Message</button>
-                    </div>
-                </form>
-                <!-- Submit success message-->
-                <div class="hidden" id="submitSuccessMessage">
-                    <div class="text-center text-green-500 mt-4">Form submission successful!</div>
-                </div>
-                <!-- Submit error message-->
-                <div class="hidden" id="submitErrorMessage">
-                    <div class="text-center text-red-500 mt-4">Error sending message!</div>
-                </div>
-            </div>
-
-    </section> --}}
 
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-center">

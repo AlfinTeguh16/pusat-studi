@@ -49,7 +49,7 @@ class MetaDataController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Menghapus metadata dan karya ID ' . $id,
+            'activity' => 'Menghapus Meta Data : ' . $id,
             'created_at' => now(),
             'updated_at' => now()
         ]);

@@ -29,6 +29,7 @@ class ProductController extends Controller
             ->select('tb_products.id', 'tb_products.users_id', 'tb_products.judul', DB::raw('GROUP_CONCAT(tb_products_items.content SEPARATOR ", ") as description'))
             ->where('tb_products.judul', 'LIKE', "%{$query}%")
             ->groupBy('tb_products.id', 'tb_products.users_id', 'tb_products.judul')
+            ->orderBy('tb_products.created_at', 'desc')
             ->paginate(10);
 
         return view('users.products.product', compact('products', 'query'));
@@ -42,7 +43,7 @@ class ProductController extends Controller
 
         Activity::create([
             'users_id' => Auth::user()->id,
-            'activity' => 'Mennghapus Products dan karya ID ' . $id,
+            'activity' => 'Mennghapus Products : ' . $id,
             'created_at' => now(),
             'updated_at' => now()
         ]);

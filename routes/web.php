@@ -22,8 +22,8 @@ use App\Http\Controllers\GuestController;
 |
 */
 
-Route::get('/importUsers', [UserController::class, 'index'])->name('index');
-Route::post('/importUsers', [UserController::class, 'importUsers'])->name('import.users');
+// Route::get('/importUsers', [UserController::class, 'index'])->name('index');
+// Route::post('/importUsers', [UserController::class, 'importUsers'])->name('import.users');
 
 
 Route::get('/error', function () {
