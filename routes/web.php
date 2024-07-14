@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\HomeContentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +23,8 @@ use App\Http\Controllers\GuestController;
 |
 */
 
-// Route::get('/importUsers', [UserController::class, 'index'])->name('index');
-// Route::post('/importUsers', [UserController::class, 'importUsers'])->name('import.users');
+Route::get('/importUsers', [UserController::class, 'index'])->name('index');
+Route::post('/importUsers', [UserController::class, 'importUsers'])->name('import.users');
 
 
 Route::get('/error', function () {
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/galery', [AdminController::class, 'store'])->name('galery.store');
         Route::put('/galery/{id}', [AdminController::class, 'update'])->name('galery.update');
         Route::delete('/galery/{id}', [AdminController::class, 'destroy'])->name('galery.destroy');
+        Route::get('/home', [AdminController::class, 'getHomeData'])->name('home.get');
     });
 
     // Profile

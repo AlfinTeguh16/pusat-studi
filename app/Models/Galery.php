@@ -12,6 +12,6 @@ class Galery extends Model
     protected $table = 'tb_galery';
 
     protected $fillable = [
-        'image'
+        'image', 'imageDescription'
     ];
 }

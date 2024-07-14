@@ -53,19 +53,19 @@
 
 
     <!-- About Section -->
-    <section id="about" class="section bg-white">
+    <section id="about" class="section bg-white my-5">
         <div class="container mx-auto">
-            <h2>About Us</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">About Us</h2>
             <div class="flex flex-col lg:flex-row items-center justify-between border border-gray-300 rounded-lg p-6">
                 <!-- Gambar di sebelah kiri -->
                 <div class="w-full lg:w-1/2 mb-8 lg:mb-0 lg:mr-12">
-                    <img src="asset/images/about.JPG" alt="About Image" class="w-full h-auto rounded-lg shadow-md">
+                    <img src="asset/images/about.webp" alt="About Image" class="w-full h-auto rounded-lg shadow-md">
                 </div>
                 <!-- Deskripsi di sebelah kanan -->
                 <div class="md:w-1/2 p-4">
                     <div class="max-w-lg mx-auto text-justify text-sm">
                         <p class="text-gray-600 mb-4 ">Keanekaragaman budaya yang ada di Indonesia merupakan salah satu kebanggaan warisan kebudayaan yang turun temurun oleh berbagai suku dan etnis. Kebudayaan bisa diwarisi jika dipelajari dan disosialisasikan dengan baik ke masyarakat. Kekuatan yang terbesar yang dimiliki Indonesia terletak pada kekayaan budaya beragam. Dalam melestarikan budaya, peran pemerintah dan masyarakat sudah sepatutnya dikembangkan. Digitalisasi budaya merupakan suatu langkah untuk mempertahankan warisan budaya agar tetap ada, dikenal, dan mampu diterapkan dalam setiap aspek kehidupan. Pusat Studi Digitalisasi Budaya Bali merupakan lintas keilmuan yang bergerak dalam merancang, meneliti, mengkaji dan mempublikasikan berbagai temuan berbasis budaya yang sejalan dengan visi dan misi dari STMIK STIKOM Indonesia. Pengajuan Pusat Studi Digitalisasi Budaya Bali mengacu pada Peraturan Menteri Riset Dan Sastra Bali Serta Penyelenggaraan Bulan Bahasa Bali</p>
-                        <p class="text-gray-600">Peluang – peluang penelitian yang mampu diterapkan dalam digitalisasi warisan budaya antara lain: 1. Digitalisasi naskah dan lontar kuno, bangunan, tarian, benda pusaka, artfak, ke dalam berbagai media. 2. Melakukan kajian dan analisis terhadap penerapan teknologi dalam digitalisasi warisan budaya sehingga diharapkan hasil kajian mampu menjadi kebijakan yang bermanfaat untuk masyarakat dalam menjaga warisan budaya. 3. Mengadakan Seminar Nasional atau International, sosialisasi, pelatihan dan publikasi terkait ruang lingkup pusat studi Digitalisasi Budaya Bali.
+                        <p class="text-gray-600">Peluang - peluang penelitian yang mampu diterapkan dalam digitalisasi warisan budaya antara lain: 1. Digitalisasi naskah dan lontar kuno, bangunan, tarian, benda pusaka, artfak, ke dalam berbagai media. 2. Melakukan kajian dan analisis terhadap penerapan teknologi dalam digitalisasi warisan budaya sehingga diharapkan hasil kajian mampu menjadi kebijakan yang bermanfaat untuk masyarakat dalam menjaga warisan budaya. 3. Mengadakan Seminar Nasional atau International, sosialisasi, pelatihan dan publikasi terkait ruang lingkup pusat studi Digitalisasi Budaya Bali.
 
                         </p>
                     </div>
@@ -125,20 +125,22 @@
 
 
 <!-- Gallery Section -->
-<section id="gallery" class="section bg-gray-100 py-16 mx-4">
+<section id="gallery" class="bg-gray-100 rounded-xl py-10 px-4 sm:px-6 lg:px-10 my-4 mx-4">
+    <h2 class="text-3xl font-bold text-center mb-8">Galeri</h2>
 
-
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         @foreach ($galery as $data)
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="{{ $data->image }}" alt="">
+        <div class="overflow-hidden rounded-lg bg-gray-50 shadow-md">
+            <img class="w-full h-auto object-cover" src="{{ $data->image }}" alt="">
+            <p id="deskripsi-{{ $data->id }}" class="deskripsi text-justify p-4">{{ $data->imageDescription }}</p>
         </div>
         @endforeach
     </div>
 </section>
 
+
    <!-- Team Section -->
-<section id="team" class="section bg-gray-100 py-16 mx-4">
+<section id="team" class=" bg-gray-100 rounded-xl py-10 my-4 mx-4">
     <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8">Our Team</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -235,8 +237,8 @@
             <div class="md:w-1/3 text-center mb-4 md:mb-0">
                 <h3 class="text-xl font-semibold">Hubungi Kami</h3>
                 <p class="mt-2">Alamat: Jl. Tukad Pakerisan No.97, Panjer, Denpasar Selatan, Kota Denpasar, Bali 80225<br>
-                Email: info@contoh.com<br>
-                Telepon: (123) 456-7890</p>
+                Email: humas@instiki.ac.id<br>
+                Telepon: +62 361-256-995</p>
             </div>
 
         </div>

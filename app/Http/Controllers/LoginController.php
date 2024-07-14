@@ -13,6 +13,10 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
+        $request->validate([
+            'nidn' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
+        ]);
         $credentials = $request->only('nidn', 'password');
 
         if (Auth::attempt($credentials)) {

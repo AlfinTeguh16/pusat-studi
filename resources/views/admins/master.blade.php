@@ -49,6 +49,16 @@
                 <span class="flex-1 ms-3 whitespace-nowrap">Home</span>
             </a>
           </li>
+
+          <li>
+            <a href="/" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
+               <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-red-600 " xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
+                   <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Dashboard Content</span>
+           </a>
+         </li>
+
           <li>
              <a href="/logout" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
                 <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-red-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">

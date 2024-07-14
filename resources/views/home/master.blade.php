@@ -28,7 +28,7 @@
         .carousel-container {
             position: relative;
         }
-        .section {
+        /* .section {
             padding: 100px 0;
             text-align: center;
         }
@@ -40,7 +40,7 @@
         .section p {
             font-size: 1.2rem;
             color: #555;
-        }
+        } */
     </style>
 
  @yield('style')
@@ -51,14 +51,19 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="{{ asset('asset/images/Vertical-Logo-instiki-1024x1024.png') }}" alt="" class="max-w-12 max-h-12">
-        <img src="{{ asset('asset/images/pusat-studi-logo.png') }}" alt="" class=" filter invert max-h-10 w-32 sm:w-44 md:w-48 lg:w-full ">
+        <img src="{{ asset('asset/images/pusat-studi-logo.png') }}" alt="" class=" filter invert max-h-10 w-32 sm:w-44 md:w-48 lg:w-52 ">
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         @if (Auth::check())
+        @if (Auth::user()->level == 1)
             <button type="button" onclick="window.location.href='/dashboard'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Dashboard</button>
-        @else
-            <button type="button" onclick="window.location.href='/login'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Login</button>
+        @elseif (Auth::user()->level == 2)
+            <button type="button" onclick="window.location.href='/admin'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Admin</button>
         @endif
+    @else
+        <button type="button" onclick="window.location.href='/login'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Login</button>
+    @endif
+    
 
         <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
@@ -98,18 +103,6 @@
     </div>
   </nav>
 
-     {{-- scroll --}}
-        {{-- <script>window.onscroll = function() {scrollFunction()};
-
-            function scrollFunction() {
-            var navbar = document.getElementById("navbar");
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                navbar.classList.add("bg-red-600", "text-white");
-            } else {
-                navbar.classList.remove("bg-white");
-            }
-            }
-        </script> --}}
         <script>
             const readMoreButton = document.getElementById('read-more');
             const additionalDescription = document.getElementById('additional-description');
@@ -165,8 +158,8 @@
         });
         </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    {{-- <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script> --}}
 @yield('script')
 </body>
 </html>

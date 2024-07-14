@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('tb_galery', function (Blueprint $table) {
             $table->id();
+            $table->text('imageDescription')->nullable();
             $table->text('image');
+            // $table->enum('imageTyepe', ['carausel', 'galery', 'teams']);
             $table->timestamps();
         });
     }
