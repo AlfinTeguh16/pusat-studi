@@ -34,13 +34,6 @@ class MetaDataController extends Controller
         return view('users.meta-datas.metadata', compact('karyas', 'query'));
     }
 
-    // public function viewMetaData($id){
-    //     $metaData = MetaData::findOrFail($id);
-    //     $karya = Karya::findOrFail($id);
-    //     return view('users.meta-datas.detailmetadata', compact('metaData', 'karya'));
-    // }
-
-
     public function destroy($id)
     {
         DB::table('tb_metadatas')->where('karyas_id', $id)->delete();
@@ -62,31 +55,19 @@ class MetaDataController extends Controller
         return view('users.meta-datas.inputmetadata');
     }
 
-
-
     public function showMetaData($id)
     {
         $karya = DB::table('tb_karyas')->where('id', $id)->first();
         $metadata = DB::table('tb_metadatas')->where('karyas_id', $id)->orderBy('order')->get();
 
+        // $username = DB::table('tb_karyas')
+        //     ->join('users', 'tb_karyas.users_id', '=', 'users.id') 
+        //     ->select('tb_karyas.id', 'users.username') 
+        //     ->get();
+
         return view('users.meta-datas.detailmetadata', compact('karya', 'metadata'));
     }
 
-    // public function showMetaData($id)
-    // {
-    //     $karya = DB::table('tb_karyas')
-    //                 ->join('users', 'tb_karyas.user_id', '=', 'users.id')
-    //                 ->where('tb_karyas.id', $id)
-    //                 ->select('tb_karyas.*', 'users.username', 'users.nidn')
-    //                 ->first();
-
-    //     $metadata = DB::table('tb_metadatas')
-    //                     ->where('karyas_id', $id)
-    //                     ->orderBy('order')
-    //                     ->get();
-
-    //     return view('users.meta-datas.detailmetadata', compact('karya', 'metadata'));
-    // }
     public function listMetaData() {
         $karyas = DB::table('tb_karyas')
             ->leftJoin('tb_metadatas', 'tb_karyas.id', '=', 'tb_metadatas.karyas_id')
@@ -102,7 +83,6 @@ class MetaDataController extends Controller
 
     public function storeMetaData(Request $request)
     {
-        // dd($request);
         $karya_id = DB::table('tb_karyas')->insertGetId([
             'judul' => $request->judul,
             'users_id' => Auth::user()->id,
@@ -149,8 +129,9 @@ class MetaDataController extends Controller
         ]);
 
 
-        return response()->json(['message' => 'Data created successfully', 'karya_id' => $karya_id, 'value' => $value], 201);
-        // return view ('users.meta-datas.inputmetadata');
+        return response()->json([
+            'message' => session('success')
+        ], 200);
     }
 
 
@@ -164,51 +145,56 @@ class MetaDataController extends Controller
 
     public function updateMetaData(Request $request, $id)
     {
+        // Ambil data lama dari database
+        $oldData = DB::table('tb_karyas')->where('id', $id)->first();
 
-        DB::table('tb_karyas')->where('id', $id)->update([
-            'judul' => $request->judul,
-            'updated_at' => now()
-        ]);
+        // Cek apakah data 'judul' berubah
+        if ($oldData->judul != $request->judul) {
+            DB::table('tb_karyas')->where('id', $id)->update([
+                'judul' => $request->judul,
+                'updated_at' => now()
+            ]);
+        }
 
+        // Hapus metadata lama
         DB::table('tb_metadatas')->where('karyas_id', $id)->delete();
 
+        // Update atau insert metadata baru
         foreach ($request->metadata as $key => $value) {
+            $filePath = null;
             if (is_file($value)) {
                 $fileName = time() . '_' . $value->getClientOriginalName();
                 $filePath = 'storage/content/' . $fileName;
                 $value->move(public_path('storage/content'), $fileName);
-
-                DB::table('tb_metadatas')->insert([
-                    'label' => $request->label[$key],
-                    'jenis' => $request->jenis[$key],
-                    'content' => $filePath,
-                    'order' => $key + 1,
-                    'karyas_id' => $id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-            } else {
-                DB::table('tb_metadatas')->insert([
-                    'label' => $request->label[$key],
-                    'jenis' => $request->jenis[$key],
-                    'content' => $value,
-                    'order' => $key + 1,
-                    'karyas_id' => $id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
             }
+
+            $newMetaData = [
+                'label' => $request->label[$key],
+                'jenis' => $request->jenis[$key],
+                'content' => $filePath ? $filePath : $value,
+                'order' => $key + 1,
+                'karyas_id' => $id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+
+            DB::table('tb_metadatas')->insert($newMetaData);
         }
 
-        Activity::create([
-            'users_id' => Auth::user()->id,
-            'activity' => 'Update Meta Data : ' . $request->judul,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        // Log aktivitas hanya jika ada perubahan data
+        if ($oldData->judul != $request->judul || !empty($request->metadata)) {
+            Activity::create([
+                'users_id' => Auth::user()->id,
+                'activity' => 'Update Meta Data : ' . $request->judul,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
 
         return response()->json(['message' => 'Data updated successfully'], 200);
     }
+
 
 
 

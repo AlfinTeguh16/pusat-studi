@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-
-    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
 
- @yield('style')
 </head>
 <body>
 <section class="font-sans">
-
 
     <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar" aria-controls="cta-button-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 ">
     <span class="sr-only">Open sidebar</span>
@@ -25,6 +23,15 @@
   </button>
 
   <div class="container">
+
+    <div id="response-message" class=" hidden fixedtop-0 justify-center mt-4 bg-green-700 text-white text-center px-4 py-2 rounded z-50 transition-opacity duration-500 ease-in-out">
+        <i id='successIcons' class="ph-fill ph-check-fat"> </i> 
+    </div>
+    {{-- @if (session('success'))
+        <div id="successPopup" class="fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 bg-green-700 text-white px-4 py-2 rounded z-50 opacity-0 transition-opacity duration-500 ease-in-out">
+            <i class="ph-fill ph-check-fat text-green-500">{{ session('success') }}</i>
+        </div>
+    @endif --}}
     @yield('content')
   </div>
 
@@ -87,6 +94,26 @@
 </section>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var successPopup = document.getElementById("successPopup");
+
+        if (successPopup) {
+            setTimeout(function() {
+                successPopup.classList.remove('opacity-0');
+                successPopup.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(function() {
+                successPopup.classList.remove('opacity-100');
+                successPopup.classList.add('opacity-0');
+            }, 3000); 
+
+            setTimeout(function() {
+                successPopup.remove();
+            }, 3500);
+        }
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
         const sidebarToggle = document.querySelectorAll("[data-drawer-toggle]");
     const sidebar = document.getElementById("cta-button-sidebar");
@@ -153,8 +180,6 @@
 
 </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 @yield('script')
 </body>
 </html>

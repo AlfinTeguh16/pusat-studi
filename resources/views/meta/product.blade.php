@@ -40,7 +40,7 @@
 <div class="mt-16 p-4">
     <div class="w-full flex flex-row items-center my-2">
         <form method="GET" action="{{ route('showGuestProduct') }}" class="flex items-center">
-            <input type="text" name="query" placeholder="Cari Event" class="flex justify-start rounded-md px-3 py-2">
+            <input type="text" name="query" placeholder="Cari Produk" class="flex justify-start rounded-md px-3 py-2">
             <button type="submit" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3 mx-1">
                 <i class="ph-bold ph-magnifying-glass"></i>
             </button>

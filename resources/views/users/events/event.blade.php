@@ -8,11 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <title>Event</title>
 </head>
-<body class="p-3 sm:ml-64">
+<body class="p-3 sm:ml-64 sm:mt-16">
     <section class="flex w-full justify-end">
         <div class="flex justify-center align-middle rounded-md p-2 mr-1 bg-cyan-600 hover:bg-cyan-700 font-semibold text-white w-fit">
             <a href="{{ route('viewStoreEvent') }}" class="flex flex-row justify-center items-center">

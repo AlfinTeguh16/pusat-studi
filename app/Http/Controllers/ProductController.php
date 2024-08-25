@@ -72,11 +72,10 @@ class ProductController extends Controller
                 DB::raw('(SELECT content FROM tb_products_items WHERE tb_products_items.products_id = tb_products.id AND jenis = "description" LIMIT 1) as description'))
             ->groupBy('tb_products.id', 'tb_products.users_id', 'tb_products.judul')
             ->orderBy('tb_products.created_at', 'desc')
-            ->paginate(10);
+            ->paginate(2);
 
         return view('users.products.product', compact('products'));
     }
-
 
     public function storeProducts(Request $request)
     {
@@ -126,9 +125,8 @@ class ProductController extends Controller
             'updated_at' => now()
         ]);
 
-
         return response()->json(['message' => 'Data created successfully', 'products_id' => $products_id, 'value' => $value], 201);
-        // return view ('users.meta-datas.inputmetadata');
+
     }
 
 
@@ -187,6 +185,5 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Data updated successfully'], 200);
     }
-
 
 }

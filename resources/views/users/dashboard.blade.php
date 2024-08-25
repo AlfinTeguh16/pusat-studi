@@ -10,6 +10,7 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Dashboard</title>
 </head>
 <body class="p-3 sm:ml-64">
@@ -17,7 +18,7 @@
         <div class="border rounded-md shadow-md border-gray-200 bg-white flex">
             <div class="flex align-middle justify-center p-3 max-h-40 max-w-40 aspect-square ">
                 @if(Auth::user()->profile_picture)
-                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Foto Profil Saat Ini" class="object-cover aspect-square rounded-sm">
+                    <img src="{{ asset( $user->profile_picture) }}" alt="Foto Profil Saat Ini" class="object-cover aspect-square rounded-lg">
                 @else
                     <p>Foto Profil tidak tersedia</p>
                 @endif
@@ -146,13 +147,13 @@
                 @php
                 $dataFound = false;
                 @endphp
-                @foreach ($events as $data)
+                @foreach ($products as $data)
                 @if ($data->users_id === Auth::user()->id)
                     @php
                     $dataFound = true;
                     @endphp
                     <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                        <a href="{{ route('metadata.show', $data->id) }}">
+                        <a href="{{ route('product.show', $data->id) }}">
                             <div class="flex justify-start flex-col">
                                 <div class="flex">
                                     <h2 class="font-semibold">{{ $data->judul }}</h2>
@@ -180,13 +181,13 @@
                 @php
                 $dataFound = false;
                 @endphp
-                @foreach ($products as $data)
+                @foreach ($events as $data)
                     @if ($data->users_id === Auth::user()->id)
                         @php
                         $dataFound = true;
                         @endphp
                         <div class="w-full flex flex-col rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
-                            <a href="{{ route('metadata.show', $data->id) }}">
+                            <a href="{{ route('event.show', $data->id) }}">
                                 <div class="flex justify-start flex-col">
                                     <div class="flex">
                                         <h2 class="font-semibold">{{ $data->judul }}</h2>

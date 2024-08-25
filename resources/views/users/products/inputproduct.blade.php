@@ -17,6 +17,10 @@
         <a href="{{ url('/dashboard')}}" class="p-2 bg-slate-300 hover:bg-slate-700 rounded-md font-medium hover:text-white delay-150"><i class="ph-bold ph-caret-left"></i> Kembali</a>
     </div>
 
+    <div id="response-message" class="hidden fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 bg-green-700 text-white px-4 py-2 rounded z-50 transition-opacity duration-500 ease-in-out">
+        <i class="ph-fill ph-check-fat text-green-500"></i>
+    </div>
+
     <section class="border rounded border-solid border-gray-200 bg-gray-100 shadow-lg p-4 sm:w-3/5 mx-auto ">
         <button onclick="openInputForm()" class="p-2 rounded bg-green-700 hover:bg-green-900 text-white"><span><i class="ph ph-rows-plus-bottom"></i></span>Form</button>
 
@@ -51,24 +55,12 @@
             </div>
 
 
-            <button id="submitForm" type="buton" class="p-2 bg-blue-500 w-full rounded text-white">Buat Produk</button>
+            <button id="submitForm" type="buton" onclick="disableButton()" class="p-2 bg-blue-500 w-full rounded text-white transision delay-500 duration-300">Buat Produk</button>
 
         </form>
     </section>
 
-    {{-- <div id="successPopUp" class="flex flex-col justify-center p-8 m-auto z-20 align-middle rounded bg-gray-100 border-gray-200 shadow-lg w-full max-w-md" style="display: none;">
-        <section class="flex justify-center my-10 sm:my-20 ">
-            <h1 class="font-semibold text-lg sm:text-xl">Data Behasil Dibuat!</h1>
-        </section>
-        <section class="felx-row mx-auto">
-            <a href="/input" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-blue-500 hover:bg-blue-700 hover:shadow-lg border rounded-lg">
-                <span> Buat Data Lagi </span>
-            </a>
-            <a href="/dashboard" class="p-2 sm:p-3 mx-2 text-sm sm:text-base font-medium text-white bg-gray-400 hover:bg-gray-500 hover:shadow-lg border rounded-lg">
-                Kembali Ke Dashboard
-            </a>
-        </section>
-    </div> --}}
+
 
 <script>
     function openInputForm() {
@@ -101,6 +93,16 @@
             $(button).parent().remove();
         }
 
+        function disableButton(){
+            var button = document.getElementById("submitForm");
+            button.classList.remove('bg-blue-500');
+            button.classList.add('bg-blue-300');
+            button.classList.add('delay-100');
+            button.classList.add('ease-in');
+            button.classList.remove();
+            button.disabled = true;
+        }
+
         $(document).ready(function () {
             $('#submitForm').on('click', function (event) {
                 event.preventDefault();
@@ -131,13 +133,19 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        $('#response-message').text(response.message);
-                        // $('#successPopUp').show();
-                        alert('Data berhasil dikirim!');
 
-                    },
+                        $('#response-message').text(response.message);
+
+                        $('#response-message').removeClass('hidden');
+                        $('#response-message').addClass('block');
+                        $('#response-message').fadeIn().delay(3000).fadeOut();
+                        },
                     error: function (response) {
                         $('#response-message').text('Error occurred!');
+
+                        $('#response-message').removeClass('hidden').addClass('flex');
+
+                        $('#response-message').fadeIn().delay(3000).fadeOut();
                     }
                 });
             });

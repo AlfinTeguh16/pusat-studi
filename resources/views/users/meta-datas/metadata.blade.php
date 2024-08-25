@@ -8,13 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <title>Meta Data</title>
 </head>
 <body class="p-3 sm:ml-64 sm:mt-16">
     <section class="flex w-full justify-end">
-        <div class="flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 text-white font-semibold  w-fit">
+        <div class="flex justify-center align-middle rounded-md p-2 mr-1 bg-green-700 hover:bg-green-900 text-white font-semibold w-fit ">
             <a href="{{ route('viewStoreMetaData') }}" class="flex flex-row justify-center items-center">
                 <i class="ph-bold ph-plus"></i>
                 <span class="flex font-semibold">Buat Meta Data</span>
@@ -23,8 +21,8 @@
     </section>
 
     <div class="w-full flex flex-row items-center mb-4">
-        <form method="GET" action="{{ route('searchMetaData') }}" class="flex items-center">
-            <input type="text" name="query" value="{{ request()->input('query') }}" placeholder="Cari Meta Data" class="flex justify-start rounded-md px-3 py-2">
+        <form method="GET" action="{{ route('searchMetaData') }}" class="flex items-center ">
+            <input type="text" name="query" value="{{ request()->input('query') }}" placeholder="Cari Meta Data" class="flex justify-start rounded-md px-3 py-2 boder-solid ">
             <button type="submit" class="flex bg-slate-400 hover:bg-slate-600 active:bg-slate-600 rounded-md py-3 px-3 mx-1">
                 <i class="ph-bold ph-magnifying-glass"></i>
             </button>
@@ -49,11 +47,7 @@
                     @php
                     $metaDataFound = true;
                     @endphp
-                    <div id="successCard" class="hidden bg-green-200 p-4 rounded-md shadow-md z-50">
-                        <div class="flex justify-center align-middle">
-                            <p class="text-green-800">Meta Data berhasil dihapus!</p>
-                        </div>
-                    </div>
+                    
                     <div class="w-full flex flex-row rounded-md bg-gray-200 p-3 my-2 hover:bg-gray-300 hover:duration-150 hover:shadow-xl">
                         <a href="{{ route('metadata.show', $data->id) }}">
                             <div class="flex justify-start flex-col">
@@ -88,26 +82,24 @@
             @endif
         </div>
 
-        <div class="mt-4">
-            {{ $karyas->appends(request()->query())->links() }}
-        </div>
     </section>
 
+<div class="mt-4 flex justify-end">
+    {{ $karyas->appends(request()->query())->links() }}
+</div>
 
-    <script>
-        var deskripsiElements = document.querySelectorAll(".deskripsi");
+<script>
+    var deskripsiElements = document.querySelectorAll(".deskripsi");
 
-        // potong teks deskripsi jika lebih dari 20 karakter
-        deskripsiElements.forEach(function (elem) {
-            var deskripsiTeks = elem.textContent;
+    deskripsiElements.forEach(function (elem) {
+        var deskripsiTeks = elem.textContent;
 
-            if (deskripsiTeks.length > 20) {
-                var potonganDeskripsi = deskripsiTeks.slice(0, 200);
-                elem.textContent = potonganDeskripsi + "...";
-            }
-
-        });
-    </script>
+        if (deskripsiTeks.length > 20) {
+            var potonganDeskripsi = deskripsiTeks.slice(0, 200);
+            elem.textContent = potonganDeskripsi + "...";
+        }
+    });
+</script>
 
 <script>
     function confirmAndShowCard(cardId) {

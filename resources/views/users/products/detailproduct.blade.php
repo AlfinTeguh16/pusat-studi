@@ -8,8 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <title>Detail Produk</title>
 </head>
 

@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-
-    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
- @yield('style')
 </head>
 <body>
 <section class="font-sans">
@@ -25,6 +22,12 @@
   </button>
 
   <div class="container">
+    @if (session('success'))
+                <div id="successPopup" class="fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 bg-green-700 text-white px-4 py-2 rounded z-50">
+                    <i class="ph-fill ph-check-fat text-green-500"></i>
+                    {{ session('success') }}
+                </div>
+            @endif
     @yield('content')
   </div>
 
@@ -42,6 +45,16 @@
           </li>
           
           <li>
+            <a href="/dashboard-content" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
+               <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-red-600 " xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
+               <path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H216V96H40ZM216,200H112V112H216v88Z"></path>
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Dashboard Content</span>
+               
+           </a>
+         </li>
+
+          <li>
              <a href="/" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
                 <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-red-600 " xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
                     <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
@@ -49,15 +62,6 @@
                 <span class="flex-1 ms-3 whitespace-nowrap">Home</span>
             </a>
           </li>
-
-          <li>
-            <a href="/" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
-               <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-red-600 " xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256">
-                   <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
-               </svg>
-               <span class="flex-1 ms-3 whitespace-nowrap">Dashboard Content</span>
-           </a>
-         </li>
 
           <li>
              <a href="/logout" class="flex items-center p-2 text-white hover:text-red-600 rounded-lg  hover:bg-red-200  group">
@@ -139,8 +143,6 @@
 
 </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 @yield('script')
 </body>
 </html>
